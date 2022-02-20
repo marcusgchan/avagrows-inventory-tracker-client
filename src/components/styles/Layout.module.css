@@ -20,48 +20,58 @@
 }
 
 .leftHeader {
-  display: flex;
+  /* display: flex;
   width: max-content;
   height: 101px;
   flex-wrap: wrap;
   flex: 1;
   gap: 60px;
   justify-content: flex-start;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: 20px 60px 60px 45px;
+  grid-template-areas: ". hamButton . logo";
+  justify-content: flex-end;
   align-items: center;
 }
 
 .rightHeader {
-  display: flex;
+  /* display: flex;
   width: max-content;
   height: 101px;
   flex-wrap: wrap;
   flex: 1;
   gap: 20px;
+  justify-content: flex-end; */
+  display: grid;
+  grid-template-columns: 150px 20px 40px 20px 40px 20px;
+  grid-template-areas: "nameBox . bell . question .";
   justify-content: flex-end;
   align-items: center;
 }
 
 .navBarButton {
+  grid-area: hamButton;
   background-color: var(--main-bg-clr);
   width: 60px;
   height: 60px;
   border: none;
-  margin-left: 20px;
 }
 
 .logo {
+  grid-area: logo;
   height: 45px;
   width: 45px;
 }
 
 .userNameBox {
   display: grid;
+  grid-area: nameBox;
   grid-template-columns: 30px 20px 30px;
   grid-template-areas: ". userName .";
   align-items: center;
   width: 141px;
   height: 42px;
-
   border: 3px black solid;
   background-color: var(--main-bg-clr);
   box-sizing: border-box;
@@ -79,16 +89,19 @@
 }
 
 .bellButton {
+  grid-area: bell;
   background-color: var(--main-bg-clr);
   border: none;
   height: max-content;
+  width: max-content;
 }
 
 .infoButton {
-  height: max-content;
-  border: none;
+  grid-area: question;
   background-color: var(--main-bg-clr);
-  margin-right: 20px;
+  border: none;
+  height: max-content;
+  width: max-content;
 }
 
 .navBar {
