@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./styles/Layout.module.css";
 import hamburgerButton from "../imgs/hamburger-button.svg";
+import logo from "../imgs/logo.PNG";
 import bell from "../imgs/bell.svg";
 import help from "../imgs/help-circle.svg";
 import grid from "../imgs/grid.svg";
@@ -16,7 +17,9 @@ function Layout() {
         <button className={styles.navBarButton} type="button">
           <img src={hamburgerButton} alt="NavButton"></img>
         </button>
-        <img className={styles.logo} src="" alt="logo"></img>
+        <div className={styles.logo}>
+          <img src={logo} alt="logo"></img>
+        </div>
         <div className={styles.userNameBox}>
           <p className={styles.userName}> Username </p>
         </div>
