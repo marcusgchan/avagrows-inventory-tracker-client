@@ -1,5 +1,6 @@
-section {
+#grid {
   display: grid;
+  height: 100%;
   grid-template-columns: 15% 85%;
   grid-template-rows: 101px 1245px;
   grid-template-areas:
@@ -13,10 +14,29 @@ section {
   border: 1px black solid;
 }
 
+#userNameBox {
+  width: 141px;
+  height: 42px;
+
+  border: 3px black solid;
+  background-color: var(--main-bg-clr);
+  box-sizing: border-box;
+  border-radius: 60px;
+  text-align: center;
+  margin-top: 29px;
+}
+
 #userName {
   width: 82px;
   height: 21px;
-  border: 1px black solid;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  margin-top: 10.5px;
+  margin-left: 30px;
 }
 
 #navBar {
@@ -27,5 +47,6 @@ section {
 
 #content {
   grid-area: section;
+  height: 100%;
   background-color: var(--main-bg-light-clr);
 }
