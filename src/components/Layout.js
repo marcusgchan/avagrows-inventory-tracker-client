@@ -15,21 +15,25 @@ function Layout() {
   return (
     <section className={styles.grid}>
       <header className={styles.headerBar}>
-        <button className={styles.navBarButton} type="button">
-          <img src={hamburgerButton} alt="NavButton"></img>
-        </button>
-        <div className={styles.logo}>
-          <img src={logo} alt="logo"></img>
+        <div className={styles.leftHeader}>
+          <button className={styles.navBarButton} type="button">
+            <img src={hamburgerButton} alt="NavButton"></img>
+          </button>
+          <div className={styles.logo}>
+            <img src={logo} alt="logo"></img>
+          </div>
         </div>
-        <div className={styles.userNameBox}>
-          <p className={styles.userName}> Username </p>
+        <div className={styles.rightHeader}>
+          <div className={styles.userNameBox}>
+            <p className={styles.userName}> Username </p>
+          </div>
+          <button className={styles.bellButton} type="button">
+            <img src={bell} alt="bell"></img>
+          </button>
+          <button className={styles.infoButton} type="button">
+            <img src={help} alt="?"></img>
+          </button>
         </div>
-        <button className={styles.bellButton} type="button">
-          <img src={bell} alt="bell"></img>
-        </button>
-        <button className={styles.infoButton} type="button">
-          <img src={help} alt="?"></img>
-        </button>
       </header>
       <nav className={styles.navBar}>
         <div className={styles.homeButton} type="button">

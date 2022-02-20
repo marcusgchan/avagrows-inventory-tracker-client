@@ -11,74 +11,84 @@
 .headerBar {
   grid-area: header;
   display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
 }
 
+.leftHeader {
+  display: flex;
+  width: max-content;
+  height: 101px;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 60px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rightHeader {
+  display: flex;
+  width: max-content;
+  height: 101px;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .navBarButton {
-  /* grid-area: button; */
   background-color: var(--main-bg-clr);
   width: 60px;
   height: 60px;
   border: none;
-  margin-top: 23px;
   margin-left: 20px;
 }
 
-.hamburgerButton {
-  width: 35px;
-  height: 2px;
-  background-color: black;
-  margin: 12.5px 0;
-  margin-left: 10px;
-}
-
 .logo {
-  /* grid-area: logo; */
-  margin-top: 30px;
   height: 45px;
   width: 45px;
 }
 
 .userNameBox {
-  /* width: 141px; */
+  display: grid;
+  grid-template-columns: 30px 20px 30px;
+  grid-template-areas: ". userName .";
+  align-items: center;
+  width: 141px;
   height: 42px;
-  /* grid-area: username; */
 
   border: 3px black solid;
   background-color: var(--main-bg-clr);
   box-sizing: border-box;
   border-radius: 60px;
-  margin-top: 29px;
 }
 
 .userName {
-  /* width: 82px; */
-  /* height: 21px; */
+  grid-area: userName;
   font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 21px;
   text-align: center;
-  /* margin-top: 8px; */
-  /* margin-left: 30px; */
 }
 
 .bellButton {
-  /* grid-area: bell; */
   background-color: var(--main-bg-clr);
   border: none;
   height: max-content;
-  margin-top: 34px;
 }
 
 .infoButton {
-  /* grid-area: info; */
   height: max-content;
   border: none;
   background-color: var(--main-bg-clr);
-  margin-top: 34px;
+  margin-right: 20px;
 }
 
 .navBar {
