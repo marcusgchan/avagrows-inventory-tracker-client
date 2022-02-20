@@ -29,10 +29,10 @@ function Layout() {
       </header>
       <nav className={styles.navBar}>
         <div className={styles.homeButton}>
+          <img src={grid} alt="" className={styles.gridImg}></img>
           Dashboard/<br></br>Home
         </div>
         <div className={styles.inventoryButton} type="button">
-          <img src="" alt=""></img>
           Inventory
         </div>
         <div className={styles.supplierButton} type="button">

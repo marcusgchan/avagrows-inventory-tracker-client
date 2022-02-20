@@ -87,6 +87,7 @@
   background-color: var(--main-bg-clr);
   border: 1px black solid;
   display: grid;
+  grid-template-columns: 70%;
   grid-template-rows: 10% 11.5% 11.5% 11.5% 11.5%;
   grid-template-areas:
     "."
@@ -97,7 +98,11 @@
 }
 
 .homeButton {
+  text-align: center;
   grid-area: home;
+}
+.gridImg {
+  width: 25%;
 }
 
 .inventoryButton {
