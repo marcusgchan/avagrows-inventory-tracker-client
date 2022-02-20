@@ -28,7 +28,19 @@ function Layout() {
         </button>
       </header>
       <nav className={styles.navBar}>
-        <div className={styles.homeButton}>Dashboard/Home</div>
+        <div className={styles.homeButton}>
+          Dashboard/<br></br>Home
+        </div>
+        <div className={styles.inventoryButton} type="button">
+          <img src="" alt=""></img>
+          Inventory
+        </div>
+        <div className={styles.supplierButton} type="button">
+          My Suppliers
+        </div>
+        <div className={styles.reportButton} type="button">
+          Reports
+        </div>
       </nav>
       <section className={styles.content}>
         <Outlet />
