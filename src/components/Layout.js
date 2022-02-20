@@ -4,14 +4,20 @@ import styles from "./styles/Layout.module.css";
 
 function Layout() {
   return (
-    <section id={styles["grid"]}>
-      <header id={styles["headerBar"]}>
-        <div id={styles["userNameBox"]}>
-          <p id={styles["userName"]}> Username </p>
+    <section class={styles["grid"]}>
+      <button class={styles["navBarButton"]} type="button">
+        <div class={styles["hamburgerButton"]}></div>
+        <div class={styles["hamburgerButton"]}></div>
+        <div class={styles["hamburgerButton"]}></div>
+      </button>
+      <header class={styles["headerBar"]}>
+        <img class={styles["logo"]} src="" alt="logo"></img>
+        <div class={styles["userNameBox"]}>
+          <p class={styles["userName"]}> Username </p>
         </div>
       </header>
-      <nav id={styles["navBar"]}>nav</nav>
-      <section id={styles["content"]}>
+      <nav class={styles["navBar"]}>nav</nav>
+      <section class={styles["content"]}>
         <Outlet />
       </section>
     </section>
