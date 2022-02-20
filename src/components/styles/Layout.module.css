@@ -11,7 +11,7 @@
 .headerBar {
   grid-area: header;
   display: grid;
-  grid-template-columns: 10% 5% 60% 10% 5% 5%;
+  grid-template-columns: 10% 15% 48% 12% 7.5% 7.5%;
   grid-template-areas: "button logo . username bell info";
   grid-template-rows: 30px;
   background-color: var(--main-bg-clr);
@@ -21,19 +21,26 @@
 .navBarButton {
   grid-area: button;
   background-color: var(--main-bg-clr);
-  width: 50px;
+  width: 60px;
+  height: 60px;
   border: none;
+  margin-top: 23px;
+  margin-left: 20px;
 }
 
 .hamburgerButton {
   width: 35px;
-  height: 5px;
+  height: 2px;
   background-color: black;
-  margin: 6px 0;
+  margin: 12.5px 0;
+  margin-left: 10px;
 }
 
 .logo {
   grid-area: logo;
+  border: 1px black solid;
+  height: 21px;
+  margin-top: 30px;
 }
 
 .userNameBox {
@@ -59,6 +66,22 @@
   text-align: center;
   margin-top: 8px;
   margin-left: 30px;
+}
+
+.bellButton {
+  grid-area: bell;
+  background-color: var(--main-bg-clr);
+  border: none;
+  height: max-content;
+  margin-top: 34px;
+}
+
+.infoButton {
+  grid-area: info;
+  height: max-content;
+  border: none;
+  background-color: var(--main-bg-clr);
+  margin-top: 34px;
 }
 
 .navBar {
