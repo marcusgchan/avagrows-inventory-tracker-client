@@ -7,19 +7,25 @@ section {
     "nav section";
 }
 
-header {
+#headerBar {
   grid-area: header;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
 }
 
-nav {
+#userName {
+  width: 82px;
+  height: 21px;
+  border: 1px black solid;
+}
+
+#navBar {
   grid-area: nav;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
 }
 
-section {
+#content {
   grid-area: section;
   background-color: var(--main-bg-light-clr);
 }

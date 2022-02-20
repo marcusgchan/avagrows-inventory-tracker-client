@@ -5,9 +5,11 @@ import styles from "./styles/Layout.module.css";
 function Layout() {
   return (
     <section>
-      <header>top</header>
-      <nav>nav</nav>
-      <section>
+      <header id={styles["headerBar"]}>
+        <label id={styles["userName"]}> Username </label>
+      </header>
+      <nav id={styles["navBar"]}>nav</nav>
+      <section id={styles["content"]}>
         <Outlet />
       </section>
     </section>
