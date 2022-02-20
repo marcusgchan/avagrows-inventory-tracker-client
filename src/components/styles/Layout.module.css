@@ -13,7 +13,6 @@
   display: grid;
   grid-template-columns: 10% 15% 48% 12% 7.5% 7.5%;
   grid-template-areas: "button logo . username bell info";
-  grid-template-rows: 30px;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
 }
