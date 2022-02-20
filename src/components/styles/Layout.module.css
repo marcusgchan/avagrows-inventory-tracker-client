@@ -1,0 +1,25 @@
+section {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 101px 1245px;
+  grid-template-areas:
+    "header header"
+    "nav section";
+}
+
+header {
+  grid-area: header;
+  background-color: var(--main-bg-clr);
+  border: 1px black solid;
+}
+
+nav {
+  grid-area: nav;
+  background-color: var(--main-bg-clr);
+  border: 1px black solid;
+}
+
+section {
+  grid-area: section;
+  background-color: var(--main-bg-light-clr);
+}
