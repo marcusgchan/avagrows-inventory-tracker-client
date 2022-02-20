@@ -9,6 +9,7 @@ import grid from "../imgs/grid.svg";
 import box from "../imgs/package.svg";
 import users from "../imgs/users.svg";
 import book from "../imgs/book-open.svg";
+import arrowDown from "../imgs/arrowDown.svg";
 
 function Layout() {
   return (
@@ -31,18 +32,24 @@ function Layout() {
         </button>
       </header>
       <nav className={styles.navBar}>
-        <div className={styles.homeButton}>
+        <div className={styles.homeButton} type="button">
           <img src={grid} alt="" className={styles.gridImg}></img>
-          Dashboard/<br></br>Home
+          <p className={styles.dashboard}>
+            Dashboard/<br></br>Home
+          </p>
         </div>
         <div className={styles.inventoryButton} type="button">
-          Inventory
+          <img src={box} alt="" className={styles.boxImg}></img>
+          <p className={styles.inventory}>Inventory</p>
+          <img src={arrowDown} alt="" className={styles.arrowImg}></img>
         </div>
         <div className={styles.supplierButton} type="button">
-          My Suppliers
+          <img src={users} alt="" className={styles.usersImg}></img>
+          <p className={styles.supplier}>My Suppliers</p>
         </div>
         <div className={styles.reportButton} type="button">
-          Reports
+          <img src={book} alt="" className={styles.bookImg}></img>
+          <p className={styles.report}>Reports</p>
         </div>
       </nav>
       <section className={styles.content}>
