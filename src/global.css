@@ -1,0 +1,33 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-clr: #c4c4c4;
+  --main-bg-dark-clr: #8c8c8c;
+  --main-bg-light-clr: #e5e5e5;
+  --main-font-clr: #000;
+  --logo-bg-clr: #0a432f;
+}
+
+html,
+body,
+main {
+  height: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
