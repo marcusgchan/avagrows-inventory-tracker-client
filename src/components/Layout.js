@@ -13,7 +13,7 @@ function Layout() {
         </button>
         <img className={styles["logo"]} src="" alt="logo"></img>
         <div className={styles["userNameBox"]}>
-          <p className={styles["userName"]}> Username </p>
+          <p className={styles["userName"]}> Usernamesdafsfsafsdaf </p>
         </div>
         <button className={styles["bellButton"]} type="button">
           <img src="" alt="bell"></img>

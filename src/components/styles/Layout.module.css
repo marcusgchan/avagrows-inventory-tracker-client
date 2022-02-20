@@ -10,15 +10,13 @@
 
 .headerBar {
   grid-area: header;
-  display: grid;
-  grid-template-columns: 10% 15% 48% 12% 7.5% 7.5%;
-  grid-template-areas: "button logo . username bell info";
+  display: flex;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
 }
 
 .navBarButton {
-  grid-area: button;
+  /* grid-area: button; */
   background-color: var(--main-bg-clr);
   width: 60px;
   height: 60px;
@@ -36,16 +34,16 @@
 }
 
 .logo {
-  grid-area: logo;
+  /* grid-area: logo; */
   border: 1px black solid;
   height: 21px;
   margin-top: 30px;
 }
 
 .userNameBox {
-  width: 141px;
+  /* width: 141px; */
   height: 42px;
-  grid-area: username;
+  /* grid-area: username; */
 
   border: 3px black solid;
   background-color: var(--main-bg-clr);
@@ -55,20 +53,20 @@
 }
 
 .userName {
-  width: 82px;
-  height: 21px;
+  /* width: 82px; */
+  /* height: 21px; */
   font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 21px;
   text-align: center;
-  margin-top: 8px;
-  margin-left: 30px;
+  /* margin-top: 8px; */
+  /* margin-left: 30px; */
 }
 
 .bellButton {
-  grid-area: bell;
+  /* grid-area: bell; */
   background-color: var(--main-bg-clr);
   border: none;
   height: max-content;
@@ -76,7 +74,7 @@
 }
 
 .infoButton {
-  grid-area: info;
+  /* grid-area: info; */
   height: max-content;
   border: none;
   background-color: var(--main-bg-clr);

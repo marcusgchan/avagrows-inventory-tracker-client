@@ -1,38 +1,22 @@
 import React from "react";
-import MaterialTable from "material-table";
+import styles from "./styles/RawMaterials.module.css";
+import { DataGrid } from "@mui/x-data-grid";
+
+const rows = [
+  { id: 1, col1: "Hello", col2: "World" },
+  { id: 2, col1: "DataGridPro", col2: "is Awesome" },
+  { id: 3, col1: "MUI", col2: "is Amazing" },
+];
+
+const columns = [
+  { field: "col1", headerName: "Column 1", width: 150 },
+  { field: "col2", headerName: "Column 2", width: 150 },
+];
 
 function RawMaterials() {
   return (
-    <section>
-      <MaterialTable // other props
-        title="Simple Action Preview"
-        columns={[
-          { title: "Name", field: "name" },
-          { title: "Surname", field: "surname" },
-          { title: "Birth Year", field: "birthYear", type: "numeric" },
-          {
-            title: "Birth Place",
-            field: "birthCity",
-            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-          },
-        ]}
-        data={[
-          { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 },
-          {
-            name: "Zerya Betül",
-            surname: "Baran",
-            birthYear: 2017,
-            birthCity: 34,
-          },
-        ]}
-        actions={[
-          {
-            icon: "save",
-            tooltip: "Save User",
-            onClick: (event, rowData) => alert("You saved " + rowData.name),
-          },
-        ]}
-      />
+    <section className={styles.tableContainer}>
+      <DataGrid rows={rows} columns={columns} />
     </section>
   );
 }
