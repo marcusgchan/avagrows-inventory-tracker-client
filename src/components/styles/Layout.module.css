@@ -85,6 +85,17 @@
   grid-area: nav;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
+  display: grid;
+  grid-template-rows: 11.5% 11.5% 11.5% 11.5%;
+  grid-template-areas:
+    "home"
+    "inventory"
+    "supplier"
+    "report";
+}
+
+.homeButton {
+  grid-area: home;
 }
 
 .content {

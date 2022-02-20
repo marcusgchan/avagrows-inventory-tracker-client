@@ -4,26 +4,28 @@ import styles from "./styles/Layout.module.css";
 
 function Layout() {
   return (
-    <section className={styles["grid"]}>
-      <header className={styles["headerBar"]}>
-        <button className={styles["navBarButton"]} type="button">
-          <div className={styles["hamburgerButton"]}></div>
-          <div className={styles["hamburgerButton"]}></div>
-          <div className={styles["hamburgerButton"]}></div>
+    <section className={styles.grid}>
+      <header className={styles.headerBar}>
+        <button className={styles.navBarButton} type="button">
+          <div className={styles.hamburgerButton}></div>
+          <div className={styles.hamburgerButton}></div>
+          <div className={styles.hamburgerButton}></div>
         </button>
-        <img className={styles["logo"]} src="" alt="logo"></img>
-        <div className={styles["userNameBox"]}>
-          <p className={styles["userName"]}> Usernamesdafsfsafsdaf </p>
+        <img className={styles.logo} src="" alt="logo"></img>
+        <div className={styles.userNameBox}>
+          <p className={styles.userName}> Username </p>
         </div>
-        <button className={styles["bellButton"]} type="button">
+        <button className={styles.bellButton} type="button">
           <img src="" alt="bell"></img>
         </button>
-        <button className={styles["infoButton"]} type="button">
+        <button className={styles.infoButton} type="button">
           <img src="" alt="?"></img>
         </button>
       </header>
-      <nav className={styles["navBar"]}>nav</nav>
-      <section className={styles["content"]}>
+      <nav className={styles.navBar}>
+        <div className={styles.homeButton}>Dashboard/Home</div>
+      </nav>
+      <section className={styles.content}>
         <Outlet />
       </section>
     </section>
