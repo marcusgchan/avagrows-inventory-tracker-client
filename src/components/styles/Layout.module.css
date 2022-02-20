@@ -82,12 +82,15 @@
 }
 
 .navBar {
+  font-family: "Roboto";
+  justify-content: center;
   grid-area: nav;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
   display: grid;
-  grid-template-rows: 11.5% 11.5% 11.5% 11.5%;
+  grid-template-rows: 10% 11.5% 11.5% 11.5% 11.5%;
   grid-template-areas:
+    "."
     "home"
     "inventory"
     "supplier"
@@ -98,6 +101,17 @@
   grid-area: home;
 }
 
+.inventoryButton {
+  grid-area: inventory;
+}
+
+.supplierButton {
+  grid-area: supplier;
+}
+
+.reportButton {
+  grid-area: report;
+}
 .content {
   grid-area: section;
   height: 100%;
