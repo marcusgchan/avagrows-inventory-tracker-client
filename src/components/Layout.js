@@ -20,7 +20,7 @@ function Layout() {
             <img src={hamburgerButton} alt="NavButton"></img>
           </button>
           <div className={styles.logo}>
-            <img src={logo} alt="logo"></img>
+            <img className={styles.logo} src={logo} alt="logo"></img>
           </div>
         </div>
         <div className={styles.rightHeader}>

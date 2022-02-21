@@ -56,12 +56,15 @@
   width: 60px;
   height: 60px;
   border: none;
+  cursor: pointer;
 }
 
 .logo {
   grid-area: logo;
   height: 45px;
   width: 45px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .userNameBox {
@@ -94,6 +97,7 @@
   border: none;
   height: max-content;
   width: max-content;
+  cursor: pointer;
 }
 
 .infoButton {
@@ -102,6 +106,7 @@
   border: none;
   height: max-content;
   width: max-content;
+  cursor: pointer;
 }
 
 .navBar {
