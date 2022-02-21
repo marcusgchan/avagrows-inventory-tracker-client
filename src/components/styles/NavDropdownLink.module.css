@@ -1,10 +1,32 @@
 .navBtn {
   display: inline-block;
-  height: 5rem;
+  /* height: 5rem; */
+  align-self: flex-start;
   width: 10rem;
   background: transparent;
 }
 
+.iconAndTextContainer {
+  display: flex;
+  align-items: center;
+}
+
 .icon {
-  height: 2.5rem;
+  flex-basis: 1rem;
+  /* aspect-ratio: 2/2; */
+  /* height: 4rem; */
+  /* width: 2.5rem; */
+}
+
+.linkContainer {
+  max-height: 0;
+  /* -webkit-transition: max-height 0.8s; */
+  overflow-y: hidden;
+  transition: max-height 300ms ease-in-out;
+}
+
+/* Toggled Styles */
+
+.open {
+  max-height: 10rem;
 }

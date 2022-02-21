@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./styles/Layout.module.css";
 import hamburgerButton from "../imgs/hamburger-button.svg";
@@ -10,8 +10,25 @@ import box from "../imgs/package.svg";
 import users from "../imgs/users.svg";
 import book from "../imgs/book-open.svg";
 import arrowDown from "../imgs/arrowDown.svg";
+import NavDropdownLink from "./NavDropdownLink";
+
+const linkDefaultStates = {
+  home: false,
+  inventory: false,
+  supplier: false,
+};
 
 function Layout() {
+  const [dropDownLinkToggle, setDropDownLinkToggle] = useState({
+    ...linkDefaultStates,
+  });
+  function handleDropDownLinkToggle(e) {
+    const newToggledStates = { ...dropDownLinkToggle };
+    const property = e.currentTarget.getAttribute("data-name");
+    console.log(property, dropDownLinkToggle[property]);
+    newToggledStates[property] = !newToggledStates[property];
+    setDropDownLinkToggle(newToggledStates);
+  }
   return (
     <section className={styles.grid}>
       <header className={styles.headerBar}>
@@ -47,10 +64,17 @@ function Layout() {
           <img src={users} alt="" className={styles.usersImg}></img>
           <p className={styles.supplier}>My Suppliers</p>
         </div>
-        <div className={styles.reportButton} type="button">
+        <NavDropdownLink
+          text="inventory"
+          imgSrc={box}
+          links={["raw materials", "category"]}
+          handleDropDownLinkToggle={handleDropDownLinkToggle}
+          dropDownLinkToggle={dropDownLinkToggle}
+        />
+        {/* <div className={styles.reportButton} type="button">
           <img src={book} alt="" className={styles.bookImg}></img>
           <p className={styles.report}>Reports</p>
-        </div>
+        </div> */}
       </nav>
       <section className={styles.content}>
         <Outlet />
