@@ -5,10 +5,12 @@ import RawMaterials from "./RawMaterials";
 import Category from "./Category";
 import Error from "./Error";
 import Contacts from "./Contacts";
+import Login from "./Login";
 
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="inventory/raw-materials" element={<RawMaterials />} />
