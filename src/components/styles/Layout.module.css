@@ -2,7 +2,7 @@
   display: grid;
   height: 100%;
   grid-template-columns: 212px 1fr;
-  grid-template-rows: 101px 1245px;
+  grid-template-rows: 101px 1fr;
   grid-template-areas:
     "header header"
     "nav section";
