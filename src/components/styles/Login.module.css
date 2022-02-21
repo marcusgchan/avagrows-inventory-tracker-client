@@ -1,0 +1,22 @@
+body {
+    background-color: var(--logo-bg-color);
+}
+
+.loginSection {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.textField {
+    height: 40px;
+    font-size: 24px;
+    width: 100%;
+    font-family: 'Helvetica';
+}
+
+label {
+    font-family: 'Helvetica';
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 30px;
+}
