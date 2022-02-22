@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./styles/Layout.module.css";
 import hamburgerButton from "../imgs/hamburger-button.svg";
@@ -11,7 +11,9 @@ import users from "../imgs/users.svg";
 import book from "../imgs/book-open.svg";
 import arrowDown from "../imgs/arrowDown.svg";
 import NavDropdownLink from "./NavDropdownLink";
-
+import userServices from "../services/userServices";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 const linkDefaultStates = {
   home: false,
   inventory: false,
@@ -19,6 +21,8 @@ const linkDefaultStates = {
 };
 
 function Layout() {
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [dropDownLinkToggle, setDropDownLinkToggle] = useState({
     ...linkDefaultStates,
   });
@@ -28,6 +32,15 @@ function Layout() {
     console.log(property, dropDownLinkToggle[property]);
     newToggledStates[property] = !newToggledStates[property];
     setDropDownLinkToggle(newToggledStates);
+  }
+  function handleLogout() {
+    userServices
+      .logout()
+      .then((res) => {
+        setUser(null);
+        navigate("/login");
+      })
+      .catch((err) => console.log("unable to logout"));
   }
   return (
     <section className={styles.grid}>
@@ -41,6 +54,7 @@ function Layout() {
           </div>
         </div>
         <div className={styles.rightHeader}>
+          <button onClick={handleLogout}>Logout</button>
           <div className={styles.userNameBox}>
             <p className={styles.userName}> Username </p>
           </div>
