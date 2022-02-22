@@ -4,6 +4,9 @@ import userServices from "../services/userServices";
 // import { useLogin } from "../custom-hooks/useLogin";
 import { UserContext } from "../contexts/UserContext";
 
+import styles from "./styles/Login.module.css";
+import logo from "../imgs/logo.PNG";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,30 +25,40 @@ function Login() {
       .catch((err) => console.log(err));
   }
 
-  function getCurrentUser(e) {
-    e.preventDefault();
-    // userServices.getCurrentUser().then((res) => console.log(res.data));
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">username</label>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <label htmlFor="password">password</label>
-      <input
-        type="text"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">login</button>
-      <button onClick={getCurrentUser}>get current user</button>
-    </form>
+    <section className={styles.background}>
+      <section className={styles.introText}>
+        <h1>Login to the Avagrows Inventory Tracker</h1>
+        <img src={logo} className={styles.logo}></img>
+      </section>
+      <section className={styles.loginSection}>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username" className={`${styles.fontStyles}`}>
+            Username
+          </label>
+          <input
+            className={styles.textField}
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password" className={`${styles.fontStyles}`}>
+            Password
+          </label>
+          <input
+            className={styles.textField}
+            type="text"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className={`${styles.fontStyles} ${styles.btn}`}>
+            login
+          </button>
+        </form>
+      </section>
+    </section>
   );
 }
 

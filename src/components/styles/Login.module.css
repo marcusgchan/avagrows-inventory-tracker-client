@@ -1,0 +1,49 @@
+.background {
+  height: 100%;
+  background-color: var(--main-bg-light-clr);
+}
+
+.loginSection,
+.introText {
+  position: relative;
+  top: 25%;
+  margin: 0 auto;
+}
+
+.introText {
+  font-family: "Roboto";
+  text-align: center;
+  width: 600px;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  margin: 40px 0px 40px 0px;
+  border-radius: 50%;
+}
+
+.loginSection {
+  width: 300px;
+}
+
+.textField {
+  font-family: "Roboto";
+  font-size: 24px;
+  width: 100%;
+  height: 40px;
+  margin: 5px 0px 20px 0px;
+}
+
+.fontStyles {
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.btn {
+  background-color: var(--logo-bg-clr);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
