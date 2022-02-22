@@ -1,22 +1,19 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
 import RawMaterials from "./RawMaterials";
 import Category from "./Category";
 import Error from "./Error";
 import Contacts from "./Contacts";
+import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
-// import LoginProvider from "../custom-hooks/useLogin";
-import UserContextProvider from "../contexts/UserContext";
-// import ProtectedRoute from "./ProtectedRoute";
-import { UserContext } from "../contexts/UserContext";
+
 function App() {
-  const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <Routes>
-      {user ? (
+      {/* Protected route will render the login if not logged in */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<ProtectedRoute />}>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="inventory/raw-materials" element={<RawMaterials />} />
@@ -24,12 +21,7 @@ function App() {
           <Route path="suppliers/contacts" element={<Contacts />} />
           <Route path="*" element={<Error />} />
         </Route>
-      ) : (
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </>
-      )}
+      </Route>
     </Routes>
   );
 }

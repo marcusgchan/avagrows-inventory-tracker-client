@@ -1,15 +1,11 @@
-import { Navigate } from "react-router-dom";
-// import { useLogin, UserContext } from "../custom-hooks/useLogin";
-import { UserContext } from "../contexts/UserContext";
+import { Outlet } from "react-router-dom";
 import React from "react";
-import userServices from "../services/userServices";
-import { useEffect, useState, useContext } from "react";
+import useLogin from "../contexts/UserContext";
+import Login from "./Login";
 
-function ProtectedRoute({ children }) {
-  // const { currentUser, setCurrentUser } = useLogin();
-  const userContext = useContext(UserContext);
-  console.log(userContext);
-  return userContext.user ? children : <Navigate to="/login" />;
+function ProtectedRoute() {
+  const { user } = useLogin();
+  return user.id ? <Outlet /> : <Login />;
 }
 
 export default ProtectedRoute;

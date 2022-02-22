@@ -1,8 +1,7 @@
 import { useState, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import userServices from "../services/userServices";
-// import { useLogin } from "../custom-hooks/useLogin";
-import { UserContext } from "../contexts/UserContext";
+import useLogin from "../contexts/UserContext";
 
 import styles from "./styles/Login.module.css";
 import logo from "../imgs/logo.PNG";
@@ -10,7 +9,7 @@ import logo from "../imgs/logo.PNG";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useLogin();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -20,7 +19,6 @@ function Login() {
       .then((res) => {
         setUser(res.data);
         navigate("/");
-        console.log("logged in");
       })
       .catch((err) => console.log(err));
   }

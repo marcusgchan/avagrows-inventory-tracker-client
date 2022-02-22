@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./styles/Layout.module.css";
 import hamburgerButton from "../imgs/hamburger-button.svg";
@@ -13,7 +13,7 @@ import arrowDown from "../imgs/arrowDown.svg";
 import NavDropdownLink from "./NavDropdownLink";
 import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import useLogin from "../contexts/UserContext";
 const linkDefaultStates = {
   home: false,
   inventory: false,
@@ -22,7 +22,7 @@ const linkDefaultStates = {
 
 function Layout() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useLogin();
   const [dropDownLinkToggle, setDropDownLinkToggle] = useState({
     ...linkDefaultStates,
   });
@@ -37,7 +37,7 @@ function Layout() {
     userServices
       .logout()
       .then((res) => {
-        setUser(null);
+        setUser({});
         navigate("/login");
       })
       .catch((err) => console.log("unable to logout"));
