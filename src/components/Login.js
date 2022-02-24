@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import userServices from "../services/userServices";
 import useLogin from "../contexts/UserContext";
 
@@ -36,6 +36,7 @@ function Login() {
           </label>
           <input
             className={styles.textField}
+            autoComplete="off"
             type="text"
             name="username"
             value={username}
@@ -46,7 +47,7 @@ function Login() {
           </label>
           <input
             className={styles.textField}
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

@@ -54,15 +54,15 @@ function Layout() {
           </div>
         </div>
         <div className={styles.rightHeader}>
-          <button onClick={handleLogout}>Logout</button>
-          <div className={styles.userNameBox}>
-            <p className={styles.userName}> Username </p>
-          </div>
+          <button className={`${styles.btn}`}>Username</button>
           <button className={styles.bellButton} type="button">
             <img src={bell} alt="bell"></img>
           </button>
           <button className={styles.infoButton} type="button">
             <img src={help} alt="?"></img>
+          </button>
+          <button className={`${styles.btn}`} onClick={handleLogout}>
+            Logout
           </button>
         </div>
       </header>
@@ -82,17 +82,17 @@ function Layout() {
           <img src={users} alt="" className={styles.usersImg}></img>
           <p className={styles.supplier}>My Suppliers</p>
         </div>
-        <NavDropdownLink
+        {/* <NavDropdownLink
           text="inventory"
           imgSrc={box}
           links={["raw materials", "category"]}
           handleDropDownLinkToggle={handleDropDownLinkToggle}
           dropDownLinkToggle={dropDownLinkToggle}
-        />
-        {/* <div className={styles.reportButton} type="button">
+        /> */}
+        <div className={styles.reportButton} type="button">
           <img src={book} alt="" className={styles.bookImg}></img>
           <p className={styles.report}>Reports</p>
-        </div> */}
+        </div>
       </nav>
       <section className={styles.content}>
         <Outlet />

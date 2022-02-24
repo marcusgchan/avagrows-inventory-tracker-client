@@ -11,7 +11,7 @@
 .headerBar {
   grid-area: header;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   flex: 1;
   justify-content: space-between;
   align-items: center;
@@ -20,14 +20,6 @@
 }
 
 .leftHeader {
-  /* display: flex;
-  width: max-content;
-  height: 101px;
-  flex-wrap: wrap;
-  flex: 1;
-  gap: 60px;
-  justify-content: flex-start;
-  align-items: center; */
   display: grid;
   grid-template-columns: 20px 60px 60px 45px;
   grid-template-areas: ". hamButton . logo";
@@ -36,18 +28,14 @@
 }
 
 .rightHeader {
-  /* display: flex;
-  width: max-content;
-  height: 101px;
-  flex-wrap: wrap;
-  flex: 1;
-  gap: 20px;
-  justify-content: flex-end; */
-  display: grid;
-  grid-template-columns: 150px 20px 40px 20px 40px 20px;
-  grid-template-areas: "nameBox . bell . question .";
-  justify-content: flex-end;
-  align-items: center;
+  display: flex;
+  gap: 1rem;
+  padding-right: 0.8rem;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
 }
 
 .navBarButton {
@@ -73,11 +61,13 @@
   grid-template-columns: 30px 20px 30px;
   grid-template-areas: ". userName .";
   align-items: center;
-  width: 141px;
-  height: 42px;
+}
+
+.btn {
   border: 3px black solid;
   background-color: var(--main-bg-clr);
   box-sizing: border-box;
+  padding: 0.5rem 0.8rem;
   border-radius: 60px;
 }
 
@@ -92,6 +82,7 @@
 }
 
 .bellButton {
+  padding-top: 0.3rem;
   grid-area: bell;
   background-color: var(--main-bg-clr);
   border: none;
@@ -102,6 +93,7 @@
 
 .infoButton {
   grid-area: question;
+  padding-top: 0.3rem;
   background-color: var(--main-bg-clr);
   border: none;
   height: max-content;
