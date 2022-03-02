@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
-import RawMaterials from "./RawMaterials";
+import Inventory from "./Inventory";
 import Category from "./Category";
 import Error from "./Error";
 import Contacts from "./Contacts";
@@ -13,15 +13,15 @@ function App() {
     <Routes>
       {/* Protected route will render the login if not logged in */}
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<ProtectedRoute />}>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="inventory/raw-materials" element={<RawMaterials />} />
-          <Route path="inventory/category" element={<Category />} />
-          <Route path="suppliers/contacts" element={<Contacts />} />
-          <Route path="*" element={<Error />} />
-        </Route>
+      {/* <Route path="/" element={<ProtectedRoute />}> */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="inventory" element={<Inventory />} />
+        {/* <Route path="inventory/category" element={<Category />} /> */}
+        <Route path="suppliers/contacts" element={<Contacts />} />
+        <Route path="*" element={<Error />} />
       </Route>
+      {/* </Route> */}
     </Routes>
   );
 }
