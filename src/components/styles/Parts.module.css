@@ -1,0 +1,57 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+}
+
+.headerRow {
+  background-color: rgba(10, 67, 47, 0.69);
+
+  height: 56px;
+}
+
+.headerCell {
+  color: white;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+
+  width: 100px;
+}
+
+.dataRow {
+  height: 45px;
+  align-items: center;
+}
+
+.dataRow:nth-child(odd) {
+  background-color: var(--main-bg-clr);
+}
+
+.dataRow:nth-child(even) {
+  background-color: var(--main-bg-light-clr);
+}
+
+.dataCell {
+  color: black;
+  width: 100px;
+
+  text-align: center;
+}
+
+.editButton {
+  cursor: pointer;
+  border: none;
+}
+
+.dataRow:nth-child(odd) .editButton {
+  background-color: var(--main-bg-clr);
+}
+
+.dataRow:nth-child(even) .editButton {
+  background-color: var(--main-bg-light-clr);
+}
+
+.editImg {
+  size: auto;
+}
