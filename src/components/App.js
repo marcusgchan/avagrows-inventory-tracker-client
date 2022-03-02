@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
-import Inventory from "./Inventory";
+import Parts from "./Parts";
 import Category from "./Category";
 import Error from "./Error";
 import Contacts from "./Contacts";
 import ProtectedRoute from "./ProtectedRoute";
+import AddParts from "./AddParts";
 import Login from "./Login";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
       {/* <Route path="/" element={<ProtectedRoute />}> */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="inventory" element={<Inventory />} />
+        <Route path="inventory" element={<Parts />} />
+        <Route path="inventory/add" element={<AddParts />} />
         {/* <Route path="inventory/category" element={<Category />} /> */}
         <Route path="suppliers/contacts" element={<Contacts />} />
         <Route path="*" element={<Error />} />

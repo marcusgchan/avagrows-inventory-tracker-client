@@ -189,5 +189,4 @@
 .content {
   grid-area: section;
   height: 100%;
-  background-color: var(--main-bg-light-clr);
 }

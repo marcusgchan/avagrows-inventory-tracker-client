@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles/Parts.module.css";
+import { useNavigate } from "react-router-dom";
 
 const rows = [
   {
@@ -36,8 +37,10 @@ const columns = [
 ];
 
 function Parts() {
+  const navigate = useNavigate();
   return (
     <section>
+      <button onClick={() => navigate("add")}>Add Material</button>
       <table>
         <thead>
           <tr>

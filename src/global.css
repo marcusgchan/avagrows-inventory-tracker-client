@@ -5,6 +5,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto";
+  letter-spacing: 1px;
+  line-height: 1.4;
 }
 
 :root {
@@ -19,6 +21,10 @@ html,
 body,
 main {
   height: 100%;
+}
+
+textarea {
+  resize: none;
 }
 
 img {
