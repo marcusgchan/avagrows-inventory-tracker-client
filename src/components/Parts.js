@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles/Parts.module.css";
 import { useNavigate } from "react-router-dom";
+import edit from "../imgs/edit.svg";
 
 const rows = [
   {
@@ -21,7 +22,7 @@ const rows = [
   },
   {
     id: 3,
-    maeterialId: "PSL00989",
+    materialId: "PSL00989",
     status: "complete",
     notes: "bolt",
     location: "greenhouse",
@@ -30,34 +31,41 @@ const rows = [
 ];
 
 const columns = [
-  { field: "material_id", headerName: "Material ID", width: 150 },
-  { field: "status_name", headerName: "Status", width: 150 },
-  { field: "part_description", headerName: "Notes", width: 150 },
-  { field: "location_name", headerName: "Location", width: 150 },
+  { field: "material_id", headerName: "Material ID" },
+  { field: "status_name", headerName: "Status" },
+  { field: "part_description", headerName: "Notes" },
+  { field: "location_name", headerName: "Location" },
 ];
 
 function Parts() {
-  const navigate = useNavigate();
   return (
     <section>
-      <button onClick={() => navigate("add")}>Add Material</button>
       <table>
         <thead>
-          <tr>
+          <tr className={styles.headerRow}>
             {columns.map(({ field, headerName }) => (
-              <th key={field}>{headerName}</th>
+              <th className={styles.headerCell} key={field}>
+                {headerName}
+              </th>
             ))}
+            <th className={styles.headerCell}>Action</th>
+            <th className={styles.headerCell}>Last Edited</th>
           </tr>
         </thead>
         <tbody>
           {rows.map(
             ({ id, materialId, status, notes, location, lastEdited }) => (
-              <tr key={id}>
-                <td>{materialId}</td>
-                <td>{status}</td>
-                <td>{notes}</td>
-                <td>{location}</td>
-                <td>{lastEdited}</td>
+              <tr className={styles.dataRow} key={id}>
+                <td className={styles.dataCell}>{materialId}</td>
+                <td className={styles.dataCell}>{status}</td>
+                <td className={styles.dataCell}>{notes}</td>
+                <td className={styles.dataCell}>{location}</td>
+                <td className={styles.dataCell}>
+                  <button type="button" className={styles.editButton}>
+                    <img src={edit} alt="" className={styles.editImg}></img>
+                  </button>
+                </td>
+                <td className={styles.dataCell}>{lastEdited}</td>
               </tr>
             )
           )}
