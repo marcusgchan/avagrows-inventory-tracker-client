@@ -1,6 +1,6 @@
 import styles from "./styles/SearchFilterAdd.module.css";
 
-function SearchFilterAdd({ toggleModal }) {
+function SearchFilterAdd({ toggleAddModal }) {
   return (
     <section className={styles.container}>
       <div className={styles.searchContainer}>
@@ -13,7 +13,7 @@ function SearchFilterAdd({ toggleModal }) {
       </div>
       <div className={styles.btnContainer}>
         <button className={styles.btn}>filter</button>
-        <button className={styles.btn} onClick={toggleModal}>
+        <button className={styles.btn} onClick={toggleAddModal}>
           add +
         </button>
       </div>

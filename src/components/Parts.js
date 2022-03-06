@@ -61,8 +61,8 @@ const columns = [
 function Parts() {
   const [rows, setRows] = useState(rowsDummy);
   // Handle displaying and hiding add part modal
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => setShowModal((cur) => !cur);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const toggleAddModal = () => setShowAddModal((cur) => !cur);
 
   function generateTableRows() {
     return rows.map(
@@ -103,13 +103,13 @@ function Parts() {
 
   return (
     <section className={styles.container}>
-      {showModal && (
+      {showAddModal && (
         <ModalContainer>
-          <AddPartsModal toggleModal={toggleModal} />
+          <AddPartsModal toggleModal={toggleAddModal} />
         </ModalContainer>
       )}
       <h1 className={styles.mainHeading}>inventory</h1>
-      <SearchFilterAdd toggleModal={toggleModal} />
+      <SearchFilterAdd toggleAddModal={toggleAddModal} />
       <table>
         <thead>
           <tr className={styles.headerRow}>
