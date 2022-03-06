@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styles from "./styles/Parts.module.css";
-import { useNavigate } from "react-router-dom";
 import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
+import SearchFilterAdd from "./SearchFilterAdd";
 
 const rowsDummy = [
   {
@@ -64,13 +64,51 @@ function Parts() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((cur) => !cur);
 
+  function generateTableRows() {
+    return rows.map(
+      ({
+        id,
+        internal_part_number,
+        part_name,
+        part_category_name,
+        location_name,
+        status_name,
+        quantity,
+        date_time,
+        name,
+        total_quantity,
+      }) => (
+        <tr className={styles.dataRow} key={id}>
+          <td className={styles.dataCell}>{internal_part_number}</td>
+          <td className={styles.dataCell}>{part_name}</td>
+          <td className={styles.dataCell}>{part_category_name}</td>
+          <td className={styles.dataCell}>{location_name}</td>
+          <td className={styles.dataCell}>{status_name}</td>
+          <td className={styles.dataCell}>{quantity}</td>
+          <td className={styles.dataCell}>
+            <button type="button" className={styles.tableButton}>
+              <img src={edit} alt="" className={styles.tableImg}></img>
+            </button>
+            <button type="button" className={styles.tableButton}>
+              <img src={trash} alt="" className={styles.tableImg}></img>
+            </button>
+          </td>
+          <td className={styles.dataCell}>{date_time}</td>
+          <td className={styles.dataCell}>{name}</td>
+          <td className={styles.dataCell}>{total_quantity}</td>
+        </tr>
+      )
+    );
+  }
+
   return (
-    <section>
+    <section className={styles.container}>
       {showModal && (
         <ModalContainer>
           <AddPartsModal toggleModal={toggleModal} />
         </ModalContainer>
       )}
+      <h1 className={styles.mainHeading}>inventory</h1>
       <SearchFilterAdd toggleModal={toggleModal} />
       <table>
         <thead>
@@ -82,51 +120,8 @@ function Parts() {
             ))}
           </tr>
         </thead>
-        <tbody>
-          {rows.map(
-            ({
-              id,
-              internal_part_number,
-              part_name,
-              part_category_name,
-              location_name,
-              status_name,
-              quantity,
-              date_time,
-              name,
-              total_quantity,
-            }) => (
-              <tr className={styles.dataRow} key={id}>
-                <td className={styles.dataCell}>{internal_part_number}</td>
-                <td className={styles.dataCell}>{part_name}</td>
-                <td className={styles.dataCell}>{part_category_name}</td>
-                <td className={styles.dataCell}>{location_name}</td>
-                <td className={styles.dataCell}>{status_name}</td>
-                <td className={styles.dataCell}>{quantity}</td>
-                <td className={styles.dataCell}>
-                  <button type="button" className={styles.tableButton}>
-                    <img src={edit} alt="" className={styles.tableImg}></img>
-                  </button>
-                  <button type="button" className={styles.tableButton}>
-                    <img src={trash} alt="" className={styles.tableImg}></img>
-                  </button>
-                </td>
-                <td className={styles.dataCell}>{date_time}</td>
-                <td className={styles.dataCell}>{name}</td>
-                <td className={styles.dataCell}>{total_quantity}</td>
-              </tr>
-            )
-          )}
-        </tbody>
+        <tbody>{generateTableRows()}</tbody>
       </table>
-    </section>
-  );
-}
-
-function SearchFilterAdd({ toggleModal }) {
-  return (
-    <section>
-      <button onClick={toggleModal}>add +</button>
     </section>
   );
 }

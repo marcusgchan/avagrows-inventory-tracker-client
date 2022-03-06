@@ -4,10 +4,20 @@ table {
   height: 100%;
 }
 
-.headerRow {
-  background-color: rgba(10, 67, 47, 0.69);
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
 
+.mainHeading {
+  font-size: 2rem;
+}
+
+.headerRow {
   height: 56px;
+  background-color: rgba(10, 67, 47, 0.69);
 }
 
 .headerCell {
