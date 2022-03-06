@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./styles/AddPartsModal.module.css";
 
 function AddPartsModal({ toggleModal }) {
-  const navigate = useNavigate();
-
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
@@ -74,7 +71,7 @@ function AddPartsModal({ toggleModal }) {
         />
       </div>
       <div className={styles.buttons}>
-        <button id={styles.okButton} onClick={() => navigate("/inventory")}>
+        <button id={styles.okButton} onClick={toggleModal}>
           OK
         </button>
       </div>

@@ -4,6 +4,7 @@ import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
+import DeletePartsModal from "./DeletePartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 
 const rowsDummy = [
@@ -51,11 +52,11 @@ const columns = [
   { field: "part_category_name", headerName: "Category" },
   { field: "location_name", headerName: "Location" },
   { field: "status_name", headerName: "Status" },
-  { field: "quantity", headerName: "Qnty for location + status" },
+  { field: "quantity", headerName: "Qty for location + status" },
   { field: "actions", headerName: "Actions" },
   { field: "date_time", headerName: "Last Edited At" },
   { field: "name", headerName: "Last Edited By" },
-  { field: "total_quantity", headerName: "Total Qnty" },
+  { field: "total_quantity", headerName: "Total Qty" },
 ];
 
 function Parts() {
@@ -63,6 +64,10 @@ function Parts() {
   // Handle displaying and hiding add part modal
   const [showAddModal, setShowAddModal] = useState(false);
   const toggleAddModal = () => setShowAddModal((cur) => !cur);
+
+  // Handle displaying and hiding delete part modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const toggleDeleteModal = () => setShowDeleteModal((cur) => !cur);
 
   function generateTableRows() {
     return rows.map(
@@ -89,7 +94,11 @@ function Parts() {
             <button type="button" className={styles.tableButton}>
               <img src={edit} alt="" className={styles.tableImg}></img>
             </button>
-            <button type="button" className={styles.tableButton}>
+            <button
+              type="button"
+              className={styles.tableButton}
+              onClick={toggleDeleteModal}
+            >
               <img src={trash} alt="" className={styles.tableImg}></img>
             </button>
           </td>
@@ -106,6 +115,11 @@ function Parts() {
       {showAddModal && (
         <ModalContainer>
           <AddPartsModal toggleModal={toggleAddModal} />
+        </ModalContainer>
+      )}
+      {showDeleteModal && (
+        <ModalContainer>
+          <DeletePartsModal toggleModal={toggleDeleteModal} />
         </ModalContainer>
       )}
       <h1 className={styles.mainHeading}>inventory</h1>
