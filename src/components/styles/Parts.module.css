@@ -39,19 +39,19 @@ table {
   text-align: center;
 }
 
-.editButton {
+.tableButton {
   cursor: pointer;
   border: none;
 }
 
-.dataRow:nth-child(odd) .editButton {
+.dataRow:nth-child(odd) .tableButton {
   background-color: var(--main-bg-clr);
 }
 
-.dataRow:nth-child(even) .editButton {
+.dataRow:nth-child(even) .tableButton {
   background-color: var(--main-bg-light-clr);
 }
 
-.editImg {
+.tableImg {
   size: auto;
 }

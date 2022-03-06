@@ -2,42 +2,60 @@ import { useState } from "react";
 import styles from "./styles/Parts.module.css";
 import { useNavigate } from "react-router-dom";
 import edit from "../imgs/edit.svg";
+import trash from "../imgs/trash.svg";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
 
 const rowsDummy = [
   {
     id: 1,
-    materialId: "PSL00987",
-    status: "unsellable",
-    notes: "wire",
-    location: "Offices",
-    lastEdited: "",
+    internal_part_number: "PSL00989",
+    part_name: "Pump Housing",
+    part_category_name: "WIP",
+    location_name: "FSS",
+    status_name: "Plant Science",
+    quantity: "1",
+    date_time: "03/04/22 4:00PM",
+    name: "",
+    total_quantity: "50",
   },
   {
     id: 2,
-    materialId: "PSL00988",
-    status: "WIP",
-    notes: "camera",
-    location: "kitchen",
-    lastEdited: "",
+    internal_part_number: "PSL00988",
+    part_name: "Byte",
+    part_category_name: "Finished Good",
+    location_name: "Office",
+    status_name: "Shipped",
+    quantity: "1",
+    date_time: "12/04/21 3:00AM",
+    name: "Username",
+    total_quantity: "10",
   },
   {
     id: 3,
-    materialId: "PSL00989",
-    status: "complete",
-    notes: "bolt",
-    location: "greenhouse",
-    lastEdited: "",
+    internal_part_number: "PSL00989",
+    part_name: "bolt",
+    part_category_name: "Raw Material",
+    location_name: "Office",
+    status_name: "Scrap",
+    quantity: "2",
+    date_time: "03/04/22 4:00PM",
+    name: "Stella",
+    total_quantity: "5",
   },
 ];
 
 const columns = [
   { field: "internal_part_number", headerName: "Internal Part Number" },
-  { field: "status_name", headerName: "Status" },
-  { field: "part_description", headerName: "Notes" },
+  { field: "part_name", headerName: "Name" },
+  { field: "part_category_name", headerName: "Category" },
   { field: "location_name", headerName: "Location" },
-  // { field: "location_name", headerName: "Location" },
+  { field: "status_name", headerName: "Status" },
+  { field: "quantity", headerName: "Qnty for location + status" },
+  { field: "actions", headerName: "Actions" },
+  { field: "date_time", headerName: "Last Edited At" },
+  { field: "name", headerName: "Last Edited By" },
+  { field: "total_quantity", headerName: "Total Qnty" },
 ];
 
 function Parts() {
@@ -62,24 +80,40 @@ function Parts() {
                 {headerName}
               </th>
             ))}
-            <th className={styles.headerCell}>Action</th>
-            <th className={styles.headerCell}>Last Edited</th>
           </tr>
         </thead>
         <tbody>
           {rows.map(
-            ({ id, materialId, status, notes, location, lastEdited }) => (
+            ({
+              id,
+              internal_part_number,
+              part_name,
+              part_category_name,
+              location_name,
+              status_name,
+              quantity,
+              date_time,
+              name,
+              total_quantity,
+            }) => (
               <tr className={styles.dataRow} key={id}>
-                <td className={styles.dataCell}>{materialId}</td>
-                <td className={styles.dataCell}>{status}</td>
-                <td className={styles.dataCell}>{notes}</td>
-                <td className={styles.dataCell}>{location}</td>
+                <td className={styles.dataCell}>{internal_part_number}</td>
+                <td className={styles.dataCell}>{part_name}</td>
+                <td className={styles.dataCell}>{part_category_name}</td>
+                <td className={styles.dataCell}>{location_name}</td>
+                <td className={styles.dataCell}>{status_name}</td>
+                <td className={styles.dataCell}>{quantity}</td>
                 <td className={styles.dataCell}>
-                  <button type="button" className={styles.editButton}>
-                    <img src={edit} alt="" className={styles.editImg}></img>
+                  <button type="button" className={styles.tableButton}>
+                    <img src={edit} alt="" className={styles.tableImg}></img>
+                  </button>
+                  <button type="button" className={styles.tableButton}>
+                    <img src={trash} alt="" className={styles.tableImg}></img>
                   </button>
                 </td>
-                <td className={styles.dataCell}>{lastEdited}</td>
+                <td className={styles.dataCell}>{date_time}</td>
+                <td className={styles.dataCell}>{name}</td>
+                <td className={styles.dataCell}>{total_quantity}</td>
               </tr>
             )
           )}
