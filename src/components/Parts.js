@@ -1,9 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import styles from "./styles/Parts.module.css";
 import { useNavigate } from "react-router-dom";
 import edit from "../imgs/edit.svg";
+import ModalContainer from "./ModalContainer";
+import AddPartsModal from "./AddPartsModal";
 
-const rows = [
+const rowsDummy = [
   {
     id: 1,
     materialId: "PSL00987",
@@ -31,15 +33,27 @@ const rows = [
 ];
 
 const columns = [
-  { field: "material_id", headerName: "Material ID" },
+  { field: "internal_part_number", headerName: "Internal Part Number" },
   { field: "status_name", headerName: "Status" },
   { field: "part_description", headerName: "Notes" },
   { field: "location_name", headerName: "Location" },
+  // { field: "location_name", headerName: "Location" },
 ];
 
 function Parts() {
+  const [rows, setRows] = useState(rowsDummy);
+  // Handle displaying and hiding add part modal
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal((cur) => !cur);
+
   return (
     <section>
+      {showModal && (
+        <ModalContainer>
+          <AddPartsModal toggleModal={toggleModal} />
+        </ModalContainer>
+      )}
+      <SearchFilterAdd toggleModal={toggleModal} />
       <table>
         <thead>
           <tr className={styles.headerRow}>
@@ -71,6 +85,14 @@ function Parts() {
           )}
         </tbody>
       </table>
+    </section>
+  );
+}
+
+function SearchFilterAdd({ toggleModal }) {
+  return (
+    <section>
+      <button onClick={toggleModal}>add +</button>
     </section>
   );
 }
