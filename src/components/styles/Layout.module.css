@@ -71,6 +71,15 @@
   border-radius: 60px;
 }
 
+.logoutBtn {
+  border: 3px black solid;
+  background-color: var(--main-bg-clr);
+  box-sizing: border-box;
+  padding: 0.5rem 0.8rem;
+  border-radius: 60px;
+  cursor: pointer;
+}
+
 .userName {
   grid-area: userName;
   font-family: "Roboto";

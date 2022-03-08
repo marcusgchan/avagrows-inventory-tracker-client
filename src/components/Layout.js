@@ -61,7 +61,7 @@ function Layout() {
           <button className={styles.infoButton} type="button">
             <img src={help} alt="?"></img>
           </button>
-          <button className={`${styles.btn}`} onClick={handleLogout}>
+          <button className={`${styles.logoutBtn}`} onClick={handleLogout}>
             Logout
           </button>
         </div>
