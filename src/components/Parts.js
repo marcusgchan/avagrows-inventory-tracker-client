@@ -61,9 +61,31 @@ const columns = [
 
 function Parts() {
   const [rows, setRows] = useState(rowsDummy);
+
   // Handle displaying and hiding add part modal
   const [showAddModal, setShowAddModal] = useState(false);
   const toggleAddModal = () => setShowAddModal((cur) => !cur);
+
+  // Handle filter
+  const categories = {
+    "Raw Materials": true,
+    "Work In Progress": true,
+    "Finished Goods": true,
+  };
+  const [locations, setLocation] = useState({ Office: true, FSS: true });
+  function handleLocation(e) {
+    setLocation((cur) => {
+      const updatedLocations = { ...cur };
+      cur[e.target.name] = e.target.checked;
+      return updatedLocations;
+    });
+  }
+  const [statuses, setStatuses] = useState({
+    Scrap: true,
+    Sellable: true,
+    "Plant Science": true,
+    "In-repair": true,
+  });
 
   // Handle displaying and hiding delete part modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
