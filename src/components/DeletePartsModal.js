@@ -6,14 +6,14 @@ function DeletePartsModal({ toggleModal }) {
     <section className={styles.container}>
       <h2>Delete</h2>
       <p>Are you sure you want to delete?</p>
-      <ol>
+      <ul>
         <li>Internal Part Number:</li>
         <li>Part Name:</li>
         <li>Part Category:</li>
         <li>Location:</li>
         <li>Status:</li>
         <li>Qty for Location and Status:</li>
-      </ol>
+      </ul>
       <br />
       <div className={styles.buttons}>
         <button id={styles.yesButton} onClick={toggleModal}>
