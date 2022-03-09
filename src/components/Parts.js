@@ -5,6 +5,7 @@ import trash from "../imgs/trash.svg";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
 import DeletePartsModal from "./DeletePartsModal";
+import FilterPartsModal from "./FilterPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 
 const rowsDummy = [
@@ -66,7 +67,11 @@ function Parts() {
   const [showAddModal, setShowAddModal] = useState(false);
   const toggleAddModal = () => setShowAddModal((cur) => !cur);
 
-  // Handle filter
+  // Handle displaying and hiding filter modal
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
+
+  // Handle filter attributes
   const categories = {
     "Raw Materials": true,
     "Work In Progress": true,
@@ -144,8 +149,21 @@ function Parts() {
           <DeletePartsModal toggleModal={toggleDeleteModal} />
         </ModalContainer>
       )}
+      {showFilterModal && (
+        <ModalContainer>
+          <FilterPartsModal
+            toggleModal={toggleFilterModal}
+            categories={categories}
+            locations={locations}
+            statuses={statuses}
+          />
+        </ModalContainer>
+      )}
       <h1 className={styles.mainHeading}>inventory</h1>
-      <SearchFilterAdd toggleAddModal={toggleAddModal} />
+      <SearchFilterAdd
+        toggleAddModal={toggleAddModal}
+        toggleFilterModal={toggleFilterModal}
+      />
       <table>
         <thead>
           <tr className={styles.headerRow}>

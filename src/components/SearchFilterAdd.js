@@ -1,6 +1,6 @@
 import styles from "./styles/SearchFilterAdd.module.css";
 
-function SearchFilterAdd({ toggleAddModal }) {
+function SearchFilterAdd({ toggleAddModal, toggleFilterModal }) {
   return (
     <section className={styles.container}>
       <div className={styles.searchContainer}>
@@ -12,9 +12,11 @@ function SearchFilterAdd({ toggleAddModal }) {
         <button className={styles.btn}>clear</button>
       </div>
       <div className={styles.btnContainer}>
-        <button className={styles.btn}>filter</button>
+        <button className={styles.btn} onClick={toggleFilterModal}>
+          Filter
+        </button>
         <button className={styles.btn} onClick={toggleAddModal}>
-          add +
+          Add +
         </button>
       </div>
     </section>
