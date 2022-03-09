@@ -1,0 +1,46 @@
+.dataRow {
+  height: 45px;
+  align-items: center;
+}
+
+.dataRow:nth-child(odd) {
+  background-color: var(--main-bg-clr);
+}
+
+.dataRow:nth-child(even) {
+  background-color: var(--main-bg-light-clr);
+}
+
+.headerRow {
+  height: 56px;
+  color: white;
+  background-color: rgba(10, 67, 47, 0.69);
+}
+
+.headerCell {
+  text-align: center;
+}
+
+.dataCell {
+  color: black;
+  width: 100px;
+
+  text-align: center;
+}
+
+.tableButton {
+  cursor: pointer;
+  border: none;
+}
+
+.dataRow:nth-child(odd) .tableButton {
+  background-color: var(--main-bg-clr);
+}
+
+.dataRow:nth-child(even) .tableButton {
+  background-color: var(--main-bg-light-clr);
+}
+
+.tableImg {
+  size: auto;
+}

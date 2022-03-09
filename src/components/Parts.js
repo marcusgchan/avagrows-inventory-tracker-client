@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styles from "./styles/Parts.module.css";
-import edit from "../imgs/edit.svg";
-import trash from "../imgs/trash.svg";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
 import DeletePartsModal from "./DeletePartsModal";
 import FilterPartsModal from "./FilterPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
+import Table from "./Table";
 
 const rowsDummy = [
   {
@@ -91,51 +90,11 @@ function Parts() {
     "Plant Science": true,
     "In-repair": true,
   });
+  function filterData(rows) {}
 
   // Handle displaying and hiding delete part modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const toggleDeleteModal = () => setShowDeleteModal((cur) => !cur);
-
-  function generateTableRows() {
-    return rows.map(
-      ({
-        id,
-        internal_part_number,
-        part_name,
-        part_category_name,
-        location_name,
-        status_name,
-        quantity,
-        date_time,
-        name,
-        total_quantity,
-      }) => (
-        <tr className={styles.dataRow} key={id}>
-          <td className={styles.dataCell}>{internal_part_number}</td>
-          <td className={styles.dataCell}>{part_name}</td>
-          <td className={styles.dataCell}>{part_category_name}</td>
-          <td className={styles.dataCell}>{location_name}</td>
-          <td className={styles.dataCell}>{status_name}</td>
-          <td className={styles.dataCell}>{quantity}</td>
-          <td className={styles.dataCell}>
-            <button type="button" className={styles.tableButton}>
-              <img src={edit} alt="" className={styles.tableImg}></img>
-            </button>
-            <button
-              type="button"
-              className={styles.tableButton}
-              onClick={toggleDeleteModal}
-            >
-              <img src={trash} alt="" className={styles.tableImg}></img>
-            </button>
-          </td>
-          <td className={styles.dataCell}>{date_time}</td>
-          <td className={styles.dataCell}>{name}</td>
-          <td className={styles.dataCell}>{total_quantity}</td>
-        </tr>
-      )
-    );
-  }
 
   return (
     <section className={styles.container}>
@@ -164,18 +123,11 @@ function Parts() {
         toggleAddModal={toggleAddModal}
         toggleFilterModal={toggleFilterModal}
       />
-      <table>
-        <thead>
-          <tr className={styles.headerRow}>
-            {columns.map(({ field, headerName }) => (
-              <th className={styles.headerCell} key={field}>
-                {headerName}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>{generateTableRows()}</tbody>
-      </table>
+      <Table
+        rows={rows}
+        columns={columns}
+        toggleDeleteModal={toggleDeleteModal}
+      />
     </section>
   );
 }
