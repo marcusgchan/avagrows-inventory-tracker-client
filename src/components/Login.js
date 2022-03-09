@@ -13,7 +13,6 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("test");
     userServices
       .login({ username, password })
       .then((res) => {

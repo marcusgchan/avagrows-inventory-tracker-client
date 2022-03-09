@@ -1,12 +1,16 @@
 .background {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   background-color: var(--main-bg-light-clr);
 }
 
 .loginSection,
 .introText {
-  position: relative;
-  top: 25%;
+  /* position: relative;
+  top: 25%; */
   margin: 0 auto;
 }
 
