@@ -25,6 +25,10 @@ main {
   height: 100%;
 }
 
+input {
+  text-transform: lowercase;
+}
+
 textarea {
   resize: none;
 }

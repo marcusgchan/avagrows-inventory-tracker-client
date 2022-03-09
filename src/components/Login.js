@@ -13,9 +13,11 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("test");
     userServices
       .login({ username, password })
       .then((res) => {
+        console.log("test2", res);
         setUser(res.data);
         navigate("/");
       })
