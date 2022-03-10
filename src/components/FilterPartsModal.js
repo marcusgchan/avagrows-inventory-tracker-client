@@ -7,7 +7,7 @@ function FilterPartsModal({ toggleModal, categories, locations, statuses }) {
       <h2>Category</h2>
       {Object.keys(categories).map((category) => {
         return (
-          <div className={styles.category}>
+          <div className={styles.category} key={category}>
             <label className={styles.checkBoxContainer}>
               {category}
               <input type="checkbox"></input>
@@ -19,7 +19,7 @@ function FilterPartsModal({ toggleModal, categories, locations, statuses }) {
       <h2>Location</h2>
       {Object.keys(locations).map((location) => {
         return (
-          <div className={styles.location}>
+          <div className={styles.location} key={location}>
             <label className={styles.checkBoxContainer}>
               {location}
               <input type="checkbox"></input>
@@ -31,7 +31,7 @@ function FilterPartsModal({ toggleModal, categories, locations, statuses }) {
       <h2>Status</h2>
       {Object.keys(statuses).map((statuses) => {
         return (
-          <div className={styles.status}>
+          <div className={styles.status} key={statuses}>
             <label className={styles.checkBoxContainer}>
               {statuses}
               <input type="checkbox"></input>
