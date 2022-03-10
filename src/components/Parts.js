@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer, useCallback, useMemo } from "react";
 import styles from "./styles/Parts.module.css";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
@@ -6,6 +6,7 @@ import DeletePartsModal from "./DeletePartsModal";
 import FilterPartsModal from "./FilterPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
+import { SELECT_OPTIONS, DEFAULT_SEARCH_PARAMS } from "../configs/searchConfig";
 
 const rowsDummy = [
   {
@@ -59,6 +60,39 @@ const columns = [
   { field: "total_quantity", headerName: "Total Qty" },
 ];
 
+function getSearchTypeOptions(payload) {
+  const payloadType = DEFAULT_SEARCH_PARAMS.find(
+    ({ value }) => payload === value
+  ).type;
+  if (payloadType !== "number" && payloadType !== "string")
+    throw TypeError("Type must be number or string");
+  return SELECT_OPTIONS[payloadType];
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "UPDATE_SEARCH_PARAMS":
+      return {
+        ...state,
+        searchParam: action.payload,
+        searchOption: "contains", // Default search option is contains
+        searchTypeOptions: getSearchTypeOptions(action.payload),
+      };
+    case "UPDATE_SEARCH_TYPES":
+      return {
+        ...state,
+        searchOption: action.payload,
+      };
+    case "UPDATE_SEARCH":
+      return {
+        ...state,
+        search: action.payload,
+      };
+    default:
+      throw new Error();
+  }
+}
+
 function Parts() {
   const [rows, setRows] = useState(rowsDummy);
 
@@ -69,6 +103,32 @@ function Parts() {
   // Handle displaying and hiding filter modal
   const [showFilterModal, setShowFilterModal] = useState(false);
   const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
+
+  const [searchState, dispatch] = useReducer(reducer, {
+    searchParam: "part name",
+    searchOption: "contains",
+    searchTypeOptions: getSearchTypeOptions("part name"),
+    search: "",
+  });
+
+  const containsFilter = useCallback(
+    (row) => {
+      return row[searchState.searchParam.replaceAll(" ", "_")]
+        .toString()
+        .toLowerCase()
+        .includes(searchState.search.toLowerCase());
+    },
+    [searchState.searchParam, searchState.search]
+  );
+
+  const filteredRowsMemo = useMemo(() => {
+    switch (searchState.searchOption) {
+      case "contains":
+        return rows.filter(containsFilter);
+      default:
+        throw new Error();
+    }
+  }, [searchState.searchOption, searchState.search, rows]);
 
   // Handle filter attributes
   const categories = {
@@ -122,9 +182,12 @@ function Parts() {
       <SearchFilterAdd
         toggleAddModal={toggleAddModal}
         toggleFilterModal={toggleFilterModal}
+        dispatch={dispatch}
+        searchState={searchState}
+        // handleSearch={handleSearch}
       />
       <Table
-        rows={rows}
+        rows={filteredRowsMemo}
         columns={columns}
         toggleDeleteModal={toggleDeleteModal}
       />
