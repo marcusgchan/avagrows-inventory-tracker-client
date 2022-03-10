@@ -67,13 +67,21 @@ function Layout() {
         </div>
       </header>
       <nav className={styles.navBar}>
-        <div className={styles.homeButton} type="button">
+        <div
+          className={styles.homeButton}
+          type="button"
+          onClick={() => navigate("/")}
+        >
           <img src={grid} alt="" className={styles.gridImg}></img>
           <p className={styles.dashboard}>
             Dashboard/<br></br>Home
           </p>
         </div>
-        <div className={styles.inventoryButton} type="button">
+        <div
+          className={styles.inventoryButton}
+          type="button"
+          onClick={() => navigate("/inventory")}
+        >
           <img src={box} alt="" className={styles.boxImg}></img>
           <p className={styles.inventory}>Inventory</p>
           <img src={arrowDown} alt="" className={styles.arrowImg}></img>

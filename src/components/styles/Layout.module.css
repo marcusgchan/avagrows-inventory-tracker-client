@@ -135,6 +135,7 @@
   grid-template-columns: 25% 75%;
   grid-template-rows: 30%;
   grid-template-areas: "logo text";
+  cursor: pointer;
 }
 .gridImg {
   grid-area: logo;
@@ -151,6 +152,7 @@
   grid-template-columns: 25% 50% 20%;
   grid-template-rows: 30%;
   grid-template-areas: "logo text img";
+  cursor: pointer;
 }
 .boxImg {
   grid-area: logo;
