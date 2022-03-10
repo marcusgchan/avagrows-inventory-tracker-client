@@ -70,3 +70,7 @@
   height: 6rem;
   min-width: 100%;
 }
+
+#hiddenOption {
+  display:none;
+}

@@ -3,7 +3,7 @@ import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import styles from "./styles/Table.module.css";
 
-function Table({ rows, columns, toggleDeleteModal }) {
+function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
   function generateTableRows() {
     return rows.map(
       ({
@@ -26,7 +26,11 @@ function Table({ rows, columns, toggleDeleteModal }) {
           <td className={styles.dataCell}>{status_name}</td>
           <td className={styles.dataCell}>{quantity}</td>
           <td className={styles.dataCell}>
-            <button type="button" className={styles.tableButton}>
+            <button
+              type="button"
+              className={styles.tableButton}
+              onClick={toggleEditModal}
+            >
               <img src={edit} alt="" className={styles.tableImg}></img>
             </button>
             <button

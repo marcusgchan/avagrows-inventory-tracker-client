@@ -4,6 +4,7 @@ import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
 import DeletePartsModal from "./DeletePartsModal";
 import FilterPartsModal from "./FilterPartsModal";
+import EditPartsModal from "./EditPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
 
@@ -96,6 +97,10 @@ function Parts() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const toggleDeleteModal = () => setShowDeleteModal((cur) => !cur);
 
+  // Handle displaying and hiding edit part modal
+  const [showEditModal, setShowEditModal] = useState(false);
+  const toggleEditModal = () => setShowEditModal((cur) => !cur);
+
   return (
     <section className={styles.container}>
       {showAddModal && (
@@ -118,6 +123,15 @@ function Parts() {
           />
         </ModalContainer>
       )}
+      {showEditModal && (
+        <ModalContainer>
+          <EditPartsModal
+            toggleModal={toggleEditModal}
+            locations={locations}
+            statuses={statuses}
+          />
+        </ModalContainer>
+      )}
       <h1 className={styles.mainHeading}>inventory</h1>
       <SearchFilterAdd
         toggleAddModal={toggleAddModal}
@@ -127,6 +141,7 @@ function Parts() {
         rows={rows}
         columns={columns}
         toggleDeleteModal={toggleDeleteModal}
+        toggleEditModal={toggleEditModal}
       />
     </section>
   );

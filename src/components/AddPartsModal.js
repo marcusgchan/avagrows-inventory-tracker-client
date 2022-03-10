@@ -30,6 +30,7 @@ function AddPartsModal({ toggleModal }) {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         >
+          <option hidden disabled selected value="" id={styles.hiddenOption}></option>
           <option value="office">Office</option>
           <option value="FSS">FSS</option>
           <option value="shipped">Shipped</option>
@@ -43,6 +44,7 @@ function AddPartsModal({ toggleModal }) {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
+          <option hidden disabled selected value="" id={styles.hiddenOption}></option>
           <option value="scrap">Scrap</option>
           <option value="sellable">Sellable</option>
           <option value="plantScience">Plant Science</option>
