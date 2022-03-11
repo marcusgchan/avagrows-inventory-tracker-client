@@ -1,3 +1,13 @@
+.tableContainer {
+  height: 100%;
+  max-height: max(65vh, 500px);
+  overflow-y: scroll;
+}
+
+.stickyHead {
+  position: sticky;
+  top: 0;
+}
 .dataRow {
   height: 45px;
   align-items: center;

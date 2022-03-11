@@ -7,7 +7,7 @@ function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
   function generateTableRows() {
     return rows.map(
       ({
-        id,
+        serial,
         internal_part_number,
         part_name,
         part_category_name,
@@ -18,7 +18,7 @@ function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
         name,
         total_quantity,
       }) => (
-        <tr className={styles.dataRow} key={id}>
+        <tr className={styles.dataRow} key={serial}>
           <td className={styles.dataCell}>{internal_part_number}</td>
           <td className={styles.dataCell}>{part_name}</td>
           <td className={styles.dataCell}>{part_category_name}</td>
@@ -49,18 +49,20 @@ function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
     );
   }
   return (
-    <table>
-      <thead>
-        <tr className={styles.headerRow}>
-          {columns.map(({ field, headerName }) => (
-            <td className={styles.headerCell} key={field}>
-              {headerName}
-            </td>
-          ))}
-        </tr>
-      </thead>
-      <tbody>{generateTableRows()}</tbody>
-    </table>
+    <section className={styles.tableContainer}>
+      <table>
+        <thead className={styles.stickyHead}>
+          <tr className={styles.headerRow}>
+            {columns.map(({ field, headerName }) => (
+              <td className={styles.headerCell} key={field}>
+                {headerName}
+              </td>
+            ))}
+          </tr>
+        </thead>
+        <tbody>{generateTableRows()}</tbody>
+      </table>
+    </section>
   );
 }
 

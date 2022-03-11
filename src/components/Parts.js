@@ -1,4 +1,4 @@
-import { useState, useReducer, useCallback, useMemo } from "react";
+import { useState, useReducer, useCallback, useMemo, useEffect } from "react";
 import styles from "./styles/Parts.module.css";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
@@ -7,46 +7,9 @@ import FilterPartsModal from "./FilterPartsModal";
 import EditPartsModal from "./EditPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
-import { SELECT_OPTIONS, DEFAULT_SEARCH_PARAMS } from "../configs/searchConfig";
-
-const rowsDummy = [
-  {
-    id: 1,
-    internal_part_number: "PSL00989",
-    part_name: "Pump Housing",
-    part_category_name: "WIP",
-    location_name: "FSS",
-    status_name: "Plant Science",
-    quantity: "1",
-    date_time: "03/04/22 4:00PM",
-    name: "",
-    total_quantity: "50",
-  },
-  {
-    id: 2,
-    internal_part_number: "PSL00988",
-    part_name: "Byte",
-    part_category_name: "Finished Good",
-    location_name: "Office",
-    status_name: "Shipped",
-    quantity: "1",
-    date_time: "12/04/21 3:00AM",
-    name: "Username",
-    total_quantity: "10",
-  },
-  {
-    id: 3,
-    internal_part_number: "PSL00989",
-    part_name: "bolt",
-    part_category_name: "Raw Material",
-    location_name: "Office",
-    status_name: "Scrap",
-    quantity: "2",
-    date_time: "03/04/22 4:00PM",
-    name: "Stella",
-    total_quantity: "5",
-  },
-];
+import searchReducer, { defaultState } from "../reducers/searchReducer";
+import partsServices from "../services/partsServices";
+import { searchParamToColumnName } from "../configs/searchConfig";
 
 const columns = [
   { field: "internal_part_number", headerName: "Internal Part Number" },
@@ -61,41 +24,8 @@ const columns = [
   { field: "total_quantity", headerName: "Total Qty" },
 ];
 
-function getSearchTypeOptions(payload) {
-  const payloadType = DEFAULT_SEARCH_PARAMS.find(
-    ({ value }) => payload === value
-  ).type;
-  if (payloadType !== "number" && payloadType !== "string")
-    throw TypeError("Type must be number or string");
-  return SELECT_OPTIONS[payloadType];
-}
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "UPDATE_SEARCH_PARAMS":
-      return {
-        ...state,
-        searchParam: action.payload,
-        searchOption: "contains", // Default search option is contains
-        searchTypeOptions: getSearchTypeOptions(action.payload),
-      };
-    case "UPDATE_SEARCH_TYPES":
-      return {
-        ...state,
-        searchOption: action.payload,
-      };
-    case "UPDATE_SEARCH":
-      return {
-        ...state,
-        search: action.payload,
-      };
-    default:
-      throw new Error();
-  }
-}
-
 function Parts() {
-  const [rows, setRows] = useState(rowsDummy);
+  const [rows, setRows] = useState([]);
 
   // Handle displaying and hiding add part modal
   const [showAddModal, setShowAddModal] = useState(false);
@@ -105,16 +35,18 @@ function Parts() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
 
-  const [searchState, dispatch] = useReducer(reducer, {
-    searchParam: "part name",
-    searchOption: "contains",
-    searchTypeOptions: getSearchTypeOptions("part name"),
-    search: "",
-  });
+  const [searchState, dispatch] = useReducer(searchReducer, defaultState);
+
+  useEffect(() => {
+    partsServices
+      .getParts()
+      .then((res) => setRows(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const containsFilter = useCallback(
     (row) => {
-      return row[searchState.searchParam.replaceAll(" ", "_")]
+      return row[searchParamToColumnName.get(searchState.searchParam)]
         .toString()
         .toLowerCase()
         .includes(searchState.search.toLowerCase());
@@ -129,7 +61,7 @@ function Parts() {
       default:
         throw new Error();
     }
-  }, [searchState.searchOption, searchState.search, rows]);
+  }, [searchState.searchOption, rows, containsFilter]);
 
   // Handle filter attributes
   const categories = {
@@ -198,7 +130,6 @@ function Parts() {
         toggleFilterModal={toggleFilterModal}
         dispatch={dispatch}
         searchState={searchState}
-        // handleSearch={handleSearch}
       />
       <Table
         rows={filteredRowsMemo}
