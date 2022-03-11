@@ -54,14 +54,56 @@ function Parts() {
     [searchState.searchParam, searchState.search]
   );
 
+  const lessFilter = useCallback(
+    (row) => {
+      return (
+        row[searchParamToColumnName.get(searchState.searchParam)] <
+        Number(searchState.search)
+      );
+    },
+    [searchState.searchParam, searchState.search]
+  );
+
+  const greaterFilter = useCallback(
+    (row) => {
+      return (
+        row[searchParamToColumnName.get(searchState.searchParam)] >
+        Number(searchState.search)
+      );
+    },
+    [searchState.searchParam, searchState.search]
+  );
+
   const filteredRowsMemo = useMemo(() => {
     switch (searchState.searchOption) {
       case "contains":
         return rows.filter(containsFilter);
+      case "<":
+        if (searchState.search === "") {
+          return rows;
+        }
+        if (!isNaN(Number(searchState.search))) {
+          return rows.filter(lessFilter);
+        }
+        return [];
+      case ">":
+        if (searchState.search === "") {
+          return rows;
+        }
+        if (!isNaN(Number(searchState.search))) {
+          return rows.filter(greaterFilter);
+        }
+        return [];
       default:
         throw new Error();
     }
-  }, [searchState.searchOption, rows, containsFilter]);
+  }, [
+    searchState.searchOption,
+    rows,
+    containsFilter,
+    greaterFilter,
+    lessFilter,
+  ]);
 
   // Handle filter attributes
   const categories = {

@@ -16,11 +16,9 @@ export function UserContextProvider({ children }) {
       userServices
         .getCurrentUser()
         .then((res) => {
-          console.log(res.data);
           setUser(res.data);
         })
         .catch((e) => {
-          console.log(e);
           setUser({});
         });
     }
