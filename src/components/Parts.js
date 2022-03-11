@@ -1,4 +1,4 @@
-import { useState, useReducer, useCallback, useMemo, useEffect } from "react";
+import { useState, useReducer, useEffect } from "react";
 import styles from "./styles/Parts.module.css";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
@@ -9,7 +9,7 @@ import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
 import partsServices from "../services/partsServices";
-import { searchParamToColumnName } from "../configs/searchConfig";
+import useSearch from "../custom-hooks/useSearch";
 
 const columns = [
   { field: "internal_part_number", headerName: "Internal Part Number" },
@@ -26,6 +26,8 @@ const columns = [
 
 function Parts() {
   const [rows, setRows] = useState([]);
+  const [searchState, dispatch] = useReducer(searchReducer, defaultState);
+  const filteredRowsMemo = useSearch(searchState, rows);
 
   // Handle displaying and hiding add part modal
   const [showAddModal, setShowAddModal] = useState(false);
@@ -35,75 +37,13 @@ function Parts() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
 
-  const [searchState, dispatch] = useReducer(searchReducer, defaultState);
-
+  // Fetch all parts
   useEffect(() => {
     partsServices
       .getParts()
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }, []);
-
-  const containsFilter = useCallback(
-    (row) => {
-      return row[searchParamToColumnName.get(searchState.searchParam)]
-        .toString()
-        .toLowerCase()
-        .includes(searchState.search.toLowerCase());
-    },
-    [searchState.searchParam, searchState.search]
-  );
-
-  const lessFilter = useCallback(
-    (row) => {
-      return (
-        row[searchParamToColumnName.get(searchState.searchParam)] <
-        Number(searchState.search)
-      );
-    },
-    [searchState.searchParam, searchState.search]
-  );
-
-  const greaterFilter = useCallback(
-    (row) => {
-      return (
-        row[searchParamToColumnName.get(searchState.searchParam)] >
-        Number(searchState.search)
-      );
-    },
-    [searchState.searchParam, searchState.search]
-  );
-
-  const filteredRowsMemo = useMemo(() => {
-    switch (searchState.searchOption) {
-      case "contains":
-        return rows.filter(containsFilter);
-      case "<":
-        if (searchState.search === "") {
-          return rows;
-        }
-        if (!isNaN(Number(searchState.search))) {
-          return rows.filter(lessFilter);
-        }
-        return [];
-      case ">":
-        if (searchState.search === "") {
-          return rows;
-        }
-        if (!isNaN(Number(searchState.search))) {
-          return rows.filter(greaterFilter);
-        }
-        return [];
-      default:
-        throw new Error();
-    }
-  }, [
-    searchState.searchOption,
-    rows,
-    containsFilter,
-    greaterFilter,
-    lessFilter,
-  ]);
 
   // Handle filter attributes
   const categories = {
