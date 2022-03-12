@@ -11,19 +11,6 @@ import searchReducer, { defaultState } from "../reducers/searchReducer";
 import partsServices from "../services/partsServices";
 import useSearch from "../custom-hooks/useSearch";
 
-const columns = [
-  { field: "internal_part_number", headerName: "Internal Part Number" },
-  { field: "part_name", headerName: "Name" },
-  { field: "part_category_name", headerName: "Category" },
-  { field: "location_name", headerName: "Location" },
-  { field: "status_name", headerName: "Status" },
-  { field: "quantity", headerName: "Qty for location + status" },
-  { field: "actions", headerName: "Actions" },
-  { field: "date_time", headerName: "Last Edited At" },
-  { field: "name", headerName: "Last Edited By" },
-  { field: "total_quantity", headerName: "Total Qty" },
-];
-
 function Parts() {
   const [rows, setRows] = useState([]);
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
@@ -115,7 +102,6 @@ function Parts() {
       />
       <Table
         rows={filteredRowsMemo}
-        columns={columns}
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
       />

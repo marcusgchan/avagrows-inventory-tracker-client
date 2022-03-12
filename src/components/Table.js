@@ -3,7 +3,7 @@ import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import styles from "./styles/Table.module.css";
 
-function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
+function Table({ rows, toggleDeleteModal, toggleEditModal }) {
   function generateTableRows() {
     return rows.map(
       ({
@@ -41,8 +41,8 @@ function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
               <img src={trash} alt="" className={styles.tableImg}></img>
             </button>
           </td>
-          <td className={styles.dataCell}>{date_time}</td>
-          <td className={styles.dataCell}>{name}</td>
+          {/* <td className={styles.dataCell}>{date_time}</td>
+          <td className={styles.dataCell}>{name}</td> */}
           <td className={styles.dataCell}>{total_quantity}</td>
         </tr>
       )
@@ -53,11 +53,12 @@ function Table({ rows, columns, toggleDeleteModal, toggleEditModal }) {
       <table>
         <thead className={styles.stickyHead}>
           <tr className={styles.headerRow}>
-            {columns.map(({ field, headerName }) => (
-              <td className={styles.headerCell} key={field}>
-                {headerName}
-              </td>
-            ))}
+            {rows[0] &&
+              Object.keys(rows[0]).map((headerName) => (
+                <td className={styles.headerCell} key={headerName}>
+                  {headerName}
+                </td>
+              ))}
           </tr>
         </thead>
         <tbody>{generateTableRows()}</tbody>
