@@ -1,40 +1,62 @@
 import styles from "./styles/FilterPartsModal.module.css";
 
-function FilterPartsModal({ toggleModal, categories, locations, statuses }) {
+function FilterPartsModal({
+  toggleModal,
+  categories,
+  locations,
+  statuses,
+  handleFilter,
+}) {
   return (
     <section className={styles.container}>
       <div className={styles.close} onClick={toggleModal}></div>
       <h2>Category</h2>
-      {Object.keys(categories).map((category) => {
+      {categories.map(({ part_category_name, isChecked }) => {
         return (
-          <div className={styles.category} key={category}>
+          <div className={styles.category} key={part_category_name}>
             <label className={styles.checkBoxContainer}>
-              {category}
-              <input type="checkbox"></input>
+              {part_category_name}
+              <input
+                type="checkbox"
+                checked={isChecked}
+                name={part_category_name}
+                onChange={(e) => handleFilter(e, "part_category_name")}
+              ></input>
               <span className={styles.checkMark}></span>
             </label>
           </div>
         );
       })}
       <h2>Location</h2>
-      {Object.keys(locations).map((location) => {
+      {locations.map(({ location_id, location_name, isChecked }) => {
         return (
-          <div className={styles.location} key={location}>
+          <div className={styles.location} key={location_id}>
             <label className={styles.checkBoxContainer}>
-              {location}
-              <input type="checkbox"></input>
+              {location_name}
+              <input
+                type="checkbox"
+                checked={isChecked}
+                id={location_id}
+                name={location_name}
+                onChange={(e) => handleFilter(e, "location_name")}
+              ></input>
               <span className={styles.checkMark}></span>
             </label>
           </div>
         );
       })}
       <h2>Status</h2>
-      {Object.keys(statuses).map((statuses) => {
+      {statuses.map(({ status_name, status_id, isChecked }) => {
         return (
-          <div className={styles.status} key={statuses}>
+          <div className={styles.status} key={status_id}>
             <label className={styles.checkBoxContainer}>
-              {statuses}
-              <input type="checkbox"></input>
+              {status_name}
+              <input
+                type="checkbox"
+                checked={isChecked}
+                name={status_name}
+                onChange={(e) => handleFilter(e, "status_name")}
+              ></input>
               <span className={styles.checkMark}></span>
             </label>
           </div>

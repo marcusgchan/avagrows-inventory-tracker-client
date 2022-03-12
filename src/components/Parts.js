@@ -10,11 +10,29 @@ import Table from "./Table";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
 import partsServices from "../services/partsServices";
 import useSearch from "../custom-hooks/useSearch";
+import usePartFilter from "../custom-hooks/usePartFilter";
+import useFilterHandler from "../custom-hooks/useFilterHandler";
 
 function Parts() {
   const [rows, setRows] = useState([]);
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
-  const filteredRowsMemo = useSearch(searchState, rows);
+  const [categories, setCategories] = usePartFilter(
+    partsServices.getCategories
+  );
+  const [statuses, setStatuses] = usePartFilter(partsServices.getStatuses);
+  const [locations, setLocations] = usePartFilter(partsServices.getLocations);
+  const handleFilter = useFilterHandler(
+    setCategories,
+    setStatuses,
+    setLocations
+  );
+  const filteredRowsMemo = useSearch(
+    searchState,
+    rows,
+    categories,
+    locations,
+    statuses
+  );
 
   // Handle displaying and hiding add part modal
   const [showAddModal, setShowAddModal] = useState(false);
@@ -24,36 +42,6 @@ function Parts() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
 
-  // Fetch all parts
-  useEffect(() => {
-    partsServices
-      .getParts()
-      .then((res) => setRows(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  // Handle filter attributes
-  const categories = {
-    "Raw Materials": true,
-    "Work In Progress": true,
-    "Finished Goods": true,
-  };
-  const [locations, setLocation] = useState({ Office: true, FSS: true });
-  function handleLocation(e) {
-    setLocation((cur) => {
-      const updatedLocations = { ...cur };
-      cur[e.target.name] = e.target.checked;
-      return updatedLocations;
-    });
-  }
-  const [statuses, setStatuses] = useState({
-    Scrap: true,
-    Sellable: true,
-    "Plant Science": true,
-    "In-repair": true,
-  });
-  function filterData(rows) {}
-
   // Handle displaying and hiding delete part modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const toggleDeleteModal = () => setShowDeleteModal((cur) => !cur);
@@ -61,6 +49,14 @@ function Parts() {
   // Handle displaying and hiding edit part modal
   const [showEditModal, setShowEditModal] = useState(false);
   const toggleEditModal = () => setShowEditModal((cur) => !cur);
+
+  // Fetch all parts
+  useEffect(() => {
+    partsServices
+      .getParts()
+      .then((res) => setRows(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <section className={styles.container}>
@@ -80,6 +76,7 @@ function Parts() {
             toggleModal={toggleFilterModal}
             categories={categories}
             locations={locations}
+            handleFilter={handleFilter}
             statuses={statuses}
           />
         </ModalContainer>

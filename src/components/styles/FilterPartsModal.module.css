@@ -70,10 +70,10 @@
   left: 0;
   height: 18px;
   width: 18px;
-  background-color: var(--logo-bg-clr);
+  background-color: var(--unchecked-clr);
 }
 .checkBoxContainer input:checked ~ .checkMark {
-  background-color: var(--checked-clr);
+  background-color: var(--logo-bg-clr);
 }
 .buttons {
   align-self: center;
