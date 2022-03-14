@@ -1,10 +1,10 @@
-import React from "react";
+import { useState, useMemo, useEffect } from "react";
 import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import styles from "./styles/Table.module.css";
 
 function Table({ rows, toggleDeleteModal, toggleEditModal }) {
-  function generateTableRows() {
+  function generateTableRows(rows) {
     return rows.map(
       ({
         serial,
@@ -48,6 +48,53 @@ function Table({ rows, toggleDeleteModal, toggleEditModal }) {
       )
     );
   }
+  // default sorted head and acending or not
+  const [sortedColumn, setSortedColumn] = useState({
+    activeColumn: rows[0] ? Object.keys(rows[0])[0] : "",
+    isAcending: true,
+  });
+
+  useEffect(() => {
+    setSortedColumn({
+      activeColumn: rows[0] ? Object.keys(rows[0])[0] : "",
+      isAcending: true,
+    });
+  }, [rows]);
+
+  const sortedRows = useMemo(() => {
+    const sortedArray = rows
+      .map((ele) => ({ ...ele }))
+      .sort((a, b) => {
+        const toggledColumnName = sortedColumn.activeColumn;
+        const [aVal, bVal] = [a[toggledColumnName], b[toggledColumnName]];
+        if (typeof aVal === "number") {
+          return sortedColumn.isAcending ? aVal - bVal : -(aVal - bVal);
+        } else {
+          if (aVal < bVal) {
+            return sortedColumn.isAcending ? -1 : 1;
+          } else if (aVal > bVal) {
+            return sortedColumn.isAcending ? 1 : -1;
+          } else {
+            return 0;
+          }
+        }
+      });
+    return sortedArray;
+  }, [rows, sortedColumn.activeColumn, sortedColumn.isAcending]);
+
+  function handleColumnSorting(columnName) {
+    if (columnName !== sortedColumn.activeColumn) {
+      setSortedColumn({
+        activeColumn: columnName,
+        isAcending: true,
+      });
+    } else {
+      setSortedColumn({
+        ...sortedColumn,
+        isAcending: !sortedColumn.isAcending,
+      });
+    }
+  }
   return (
     <section className={styles.tableContainer}>
       <table>
@@ -55,13 +102,17 @@ function Table({ rows, toggleDeleteModal, toggleEditModal }) {
           <tr className={styles.headerRow}>
             {rows[0] &&
               Object.keys(rows[0]).map((headerName) => (
-                <td className={styles.headerCell} key={headerName}>
-                  {headerName}
+                <td
+                  className={styles.headerCell}
+                  key={headerName}
+                  onClick={() => handleColumnSorting(headerName)}
+                >
+                  {headerName.replaceAll("_", " ")}
                 </td>
               ))}
           </tr>
         </thead>
-        <tbody>{generateTableRows()}</tbody>
+        <tbody>{generateTableRows(sortedRows)}</tbody>
       </table>
     </section>
   );
