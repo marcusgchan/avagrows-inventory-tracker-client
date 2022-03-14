@@ -12,6 +12,7 @@ import partsServices from "../services/partsServices";
 import useSearch from "../custom-hooks/useSearch";
 import usePartFilter from "../custom-hooks/usePartFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
+import useModalToggle from "../custom-hooks/useModalToggle";
 
 function Parts() {
   const [rows, setRows] = useState([]);
@@ -34,21 +35,11 @@ function Parts() {
     statuses
   );
 
-  // Handle displaying and hiding add part modal
-  const [showAddModal, setShowAddModal] = useState(false);
-  const toggleAddModal = () => setShowAddModal((cur) => !cur);
-
-  // Handle displaying and hiding filter modal
-  const [showFilterModal, setShowFilterModal] = useState(false);
-  const toggleFilterModal = () => setShowFilterModal((cur) => !cur);
-
-  // Handle displaying and hiding delete part modal
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const toggleDeleteModal = () => setShowDeleteModal((cur) => !cur);
-
-  // Handle displaying and hiding edit part modal
-  const [showEditModal, setShowEditModal] = useState(false);
-  const toggleEditModal = () => setShowEditModal((cur) => !cur);
+  // Handle displaying and hiding modals
+  const [showAddModal, toggleAddModal] = useModalToggle();
+  const [showFilterModal, toggleFilterModal] = useModalToggle();
+  const [showDeleteModal, toggleDeleteModal] = useModalToggle();
+  const [showEditModal, toggleEditModal] = useModalToggle();
 
   // Fetch all parts
   useEffect(() => {

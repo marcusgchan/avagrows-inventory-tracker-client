@@ -7,6 +7,7 @@ import Error from "./Error";
 import Contacts from "./Contacts";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
+import TableManagement from "./TableManagement";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="inventory" element={<Parts />} />
+        <Route path="table-management" element={<TableManagement />} />
         {/* <Route path="inventory/category" element={<Category />} /> */}
         <Route path="suppliers/contacts" element={<Contacts />} />
         <Route path="*" element={<Error />} />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
+import XButton from "./XButton";
 
 function AddPartsModal({ toggleModal }) {
   const [partNumber, setPartNumber] = useState("");
@@ -9,7 +10,7 @@ function AddPartsModal({ toggleModal }) {
   const [note, setNote] = useState("");
   return (
     <form className={styles.container}>
-      <div className={styles.close} onClick={toggleModal}></div>
+      <XButton onClick={toggleModal} />
       <h2> Add New Entry</h2>
       <div className={styles.partNumber}>
         <label htmlFor="partNumber">Internal Part Number: </label>
@@ -30,7 +31,13 @@ function AddPartsModal({ toggleModal }) {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         >
-          <option hidden disabled selected value="" id={styles.hiddenOption}></option>
+          <option
+            hidden
+            disabled
+            selected
+            value=""
+            id={styles.hiddenOption}
+          ></option>
           <option value="office">Office</option>
           <option value="FSS">FSS</option>
           <option value="shipped">Shipped</option>
@@ -44,7 +51,13 @@ function AddPartsModal({ toggleModal }) {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
-          <option hidden disabled selected value="" id={styles.hiddenOption}></option>
+          <option
+            hidden
+            disabled
+            selected
+            value=""
+            id={styles.hiddenOption}
+          ></option>
           <option value="scrap">Scrap</option>
           <option value="sellable">Sellable</option>
           <option value="plantScience">Plant Science</option>

@@ -51,7 +51,7 @@ function SearchFilterAdd({
           Filter
         </button>
         <button className={styles.btn} onClick={toggleAddModal}>
-          Add +
+          + Add
         </button>
       </div>
     </section>
