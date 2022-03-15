@@ -41,10 +41,12 @@ function SearchFilterAdd({
             dispatch({ type: "UPDATE_SEARCH", payload: e.target.value })
           }
         />
-        {/* <button className={styles.btn} onClick={handleSearch}>
-          search
-        </button> */}
-        <button className={styles.btn}>clear</button>
+        <button
+          className={styles.btn}
+          onClick={() => dispatch({ type: "CLEAR_SEARCH" })}
+        >
+          clear
+        </button>
       </div>
       <div className={styles.btnContainer}>
         <button className={styles.btn} onClick={toggleFilterModal}>
