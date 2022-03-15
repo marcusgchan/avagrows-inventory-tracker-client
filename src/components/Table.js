@@ -2,8 +2,15 @@ import { useState, useMemo, useEffect } from "react";
 import edit from "../imgs/edit.svg";
 import trash from "../imgs/trash.svg";
 import styles from "./styles/Table.module.css";
+import upDownArrow from "../imgs/up-down-arrow.svg";
+import upArrow from "../imgs/up-arrow.svg";
 
-function Table({ rows, toggleDeleteModal, toggleEditModal }) {
+function Table({
+  rows,
+  defaultSortedHeading,
+  toggleDeleteModal,
+  toggleEditModal,
+}) {
   function generateTableRows(rows) {
     return rows.map(
       ({
@@ -56,10 +63,10 @@ function Table({ rows, toggleDeleteModal, toggleEditModal }) {
 
   useEffect(() => {
     setSortedColumn({
-      activeColumn: rows[0] ? Object.keys(rows[0])[0] : "",
+      activeColumn: defaultSortedHeading,
       isAcending: true,
     });
-  }, [rows]);
+  }, [defaultSortedHeading]);
 
   const sortedRows = useMemo(() => {
     const sortedArray = rows
@@ -102,13 +109,29 @@ function Table({ rows, toggleDeleteModal, toggleEditModal }) {
           <tr className={styles.headerRow}>
             {rows[0] &&
               Object.keys(rows[0]).map((headerName) => (
-                <td
+                <th
                   className={styles.headerCell}
                   key={headerName}
                   onClick={() => handleColumnSorting(headerName)}
                 >
-                  {headerName.replaceAll("_", " ")}
-                </td>
+                  <div className={styles.headerFlex}>
+                    <span>{headerName.replaceAll("_", " ")}</span>
+                    <img
+                      src={
+                        sortedColumn.activeColumn === headerName
+                          ? upArrow
+                          : upDownArrow
+                      }
+                      alt=""
+                      className={`${styles.arrow} ${
+                        !sortedColumn.isAcending &&
+                        sortedColumn.activeColumn === headerName
+                          ? styles.rotate
+                          : ""
+                      }`}
+                    />
+                  </div>
+                </th>
               ))}
           </tr>
         </thead>

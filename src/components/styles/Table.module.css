@@ -28,13 +28,14 @@
 }
 
 .headerCell {
+  cursor: pointer;
   text-align: center;
+  font-size: 0.8rem;
 }
 
 .dataCell {
   color: black;
   width: 100px;
-
   text-align: center;
 }
 
@@ -53,4 +54,28 @@
 
 .tableImg {
   size: auto;
+}
+
+.arrow {
+  height: 1rem;
+  width: auto;
+  transition: transform 250ms;
+}
+
+.headerFlex {
+  margin: auto;
+  display: flex;
+  gap: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Toggled styles */
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.activeArrow {
 }

@@ -90,6 +90,7 @@ function Parts() {
       />
       <Table
         rows={filteredRowsMemo}
+        defaultSortedHeading="internal_part_number"
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
       />
