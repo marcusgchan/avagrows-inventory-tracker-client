@@ -2,13 +2,13 @@ import { render } from "@testing-library/react";
 import { useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 
-function ChangeQtyMenu({ toggleModal }) {
+function ChangeQtyMenu({ toggleModal, row }) {
   const [qty, setQty] = useState(0);
   return (
     <section>
       <ul>
-        <li>Location:</li>
-        <li>Status:</li>
+        <li>Location: {row.location_name}</li>
+        <li>Status: {row.status_name}</li>
       </ul>
       <label>
         Qty for Location and Status:
@@ -32,7 +32,7 @@ function ChangeQtyMenu({ toggleModal }) {
   );
 }
 
-function ConvertMenu({ toggleModal }) {
+function ConvertMenu({ toggleModal, row }) {
   const [qty, setQty] = useState(0);
   return (
     <section>
@@ -41,16 +41,16 @@ function ConvertMenu({ toggleModal }) {
   );
 }
 
-function MoveLocationMenu({ toggleModal, locations, statuses }) {
+function MoveLocationMenu({ toggleModal, locations, statuses, row }) {
   const [qty, setQty] = useState(0);
   return (
     <section>
       <br></br>
       FROM:
       <ul>
-        <li>Location:</li>
-        <li>Status:</li>
-        <li>Current Qty for Location and Status:</li>
+        <li>Location: {row.location_name}</li>
+        <li>Status: {row.status_name}</li>
+        <li>Qty for Location and Status: {row.quantity}</li>
       </ul>
       <br></br>
       <div className={styles.moveChange}>
@@ -85,7 +85,7 @@ function MoveLocationMenu({ toggleModal, locations, statuses }) {
       </div>
       <br></br>
       <ul>
-        <li>Old Qty for Location and Status:</li>
+        <li>Old Qty for Location and Status: {row.quantity}</li>
         <li>New Qty for Location and Status:</li>
       </ul>
       <br></br>
@@ -120,17 +120,19 @@ function ShowNext({
   toggleModal,
   locations,
   statuses,
+  row,
 }) {
   if (showChangeQtyMenu) {
-    return <ChangeQtyMenu toggleModal={toggleModal} />;
+    return <ChangeQtyMenu toggleModal={toggleModal} row={row} />;
   } else if (showConvertMenu) {
-    return <ConvertMenu toggleModal={toggleModal} />;
+    return <ConvertMenu toggleModal={toggleModal} row={row} />;
   } else if (showMoveLocationMenu) {
     return (
       <MoveLocationMenu
         toggleModal={toggleModal}
         locations={locations}
         statuses={statuses}
+        row={row}
       />
     );
   }
@@ -146,7 +148,7 @@ function validateNextMenu({ change, setShowMainMenu }) {
   return null;
 }
 
-function EditPartsModal({ toggleModal, locations, statuses }) {
+function EditPartsModal({ toggleModal, locations, statuses, row }) {
   const [change, setChange] = useState("");
 
   //uses states for managing when to show components of the editPartsModal
@@ -160,16 +162,16 @@ function EditPartsModal({ toggleModal, locations, statuses }) {
       <div className={styles.close} onClick={toggleModal}></div>
       <h2>Edit</h2>
       <ul>
-        <li>Internal Part Number:</li>
-        <li>Part Name:</li>
-        <li>Part Category:</li>
+        <li>Internal Part Number: {row.internal_part_number}</li>
+        <li>Part Name: {row.part_name}</li>
+        <li>Part Category: {row.part_category_name}</li>
       </ul>
       {showMainMenu ? (
         <section className={styles.hiddenMenu}>
           <ul>
-            <li>Location:</li>
-            <li>Status:</li>
-            <li>Qty for Location and Status:</li>
+            <li>Location: {row.location_name}</li>
+            <li>Status: {row.status_name}</li>
+            <li>Qty for Location and Status: {row.quantity}</li>
           </ul>
           <br></br>
           <div className={styles.select}>
@@ -218,6 +220,7 @@ function EditPartsModal({ toggleModal, locations, statuses }) {
           toggleModal={toggleModal}
           locations={locations}
           statuses={statuses}
+          row={row}
         />
       )}
     </section>

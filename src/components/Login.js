@@ -27,7 +27,7 @@ function Login() {
     <section className={styles.background}>
       <section className={styles.introText}>
         <h1>Login to the Avagrows Inventory Tracker</h1>
-        <img src={logo} className={styles.logo}></img>
+        <img src={logo} alt="" className={styles.logo}></img>
       </section>
       <section className={styles.loginSection}>
         <form onSubmit={handleSubmit}>

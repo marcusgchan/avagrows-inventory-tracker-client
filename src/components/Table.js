@@ -10,6 +10,8 @@ function Table({
   defaultSortedHeading,
   toggleDeleteModal,
   toggleEditModal,
+  selectRow,
+  setRow,
 }) {
   function generateTableRows(rows) {
     return rows.map(
@@ -36,14 +38,20 @@ function Table({
             <button
               type="button"
               className={styles.tableButton}
-              onClick={toggleEditModal}
+              onClick={() => {
+                selectRow(serial, setRow);
+                toggleEditModal();
+              }}
             >
               <img src={edit} alt="" className={styles.tableImg}></img>
             </button>
             <button
               type="button"
               className={styles.tableButton}
-              onClick={toggleDeleteModal}
+              onClick={() => {
+                selectRow(serial, setRow);
+                toggleDeleteModal();
+              }}
             >
               <img src={trash} alt="" className={styles.tableImg}></img>
             </button>

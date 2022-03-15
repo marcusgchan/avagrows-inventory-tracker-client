@@ -15,7 +15,12 @@ import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
 
 function Parts() {
+  function selectRow(serial, setRow) {
+    setRow(rows.find((element) => element.serial === serial));
+  }
+
   const [rows, setRows] = useState([]);
+  const [row, setRow] = useState({});
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
   const [categories, setCategories] = usePartFilter(
     partsServices.getCategories
@@ -58,7 +63,7 @@ function Parts() {
       )}
       {showDeleteModal && (
         <ModalContainer>
-          <DeletePartsModal toggleModal={toggleDeleteModal} />
+          <DeletePartsModal toggleModal={toggleDeleteModal} row={row} />
         </ModalContainer>
       )}
       {showFilterModal && (
@@ -78,6 +83,7 @@ function Parts() {
             toggleModal={toggleEditModal}
             locations={locations}
             statuses={statuses}
+            row={row}
           />
         </ModalContainer>
       )}
@@ -93,6 +99,8 @@ function Parts() {
         defaultSortedHeading="internal_part_number"
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
+        selectRow={selectRow}
+        setRow={setRow}
       />
     </section>
   );
