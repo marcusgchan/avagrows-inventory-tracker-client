@@ -11,6 +11,7 @@ export default function useLogin() {
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState({});
   const location = useLocation();
+
   useEffect(() => {
     if (location.pathname !== "/login") {
       userServices
