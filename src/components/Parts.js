@@ -15,6 +15,7 @@ import useCategoryFilter from "../custom-hooks/useCategoryFilter";
 import useStatusFilter from "../custom-hooks/useStatusFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
+import { partsTableHeadings } from "../configs/tableHeadingsConfig";
 
 function Parts() {
   function selectRow(serial) {
@@ -142,6 +143,7 @@ function Parts() {
         searchState={searchState}
       />
       <Table
+        headings={partsTableHeadings}
         rows={filteredRowsMemo}
         defaultSortedHeading="internal_part_number"
         toggleDeleteModal={toggleDeleteModal}
