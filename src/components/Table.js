@@ -6,6 +6,7 @@ import upDownArrow from "../imgs/up-down-arrow.svg";
 import upArrow from "../imgs/up-arrow.svg";
 
 function Table({
+  headings,
   rows,
   defaultSortedHeading,
   toggleDeleteModal,
@@ -82,6 +83,7 @@ function Table({
       .sort((a, b) => {
         const toggledColumnName = sortedColumn.activeColumn;
         const [aVal, bVal] = [a[toggledColumnName], b[toggledColumnName]];
+
         if (typeof aVal === "number") {
           return sortedColumn.isAcending ? aVal - bVal : -(aVal - bVal);
         } else {
@@ -115,32 +117,35 @@ function Table({
       <table>
         <thead className={styles.stickyHead}>
           <tr className={styles.headerRow}>
-            {rows[0] &&
-              Object.keys(rows[0]).map((headerName) => (
-                <th
-                  className={styles.headerCell}
-                  key={headerName}
-                  onClick={() => handleColumnSorting(headerName)}
-                >
-                  <div className={styles.headerFlex}>
-                    <span>{headerName.replaceAll("_", " ")}</span>
+            {headings.map(({ name, filterable }) => (
+              <th
+                className={styles.headerCell}
+                key={name}
+                onClick={
+                  filterable ? () => handleColumnSorting(name) : undefined
+                }
+              >
+                <div className={styles.headerFlex}>
+                  <span>{name.replaceAll("_", " ")}</span>
+                  {filterable && (
                     <img
                       src={
-                        sortedColumn.activeColumn === headerName
+                        sortedColumn.activeColumn === name
                           ? upArrow
                           : upDownArrow
                       }
                       alt=""
                       className={`${styles.arrow} ${
                         !sortedColumn.isAcending &&
-                        sortedColumn.activeColumn === headerName
+                        sortedColumn.activeColumn === name
                           ? styles.rotate
                           : ""
                       }`}
                     />
-                  </div>
-                </th>
-              ))}
+                  )}
+                </div>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>{generateTableRows(sortedRows)}</tbody>
