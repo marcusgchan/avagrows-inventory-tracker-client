@@ -22,15 +22,15 @@ function Parts() {
     // gets the row object that has the serial
     setRow(rows.find((element) => element.serial === serial));
   }
-  
+
   function deleteRow(row, setRows) {
     // gets the ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
     );
-    console.log(locationId);
+
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
-    console.log(statusId);
+
     // updates the database
     partsServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
@@ -51,10 +51,6 @@ function Parts() {
 
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
 
-  // const [categories, setCategories] = usePartFilter(
-  //   partsServices.getCategories, lookUpTableRef
-  // );
-  // const [statuses, setStatuses] = usePartFilter(partsServices.getStatuses, lookUpTableRef);
   const [locations, setLocations] = useLocationFilter(lookUpTableRef);
   const [categories, setCategories] = useCategoryFilter(lookUpTableRef);
   const [statuses, setStatuses] = useStatusFilter(lookUpTableRef);
