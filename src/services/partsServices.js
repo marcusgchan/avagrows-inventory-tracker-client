@@ -15,6 +15,9 @@ const partsServices = {
   getCategories() {
     return axios.get(BASE_URL + "/categories");
   },
+  deletePart(row) {
+    return axios.post(BASE_URL + "/delete", row);
+  },
 };
 
 export default partsServices;
