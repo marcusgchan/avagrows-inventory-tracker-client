@@ -37,16 +37,16 @@ function Parts() {
       .then()
       .catch((err) => console.log(err));
   }
-  // function changeQuantity(row, newStatus, newLocation) {
+  // function changeQuantity(row, newStatusName, newLocationName) {
   //   // gets the ids
   //   const locationId = lookUpTableRef.current.locationTable.get(
-  //     row.location_name
+  //     newLocationName
   //   );
-  //   const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+  //   const statusId = lookUpTableRef.current.statusTable.get(newStatusName));
   // }
-  // function moveLocation(newStatus, newLocation) {
-  //   const newLocationId = lookUpTableRef.current.locationTable.get(newLocation);
-  //   const newStatusId = lookUpTableRef.current.statusTable.get(newStatus);
+  // function moveLocation(newStatusName, newLocationName) {
+  //   const newLocationId = lookUpTableRef.current.locationTable.get(newLocationName);
+  //   const newStatusId = lookUpTableRef.current.statusTable.get(newStatusName);
   // }
   // function addRow() {}
 
