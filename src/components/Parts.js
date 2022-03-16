@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer, useEffect, useRef } from "react";
 import styles from "./styles/Parts.module.css";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
@@ -10,23 +10,53 @@ import Table from "./Table";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
 import partsServices from "../services/partsServices";
 import useSearch from "../custom-hooks/useSearch";
-import usePartFilter from "../custom-hooks/usePartFilter";
+import useLocationFilter from "../custom-hooks/useLocationFilter";
+import useCategoryFilter from "../custom-hooks/useCategoryFilter";
+import useStatusFilter from "../custom-hooks/useStatusFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
 
 function Parts() {
-  function selectRow(serial, setRow) {
+  function selectRow(serial) {
+    // gets the row object that has the serial
     setRow(rows.find((element) => element.serial === serial));
   }
+  
+  function deleteRow(row, setRows) {
+    // gets the ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    console.log(locationId);
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+    console.log(statusId);
+    // updates the database
+    partsServices
+      .deletePart({ ...row, location_id: locationId, status_id: statusId })
+      .then()
+      .catch((err) => console.log(err));
+  }
+  // function editRow() {}
+  // function addRow() {}
 
   const [rows, setRows] = useState([]);
   const [row, setRow] = useState({});
+
+  const lookUpTableRef = useRef({
+    locationTable: new Map(),
+    categoryTable: new Map(),
+    statusTable: new Map(),
+  });
+
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
-  const [categories, setCategories] = usePartFilter(
-    partsServices.getCategories
-  );
-  const [statuses, setStatuses] = usePartFilter(partsServices.getStatuses);
-  const [locations, setLocations] = usePartFilter(partsServices.getLocations);
+
+  // const [categories, setCategories] = usePartFilter(
+  //   partsServices.getCategories, lookUpTableRef
+  // );
+  // const [statuses, setStatuses] = usePartFilter(partsServices.getStatuses, lookUpTableRef);
+  const [locations, setLocations] = useLocationFilter(lookUpTableRef);
+  const [categories, setCategories] = useCategoryFilter(lookUpTableRef);
+  const [statuses, setStatuses] = useStatusFilter(lookUpTableRef);
   const { handleFilter, resetFilters } = useFilterHandler(
     setCategories,
     setStatuses,
@@ -48,11 +78,18 @@ function Parts() {
 
   // Fetch all parts
   useEffect(() => {
-    partsServices
-      .getParts()
-      .then((res) => setRows(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+    if (
+      showAddModal === false &&
+      showFilterModal === false &&
+      showDeleteModal === false &&
+      showEditModal === false
+    ) {
+      partsServices
+        .getParts()
+        .then((res) => setRows(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
 
   return (
     <section className={styles.container}>
@@ -67,7 +104,12 @@ function Parts() {
       )}
       {showDeleteModal && (
         <ModalContainer>
-          <DeletePartsModal toggleModal={toggleDeleteModal} row={row} />
+          <DeletePartsModal
+            toggleModal={toggleDeleteModal}
+            row={row}
+            setRows={setRows}
+            deleteRow={deleteRow}
+          />
         </ModalContainer>
       )}
       {showFilterModal && (

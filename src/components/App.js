@@ -14,7 +14,7 @@ function App() {
     <Routes>
       {/* Protected route will render the login if not logged in */}
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<ProtectedRoute />}>
+      {/* <Route path="/" element={<ProtectedRoute />}> */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="inventory" element={<Parts />} />
@@ -22,7 +22,7 @@ function App() {
           {/* <Route path="inventory/category" element={<Category />} /> */}
           <Route path="suppliers/contacts" element={<Contacts />} />
           <Route path="*" element={<Error />} />
-        </Route>
+        {/* </Route> */}
       </Route>
     </Routes>
   );

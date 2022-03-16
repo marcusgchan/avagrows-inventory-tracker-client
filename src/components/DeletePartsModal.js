@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./styles/DeletePartsModal.module.css";
 
-function DeletePartsModal({ toggleModal, row }) {
+function DeletePartsModal({ toggleModal, row, setRows, deleteRow }) {
   return (
     <section className={styles.container}>
       <h2>Delete</h2>
@@ -16,7 +16,13 @@ function DeletePartsModal({ toggleModal, row }) {
       </ul>
       <br />
       <div className={styles.buttons}>
-        <button id={styles.yesButton} onClick={toggleModal}>
+        <button
+          id={styles.yesButton}
+          onClick={() => {
+            deleteRow(row, setRows);
+            toggleModal();
+          }}
+        >
           Yes
         </button>
         <button id={styles.noButton} onClick={toggleModal}>
