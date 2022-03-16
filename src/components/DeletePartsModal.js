@@ -19,7 +19,7 @@ function DeletePartsModal({ toggleModal, row, setRows, deleteRow }) {
         <button
           id={styles.yesButton}
           onClick={() => {
-            deleteRow(row, setRows);
+            deleteRow(row);
             toggleModal();
           }}
         >

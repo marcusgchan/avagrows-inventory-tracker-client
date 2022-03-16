@@ -22,22 +22,30 @@ function Parts() {
     // gets the row object that has the serial
     setRow(rows.find((element) => element.serial === serial));
   }
-  
-  function deleteRow(row, setRows) {
+
+  function deleteRow(row) {
     // gets the ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
     );
-    console.log(locationId);
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
-    console.log(statusId);
     // updates the database
     partsServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
       .then()
       .catch((err) => console.log(err));
   }
-  // function editRow() {}
+  // function changeQuantity(row, newStatus, newLocation) {
+  //   // gets the ids
+  //   const locationId = lookUpTableRef.current.locationTable.get(
+  //     row.location_name
+  //   );
+  //   const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+  // }
+  // function moveLocation(newStatus, newLocation) {
+  //   const newLocationId = lookUpTableRef.current.locationTable.get(newLocation);
+  //   const newStatusId = lookUpTableRef.current.statusTable.get(newStatus);
+  // }
   // function addRow() {}
 
   const [rows, setRows] = useState([]);
