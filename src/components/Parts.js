@@ -58,7 +58,11 @@ function Parts() {
     <section className={styles.container}>
       {showAddModal && (
         <ModalContainer>
-          <AddPartsModal toggleModal={toggleAddModal} />
+          <AddPartsModal
+            toggleModal={toggleAddModal}
+            locations={locations}
+            statuses={statuses}
+          />
         </ModalContainer>
       )}
       {showDeleteModal && (

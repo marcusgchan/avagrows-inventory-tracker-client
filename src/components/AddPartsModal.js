@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 
-function AddPartsModal({ toggleModal }) {
+function AddPartsModal({ toggleModal, locations, statuses }) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
@@ -38,9 +38,9 @@ function AddPartsModal({ toggleModal }) {
             value=""
             id={styles.hiddenOption}
           ></option>
-          <option value="office">Office</option>
-          <option value="FSS">FSS</option>
-          <option value="shipped">Shipped</option>
+          {locations.map(({ location_id, location_name }) => (
+            <option key={location_id}>{location_name}</option>
+          ))}
         </select>
       </div>
       <div className={styles.status}>
@@ -58,10 +58,9 @@ function AddPartsModal({ toggleModal }) {
             value=""
             id={styles.hiddenOption}
           ></option>
-          <option value="scrap">Scrap</option>
-          <option value="sellable">Sellable</option>
-          <option value="plantScience">Plant Science</option>
-          <option value="inRepair">In-repair</option>
+          {statuses.map(({ status_id, status_name }) => (
+            <option key={status_id}>{status_name}</option>
+          ))}
         </select>
       </div>
       <div className={styles.quantity}>

@@ -71,16 +71,16 @@ function MoveLocationMenu({ toggleModal, locations, statuses, row }) {
       <div>
         Location:
         <select className={styles.inputStyles}>
-          {Object.keys(locations).map((location) => {
-            return <option key={location}>{location}</option>;
-          })}
+          {locations.map(({ location_id, location_name }) => (
+            <option key={location_id}>{location_name}</option>
+          ))}
         </select>
         <br></br>
         Status:
         <select className={styles.inputStyles}>
-          {Object.keys(statuses).map((statuses) => {
-            return <option key={statuses}>{statuses}</option>;
-          })}
+          {statuses.map(({ status_id, status_name }) => (
+            <option key={status_id}>{status_name}</option>
+          ))}
         </select>
       </div>
       <br></br>
