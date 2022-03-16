@@ -9,7 +9,7 @@ export const partsTableHeadings = [
   { name: "total_quantity", filterable: true },
 ];
 
-export const TableManagementHeadings = [
+export const tableManagementHeadings = [
   { name: "status ID", filterable: true },
   { name: "status name", filterable: true },
   { name: "notes", filterable: true },

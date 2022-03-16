@@ -1,23 +1,8 @@
-.searchContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .searchInput {
   display: inline-block;
   width: 8rem;
   padding: 0 0.3rem;
   border-radius: 8px;
   border: 3px solid black;
-}
-
-.btnContainer {
-  display: flex;
-  gap: 1rem;
-}
-
-.searchInput,
-.btn {
   height: var(--input-height);
 }

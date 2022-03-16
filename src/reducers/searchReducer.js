@@ -20,13 +20,12 @@ export default function searchReducer(state, action) {
         search: action.payload,
       };
     case "CLEAR_SEARCH":
-      console.log();
       return {
         ...state,
         search: defaultState.search,
         searchParam: defaultState.searchParam,
         searchOption: defaultState.searchOption,
-        searchTypeOption: defaultState.searchTypeOptions,
+        searchTypeOptions: defaultState.searchTypeOptions,
       };
     default:
       throw new Error();
