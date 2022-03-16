@@ -6,6 +6,7 @@ function FilterPartsModal({
   locations,
   statuses,
   handleFilter,
+  resetFilters,
 }) {
   return (
     <section className={styles.container}>
@@ -64,11 +65,7 @@ function FilterPartsModal({
       })}
 
       <br></br>
-      <button className={styles.buttons} onClick={toggleModal}>
-        Filter
-      </button>
-      <br></br>
-      <button className={styles.buttons} onClick={toggleModal}>
+      <button className={styles.buttons} onClick={resetFilters}>
         Clear Filter
       </button>
     </section>

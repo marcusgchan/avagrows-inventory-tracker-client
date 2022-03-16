@@ -27,7 +27,7 @@ function Parts() {
   );
   const [statuses, setStatuses] = usePartFilter(partsServices.getStatuses);
   const [locations, setLocations] = usePartFilter(partsServices.getLocations);
-  const handleFilter = useFilterHandler(
+  const { handleFilter, resetFilters } = useFilterHandler(
     setCategories,
     setStatuses,
     setLocations
@@ -78,6 +78,7 @@ function Parts() {
             locations={locations}
             handleFilter={handleFilter}
             statuses={statuses}
+            resetFilters={resetFilters}
           />
         </ModalContainer>
       )}
