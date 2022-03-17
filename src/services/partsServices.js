@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const BASE_URL = "/api";
+const BASE_URL = "http://localhost:3001/api";
 
 const partsServices = {
+  getRows() {
+    return axios.get(BASE_URL + "/rows");
+  },
   getParts() {
     return axios.get(BASE_URL + "/parts");
   },
@@ -23,6 +26,9 @@ const partsServices = {
   },
   moveLocation(row) {
     return axios.post(BASE_URL + "/moveLocation", row);
+  },
+  addPart(row) {
+    return axios.post(BASE_URL + "/addPart", row);
   },
 };
 

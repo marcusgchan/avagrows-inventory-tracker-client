@@ -2,11 +2,11 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 
-function AddPartsModal({ toggleModal, locations, statuses }) {
+function AddPartsModal({ toggleModal, locations, statuses, addPart }) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
   return (
     <form className={styles.container}>
@@ -39,7 +39,9 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
             id={styles.hiddenOption}
           ></option>
           {locations.map(({ location_id, location_name }) => (
-            <option key={location_id}>{location_name}</option>
+            <option key={location_id} value={location_name}>
+              {location_name}
+            </option>
           ))}
         </select>
       </div>
@@ -59,7 +61,9 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
             id={styles.hiddenOption}
           ></option>
           {statuses.map(({ status_id, status_name }) => (
-            <option key={status_id}>{status_name}</option>
+            <option key={status_id} value={status_name}>
+              {status_name}
+            </option>
           ))}
         </select>
       </div>
@@ -85,7 +89,13 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
         />
       </div>
       <div className={styles.buttons}>
-        <button id={styles.okButton} onClick={toggleModal}>
+        <button
+          id={styles.okButton}
+          onClick={() => {
+            addPart(partNumber, location, status, quantity, note);
+            toggleModal();
+          }}
+        >
           OK
         </button>
       </div>
