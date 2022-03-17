@@ -8,8 +8,47 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
   const [status, setStatus] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
-  const [validPart, setInvalidPart] = useState(false);
-  const [rowExists, setRowExists] = useState(false);
+  const [validPart, setValidPart] = useState(true);
+  const [rowNotExists, setRowNotExists] = useState(true);
+  const [formFilled, setFormFilled] = useState(true);
+
+  // function checkValidPart() {
+  //   let part = parts.find((ele) => ele.internal_part_number === partNumber);
+  //   console.log(part);
+  //   if (typeof part === "undefined") {
+  //     setValidPart(false);
+  //   } else {
+  //     setValidPart(true);
+  //   }
+  // }
+
+  // function checkRowNotExists() {
+  //   let row = parts.find((ele) => {
+  //     return (
+  //       ele.internal_part_number === partNumber &&
+  //       ele.location_id === location &&
+  //       ele.status_id === status
+  //     );
+  //   });
+  //   console.log(row);
+
+  //   if (typeof row === "undefined") {
+  //     setRowNotExists(true);
+  //   } else {
+  //     setRowNotExists(false);
+  //   }
+  // }
+
+  // function checkFormFilled() {
+  //   if (partNumber === "" || status === "" || location === "") {
+  //     setFormFilled(false);
+  //     console.log("worked");
+  //     console.log(formFilled);
+  //   } else {
+  //     setFormFilled(true);
+  //     console.log("failed");
+  //   }
+  // }
 
   return (
     <form className={styles.container}>
@@ -31,16 +70,10 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
         <select
           id={styles.location}
           className={styles.inputStyles}
-          value={location}
           onChange={(e) => setLocation(e.target.value)}
+          defaultValue=""
         >
-          <option
-            hidden
-            disabled
-            selected
-            value=""
-            id={styles.hiddenOption}
-          ></option>
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {locations.map(({ location_id, location_name }) => (
             <option key={location_id} value={location_name}>
               {location_name}
@@ -53,16 +86,10 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
         <select
           id={styles.status}
           className={styles.inputStyles}
-          value={status}
           onChange={(e) => setStatus(e.target.value)}
+          defaultValue=""
         >
-          <option
-            hidden
-            disabled
-            selected
-            value=""
-            id={styles.hiddenOption}
-          ></option>
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {statuses.map(({ status_id, status_name }) => (
             <option key={status_id} value={status_name}>
               {status_name}
@@ -91,30 +118,39 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
           onChange={(e) => setNote(e.target.value)}
         />
       </div>
+      <div>
+        <p>
+          {formFilled ? () => {} : () => "Fill in the form before submitting"}
+        </p>
+        <p>
+          {validPart ? () => {} : () => "Internal Part Number does not exists"}
+        </p>
+        <p>
+          {rowNotExists
+            ? () => {}
+            : () => "Part you are trying to add, already exists"}
+        </p>
+      </div>
       <div className={styles.buttons}>
         <button
           id={styles.okButton}
+          type="button"
           onClick={() => {
-            let part = parts.find(
-              (ele) => ele.internal_part_number === partNumber
-            );
-            let row = parts.find((ele) => {
-              return (
-                ele.internal_part_number === partNumber &&
-                ele.location_id === location &&
-                ele.status_id === status
-              );
-            });
-            if (typeof part !== "undefined" && typeof rowExists !== "undefined") {
-              addPart(partNumber, location, status, quantity, note);
-              toggleModal();
-            } else if (typeof rowExists !== "undefined"){
-              setInvalidPart(true);
-              setRowExists(true);
-            } else {
-              setInvalidPart(false);
-              setRowExists(true)
-            }
+            addPart(partNumber, location, status, quantity, note);
+            toggleModal();
+            // checkFormFilled();
+            //   console.log(formFilled);
+            //   if (formFilled === true) {
+            //     checkValidPart();
+            //     if (validPart === true) {
+            //       checkRowNotExists();
+            //       if (rowNotExists === true) {
+            //         console.log("it did the thing");
+            //         addPart(partNumber, location, status, quantity, note);
+            //         toggleModal();
+            //       }
+            //     }
+            //   }
           }}
         >
           OK
