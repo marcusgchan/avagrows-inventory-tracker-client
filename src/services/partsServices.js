@@ -18,6 +18,9 @@ const partsServices = {
   deletePart(row) {
     return axios.post(BASE_URL + "/delete", row);
   },
+  changeQuantity(row) {
+    return axios.post(BASE_URL + "/changeQuantity", row);
+  },
 };
 
 export default partsServices;

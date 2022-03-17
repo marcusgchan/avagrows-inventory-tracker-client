@@ -24,11 +24,10 @@ function Parts() {
   }
 
   function deleteRow(row) {
-    // gets the ids
+    // gets the location and status ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
     );
-
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
 
     // updates the database
@@ -37,11 +36,28 @@ function Parts() {
       .then()
       .catch((err) => console.log(err));
   }
-  // function changeQuantity(row, newStatusName, newLocationName) {
-  //   // gets the ids
-  //   const locationId = lookUpTableRef.current.locationTable.get(
-  //     newLocationName
-  //   );
+  function changeQuantity(row, newQuantity) {
+    // gets the location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+
+    // sets the old quantity and new quantity
+    let oldQuantity = row.quantity;
+    setRow((row.quantity = newQuantity));
+
+    //updates the database
+    partsServices
+      .changeQuantity({
+        ...row,
+        old_quantity: oldQuantity,
+        status_id: statusId,
+        location_id: locationId,
+      })
+      .then(console.log("changed quantity in database"))
+      .catch((err) => console.log(err));
+  }
   //   const statusId = lookUpTableRef.current.statusTable.get(newStatusName));
   // }
   // function moveLocation(newStatusName, newLocationName) {
@@ -138,6 +154,7 @@ function Parts() {
             locations={locations}
             statuses={statuses}
             row={row}
+            changeQuantity={changeQuantity}
           />
         </ModalContainer>
       )}

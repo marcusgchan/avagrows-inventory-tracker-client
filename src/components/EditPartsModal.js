@@ -2,16 +2,17 @@ import { render } from "@testing-library/react";
 import { useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 
-function ChangeQtyMenu({ toggleModal, row }) {
-  const [qty, setQty] = useState(0);
+function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
+  const [qty, setQty] = useState(row.quantity);
   return (
     <section>
       <ul>
         <li>Location: {row.location_name}</li>
         <li>Status: {row.status_name}</li>
+        <li>Current Qty for Location and Status: {row.quantity}</li>
       </ul>
       <label>
-        Qty for Location and Status:
+        New Qty for Location and Status:
         <button
           className={styles.changeQty}
           onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
@@ -24,7 +25,13 @@ function ChangeQtyMenu({ toggleModal, row }) {
         </button>
       </label>
       <div className={styles.hiddenButton}>
-        <button className={styles.buttons} onClick={toggleModal}>
+        <button
+          className={styles.buttons}
+          onClick={() => {
+            changeQuantity(row, qty);
+            toggleModal();
+          }}
+        >
           Save
         </button>
       </div>
@@ -33,7 +40,7 @@ function ChangeQtyMenu({ toggleModal, row }) {
 }
 
 function ConvertMenu({ toggleModal, row }) {
-  const [qty, setQty] = useState(0);
+  // const [qty, setQty] = useState(0);
   return (
     <section>
       <h3>Placeholder until more information</h3>
@@ -121,9 +128,16 @@ function ShowNext({
   locations,
   statuses,
   row,
+  changeQuantity,
 }) {
   if (showChangeQtyMenu) {
-    return <ChangeQtyMenu toggleModal={toggleModal} row={row} />;
+    return (
+      <ChangeQtyMenu
+        toggleModal={toggleModal}
+        row={row}
+        changeQuantity={changeQuantity}
+      />
+    );
   } else if (showConvertMenu) {
     return <ConvertMenu toggleModal={toggleModal} row={row} />;
   } else if (showMoveLocationMenu) {
@@ -148,7 +162,13 @@ function validateNextMenu({ change, setShowMainMenu }) {
   return null;
 }
 
-function EditPartsModal({ toggleModal, locations, statuses, row }) {
+function EditPartsModal({
+  toggleModal,
+  locations,
+  statuses,
+  row,
+  changeQuantity,
+}) {
   const [change, setChange] = useState("");
 
   //uses states for managing when to show components of the editPartsModal
@@ -221,6 +241,7 @@ function EditPartsModal({ toggleModal, locations, statuses, row }) {
           locations={locations}
           statuses={statuses}
           row={row}
+          changeQuantity={changeQuantity}
         />
       )}
     </section>
