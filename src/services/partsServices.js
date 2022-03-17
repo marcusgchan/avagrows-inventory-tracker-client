@@ -21,6 +21,9 @@ const partsServices = {
   changeQuantity(row) {
     return axios.post(BASE_URL + "/changeQuantity", row);
   },
+  moveLocation(row) {
+    return axios.post(BASE_URL + "/moveLocation", row);
+  },
 };
 
 export default partsServices;

@@ -36,6 +36,7 @@ function Parts() {
       .then()
       .catch((err) => console.log(err));
   }
+
   function changeQuantity(row, newQuantity) {
     // gets the location and status ids
     const locationId = lookUpTableRef.current.locationTable.get(
@@ -55,20 +56,46 @@ function Parts() {
         status_id: statusId,
         location_id: locationId,
       })
-      .then(console.log("changed quantity in database"))
+      .then()
       .catch((err) => console.log(err));
   }
-  //   const statusId = lookUpTableRef.current.statusTable.get(newStatusName));
-  // }
-  // function moveLocation(newStatusName, newLocationName) {
-  //   const newLocationId = lookUpTableRef.current.locationTable.get(newLocationName);
-  //   const newStatusId = lookUpTableRef.current.statusTable.get(newStatusName);
-  // }
+
+  function moveLocation(row, newStatusName, newLocationName, moveQty) {
+    // gets the old location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+    // gets the new location and status ids
+    const newLocationId =
+      lookUpTableRef.current.locationTable.get(newLocationName);
+    const newStatusId = lookUpTableRef.current.statusTable.get(newStatusName);
+
+    // sets the old quantity and new quantity
+    let oldQuantity = row.quantity;
+    setRow((row.quantity -= moveQty));
+
+    //updates the database
+    partsServices
+      .moveLocation({
+        ...row,
+        location_id: locationId,
+        status_id: statusId,
+        new_location_id: newLocationId,
+        new_status_id: newStatusId,
+        old_quantity: oldQuantity,
+      })
+      .then(console.log("MOVED"))
+      .catch((err) => console.log(err));
+  }
+
   // function addRow() {}
 
   const [rows, setRows] = useState([]);
   const [row, setRow] = useState({});
 
+  // look up table for finding the assocaited id of a row attribute
+  // ex. status_name returns associated status_id
   const lookUpTableRef = useRef({
     locationTable: new Map(),
     categoryTable: new Map(),
@@ -118,7 +145,7 @@ function Parts() {
     <section className={styles.container}>
       {showAddModal && (
         <ModalContainer>
-          <AddPartsModal
+          <AddPartsModal  
             toggleModal={toggleAddModal}
             locations={locations}
             statuses={statuses}
@@ -154,7 +181,9 @@ function Parts() {
             locations={locations}
             statuses={statuses}
             row={row}
+            rows={rows}
             changeQuantity={changeQuantity}
+            moveLocation={moveLocation}
           />
         </ModalContainer>
       )}
