@@ -89,7 +89,11 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
-  // function addRow() {}
+  // function addRow() {
+
+
+
+  // }
 
   const [rows, setRows] = useState([]);
   const [row, setRow] = useState({});
