@@ -85,11 +85,36 @@ function Parts() {
         new_status_id: newStatusId,
         old_quantity: oldQuantity,
       })
-      .then(console.log("MOVED"))
+      .then()
       .catch((err) => console.log(err));
   }
 
-  // function addRow() {}
+  function addPart(
+    internalPartNumber,
+    locationName,
+    statusName,
+    quantity,
+    note
+  ) {
+    // gets the old location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(locationName);
+    const statusId = lookUpTableRef.current.statusTable.get(statusName);
+
+    //creates the row object
+    let row = {
+      internal_part_number: internalPartNumber,
+      locationId: locationId,
+      statusId: statusId,
+      quantity: quantity,
+      note: note,
+    };
+
+    // updates the database
+    partsServices
+      .addPart(row)
+      .then()
+      .catch((err) => console.log(err));
+  }
 
   const [rows, setRows] = useState([]);
   const [row, setRow] = useState({});
@@ -103,6 +128,8 @@ function Parts() {
   });
 
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
+
+  const [parts, setParts] = useState({});
 
   const [locations, setLocations] = useLocationFilter(lookUpTableRef);
   const [categories, setCategories] = useCategoryFilter(lookUpTableRef);
@@ -126,7 +153,22 @@ function Parts() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
-  // Fetch all parts
+  // Fetch all rows
+  useEffect(() => {
+    if (
+      showAddModal === false &&
+      showFilterModal === false &&
+      showDeleteModal === false &&
+      showEditModal === false
+    ) {
+      partsServices
+        .getRows()
+        .then((res) => setRows(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
+
+  // fetch all parts update this into its own filter thing with marcus
   useEffect(() => {
     if (
       showAddModal === false &&
@@ -136,7 +178,7 @@ function Parts() {
     ) {
       partsServices
         .getParts()
-        .then((res) => setRows(res.data))
+        .then((res) => setParts(res.data))
         .catch((err) => console.log(err));
     }
   }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
@@ -145,10 +187,11 @@ function Parts() {
     <section className={styles.container}>
       {showAddModal && (
         <ModalContainer>
-          <AddPartsModal  
+          <AddPartsModal
             toggleModal={toggleAddModal}
             locations={locations}
             statuses={statuses}
+            addPart={addPart}
           />
         </ModalContainer>
       )}
@@ -184,6 +227,7 @@ function Parts() {
             rows={rows}
             changeQuantity={changeQuantity}
             moveLocation={moveLocation}
+            addPart={addPart}
           />
         </ModalContainer>
       )}
