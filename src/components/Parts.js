@@ -192,6 +192,7 @@ function Parts() {
             locations={locations}
             statuses={statuses}
             addPart={addPart}
+            parts={parts}
           />
         </ModalContainer>
       )}

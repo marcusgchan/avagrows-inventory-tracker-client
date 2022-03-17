@@ -2,12 +2,15 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 
-function AddPartsModal({ toggleModal, locations, statuses, addPart }) {
+function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
+  const [validPart, setInvalidPart] = useState(false);
+  const [rowExists, setRowExists] = useState(false);
+
   return (
     <form className={styles.container}>
       <XButton onClick={toggleModal} />
@@ -92,8 +95,26 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart }) {
         <button
           id={styles.okButton}
           onClick={() => {
-            addPart(partNumber, location, status, quantity, note);
-            toggleModal();
+            let part = parts.find(
+              (ele) => ele.internal_part_number === partNumber
+            );
+            let row = parts.find((ele) => {
+              return (
+                ele.internal_part_number === partNumber &&
+                ele.location_id === location &&
+                ele.status_id === status
+              );
+            });
+            if (typeof part !== "undefined" && typeof rowExists !== "undefined") {
+              addPart(partNumber, location, status, quantity, note);
+              toggleModal();
+            } else if (typeof rowExists !== "undefined"){
+              setInvalidPart(true);
+              setRowExists(true);
+            } else {
+              setInvalidPart(false);
+              setRowExists(true)
+            }
           }}
         >
           OK

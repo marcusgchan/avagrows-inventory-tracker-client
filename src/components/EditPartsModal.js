@@ -57,10 +57,10 @@ function MoveLocationMenu({
   moveLocation,
 }) {
   const [moveQty, setMoveQty] = useState(0);
-  let [newLocation, setNewLocation] = useState("");
-  let [newStatus, setNewStatus] = useState("");
-  let [newLocationQty, setNewLocationQty] = useState(0);
-  let [newRow, setNewRow] = useState(false);
+  const [newLocation, setNewLocation] = useState("");
+  const [newStatus, setNewStatus] = useState("");
+  const [newLocationQty, setNewLocationQty] = useState(0);
+  const [newRow, setNewRow] = useState(false);
 
   function getNewLocationQty() {
     let newLocationRow = rows.find((ele) => {
@@ -71,17 +71,17 @@ function MoveLocationMenu({
       );
     });
     if (typeof newLocationRow !== "undefined") {
-      setNewLocationQty((newLocationQty = newLocationRow.quantity));
-      setNewRow((newRow = true));
+      setNewLocationQty((newLocationRow.quantity));
+      setNewRow((true));
     } else if (
       newLocationRow === row &&
       newStatus !== "" &&
       newLocation !== ""
     ) {
-      setNewRow((newRow = false));
+      setNewRow((false));
     } else {
-      setNewLocationQty((newLocationQty = 0));
-      setNewRow((newRow = true));
+      setNewLocationQty((0));
+      setNewRow((true));
     }
     setMoveQty(0);
   }
@@ -121,7 +121,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewLocation((newLocation = e.target.value));
+            setNewLocation((e.target.value));
             getNewLocationQty();
           }}
           defaultValue=""
@@ -138,7 +138,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewStatus((newStatus = e.target.value));
+            setNewStatus((e.target.value));
             getNewLocationQty();
           }}
           defaultValue=""
