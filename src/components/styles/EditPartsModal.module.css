@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  width: 22rem;
+  width: 23rem;
   max-height: 35rem;
   overflow-y: auto;
 }
@@ -81,7 +81,7 @@
   background: var(--main-bg-light-clr);
   border: none;
   cursor: pointer;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .inputStyles {
@@ -91,4 +91,9 @@
   min-width: 2rem;
   height: 2rem;
   border: none;
+}
+
+.newQtyText {
+  padding-bottom: 1rem;
+  padding-top: 3rem;
 }

@@ -89,6 +89,11 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
+  // function addRow() {
+
+
+
+  // }
   function addPart(
     internalPartNumber,
     locationName,

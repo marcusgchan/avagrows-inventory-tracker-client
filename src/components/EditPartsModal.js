@@ -11,7 +11,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         <li>Status: {row.status_name}</li>
         <li>Current Qty for Location and Status: {row.quantity}</li>
       </ul>
-      <label>
+      <label >
         New Qty for Location and Status:
         <button
           className={styles.changeQty}
@@ -24,6 +24,8 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
           +
         </button>
       </label>
+      <section className={styles.newQtyText}>
+
       <div className={styles.hiddenButton}>
         <button
           className={styles.buttons}
@@ -31,10 +33,11 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
             changeQuantity(row, qty);
             toggleModal();
           }}
-        >
+          >
           Save
         </button>
       </div>
+          </section>
     </section>
   );
 }
