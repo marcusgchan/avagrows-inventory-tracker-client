@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import partsServices from "../services/partsServices";
+import tableServices from "../services/tableServices";
 
 export default function useStatusFilter(lookUpTableRef) {
   const [filters, setFilters] = useState([]);
   useEffect(() => {
-    partsServices
+    tableServices
       .getStatuses()
       .then((res) => {
         const data = res.data;

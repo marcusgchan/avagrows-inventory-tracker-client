@@ -8,7 +8,7 @@ import EditPartsModal from "./EditPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
-import partsServices from "../services/partsServices";
+import tableServices from "../services/tableServices";
 import useSearch from "../custom-hooks/useSearch";
 import useLocationFilter from "../custom-hooks/useLocationFilter";
 import useCategoryFilter from "../custom-hooks/useCategoryFilter";
@@ -23,7 +23,7 @@ function Parts() {
     setRow(rows.find((element) => element.serial === serial));
   }
 
-  function deleteRow(row, setRows) {
+  function deleteRow(row) {
     // gets the ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
@@ -32,7 +32,7 @@ function Parts() {
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
 
     // updates the database
-    partsServices
+    tableServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
       .then()
       .catch((err) => console.log(err));
@@ -81,7 +81,7 @@ function Parts() {
       showDeleteModal === false &&
       showEditModal === false
     ) {
-      partsServices
+      tableServices
         .getParts()
         .then((res) => setRows(res.data))
         .catch((err) => console.log(err));
