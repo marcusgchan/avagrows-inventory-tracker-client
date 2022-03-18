@@ -2,7 +2,14 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 
-function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
+function AddPartsModal({
+  toggleModal,
+  locations,
+  statuses,
+  addPart,
+  parts,
+  rows,
+}) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
@@ -26,21 +33,20 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
   }
 
   function checkRowNotExists() {
-    let row = parts.find((ele) => {
+    let row = rows.find((ele) => {
       return (
         ele.internal_part_number === partNumber &&
-        ele.location_id === location &&
-        ele.status_id === status
+        ele.location_name === location &&
+        ele.status_name === status
       );
     });
-
     if (typeof row === "undefined") {
+      rowNotExists = true;
+    } else {
       rowNotExists = false;
       setErrorMsg(
         "Part you are trying to add, already exists. Update quantity through the inventory management"
       );
-    } else {
-      rowNotExists = true;
     }
   }
 
@@ -137,7 +143,6 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
               if (validPart === true) {
                 checkRowNotExists();
                 if (rowNotExists === true) {
-                  console.log("here");
                   addPart(partNumber, location, status, quantity, note);
                   toggleModal();
                 }

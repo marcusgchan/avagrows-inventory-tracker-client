@@ -203,6 +203,7 @@ function Parts() {
             statuses={statuses}
             addPart={addPart}
             parts={parts}
+            rows={rows}
           />
         </ModalContainer>
       )}
