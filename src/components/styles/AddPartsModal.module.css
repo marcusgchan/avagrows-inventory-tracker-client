@@ -52,6 +52,12 @@
   border: none;
 }
 
+.errorMsg {
+  color: red;
+  max-width: fit-content;
+  text-align: center;
+}
+
 /*  | Internal Part Number        [              ]|  */
 .buttons {
   display: flex;
@@ -72,5 +78,5 @@
 }
 
 #hiddenOption {
-  display:none;
+  display: none;
 }

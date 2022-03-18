@@ -8,47 +8,52 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
   const [status, setStatus] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
-  const [validPart, setValidPart] = useState(true);
-  const [rowNotExists, setRowNotExists] = useState(true);
-  const [formFilled, setFormFilled] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+  let validPart = true;
+  let rowNotExists = true;
+  let formFilled = true;
 
-  // function checkValidPart() {
-  //   let part = parts.find((ele) => ele.internal_part_number === partNumber);
-  //   console.log(part);
-  //   if (typeof part === "undefined") {
-  //     setValidPart(false);
-  //   } else {
-  //     setValidPart(true);
-  //   }
-  // }
+  function checkValidPart() {
+    let part = parts.find((ele) => ele.internal_part_number === partNumber);
+    if (typeof part === "undefined") {
+      validPart = false;
+      setErrorMsg(
+        "Internal Part Number does not exists. Add it in Table Management First"
+      );
+    } else {
+      validPart = true;
+    }
+  }
 
-  // function checkRowNotExists() {
-  //   let row = parts.find((ele) => {
-  //     return (
-  //       ele.internal_part_number === partNumber &&
-  //       ele.location_id === location &&
-  //       ele.status_id === status
-  //     );
-  //   });
-  //   console.log(row);
+  function checkRowNotExists() {
+    let row = parts.find((ele) => {
+      return (
+        ele.internal_part_number === partNumber &&
+        ele.location_id === location &&
+        ele.status_id === status
+      );
+    });
 
-  //   if (typeof row === "undefined") {
-  //     setRowNotExists(true);
-  //   } else {
-  //     setRowNotExists(false);
-  //   }
-  // }
+    if (typeof row === "undefined") {
+      rowNotExists = false;
+      setErrorMsg(
+        "Part you are trying to add, already exists. Update quantity through the inventory management"
+      );
+    } else {
+      rowNotExists = true;
+    }
+  }
 
-  // function checkFormFilled() {
-  //   if (partNumber === "" || status === "" || location === "") {
-  //     setFormFilled(false);
-  //     console.log("worked");
-  //     console.log(formFilled);
-  //   } else {
-  //     setFormFilled(true);
-  //     console.log("failed");
-  //   }
-  // }
+  function checkFormFilled() {
+    if (partNumber === "" || status === "" || location === "") {
+      formFilled = false;
+      setErrorMsg(
+        "Enter an Internal part number and select a location and status before submitting"
+      );
+    } else {
+      formFilled = true;
+    }
+  }
 
   return (
     <form className={styles.container}>
@@ -118,39 +123,26 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
           onChange={(e) => setNote(e.target.value)}
         />
       </div>
-      <div>
-        <p>
-          {formFilled ? () => {} : () => "Fill in the form before submitting"}
-        </p>
-        <p>
-          {validPart ? () => {} : () => "Internal Part Number does not exists"}
-        </p>
-        <p>
-          {rowNotExists
-            ? () => {}
-            : () => "Part you are trying to add, already exists"}
-        </p>
+      <div className={styles.errorMsg}>
+        <p>{errorMsg}</p>
       </div>
       <div className={styles.buttons}>
         <button
           id={styles.okButton}
           type="button"
-          onClick={() => {
-            addPart(partNumber, location, status, quantity, note);
-            toggleModal();
-            // checkFormFilled();
-            //   console.log(formFilled);
-            //   if (formFilled === true) {
-            //     checkValidPart();
-            //     if (validPart === true) {
-            //       checkRowNotExists();
-            //       if (rowNotExists === true) {
-            //         console.log("it did the thing");
-            //         addPart(partNumber, location, status, quantity, note);
-            //         toggleModal();
-            //       }
-            //     }
-            //   }
+          onClick={(e) => {
+            checkFormFilled();
+            if (formFilled === true) {
+              checkValidPart();
+              if (validPart === true) {
+                checkRowNotExists();
+                if (rowNotExists === true) {
+                  console.log("here");
+                  addPart(partNumber, location, status, quantity, note);
+                  toggleModal();
+                }
+              }
+            }
           }}
         >
           OK
