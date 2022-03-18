@@ -2,10 +2,11 @@ import axios from "axios";
 
 const BASE_URL = "/api";
 
-const partsServices = {
+const tableServices = {
   getRows() {
     return axios.get(BASE_URL + "/rows");
   },
+
   getParts() {
     return axios.get(BASE_URL + "/parts");
   },
@@ -32,4 +33,4 @@ const partsServices = {
   },
 };
 
-export default partsServices;
+export default tableServices;
