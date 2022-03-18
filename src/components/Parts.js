@@ -8,7 +8,7 @@ import EditPartsModal from "./EditPartsModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import Table from "./Table";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
-import partsServices from "../services/partsServices";
+import tableServices from "../services/tableServices";
 import useSearch from "../custom-hooks/useSearch";
 import useLocationFilter from "../custom-hooks/useLocationFilter";
 import useCategoryFilter from "../custom-hooks/useCategoryFilter";
@@ -24,14 +24,14 @@ function Parts() {
   }
 
   function deleteRow(row) {
-    // gets the location and status ids
+    // gets the ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
     );
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
 
     // updates the database
-    partsServices
+    tableServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
       .then()
       .catch((err) => console.log(err));
@@ -49,7 +49,7 @@ function Parts() {
     setRow((row.quantity = newQuantity));
 
     //updates the database
-    partsServices
+    tableServices
       .changeQuantity({
         ...row,
         old_quantity: oldQuantity,
@@ -76,7 +76,7 @@ function Parts() {
     setRow((row.quantity -= moveQty));
 
     //updates the database
-    partsServices
+    tableServices
       .moveLocation({
         ...row,
         location_id: locationId,
@@ -120,7 +120,7 @@ function Parts() {
     };
 
     // updates the database
-    partsServices
+    tableServices
       .addPart(row)
       .then()
       .catch((err) => console.log(err));
@@ -171,7 +171,7 @@ function Parts() {
       showDeleteModal === false &&
       showEditModal === false
     ) {
-      partsServices
+      tableServices
         .getRows()
         .then((res) => setRows(res.data))
         .catch((err) => console.log(err));
@@ -186,7 +186,7 @@ function Parts() {
       showDeleteModal === false &&
       showEditModal === false
     ) {
-      partsServices
+      tableServices
         .getParts()
         .then((res) => setParts(res.data))
         .catch((err) => console.log(err));
