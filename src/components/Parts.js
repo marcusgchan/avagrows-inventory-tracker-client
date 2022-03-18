@@ -28,7 +28,6 @@ function Parts() {
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
     );
-
     const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
 
     // updates the database
@@ -37,12 +36,101 @@ function Parts() {
       .then()
       .catch((err) => console.log(err));
   }
-  // function editRow() {}
-  // function addRow() {}
+
+  function changeQuantity(row, newQuantity) {
+    // gets the location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+
+    // sets the old quantity and new quantity
+    let oldQuantity = row.quantity;
+    setRow((row.quantity = newQuantity));
+
+    //updates the database
+    tableServices
+      .changeQuantity({
+        ...row,
+        old_quantity: oldQuantity,
+        status_id: statusId,
+        location_id: locationId,
+      })
+      .then()
+      .catch((err) => console.log(err));
+  }
+
+  function moveLocation(row, newStatusName, newLocationName, moveQty) {
+    // gets the old location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+    // gets the new location and status ids
+    const newLocationId =
+      lookUpTableRef.current.locationTable.get(newLocationName);
+    const newStatusId = lookUpTableRef.current.statusTable.get(newStatusName);
+
+    // sets the old quantity and new quantity
+    let oldQuantity = row.quantity;
+    setRow((row.quantity -= moveQty));
+
+    //updates the database
+    tableServices
+      .moveLocation({
+        ...row,
+        location_id: locationId,
+        status_id: statusId,
+        new_location_id: newLocationId,
+        new_status_id: newStatusId,
+        old_quantity: oldQuantity,
+      })
+      .then()
+      .catch((err) => console.log(err));
+  }
+
+  function addPart(
+    internalPartNumber,
+    locationName,
+    statusName,
+    quantity,
+    note
+  ) {
+    // gets the old location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(locationName);
+    const statusId = lookUpTableRef.current.statusTable.get(statusName);
+    let existingRow = rows.find(
+      (ele) => ele.internal_part_number === internalPartNumber
+    );
+
+    let totalQuantity = quantity;
+
+    if (typeof existingRow !== "undefined") {
+      totalQuantity = existingRow.total_quantity;
+    }
+
+    //creates the row object
+    let row = {
+      internal_part_number: internalPartNumber,
+      location_id: locationId,
+      status_id: statusId,
+      quantity: quantity,
+      note: note,
+      total_quantity: totalQuantity,
+    };
+
+    // updates the database
+    tableServices
+      .addPart(row)
+      .then()
+      .catch((err) => console.log(err));
+  }
 
   const [rows, setRows] = useState([]);
   const [row, setRow] = useState({});
 
+  // look up table for finding the assocaited id of a row attribute
+  // ex. status_name returns associated status_id
   const lookUpTableRef = useRef({
     locationTable: new Map(),
     categoryTable: new Map(),
@@ -50,6 +138,8 @@ function Parts() {
   });
 
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
+
+  const [parts, setParts] = useState({});
 
   const [locations, setLocations] = useLocationFilter(lookUpTableRef);
   const [categories, setCategories] = useCategoryFilter(lookUpTableRef);
@@ -73,7 +163,22 @@ function Parts() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
-  // Fetch all parts
+  // Fetch all rows
+  useEffect(() => {
+    if (
+      showAddModal === false &&
+      showFilterModal === false &&
+      showDeleteModal === false &&
+      showEditModal === false
+    ) {
+      tableServices
+        .getRows()
+        .then((res) => setRows(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
+
+  // fetch all parts update this into its own filter thing with marcus
   useEffect(() => {
     if (
       showAddModal === false &&
@@ -83,7 +188,7 @@ function Parts() {
     ) {
       tableServices
         .getParts()
-        .then((res) => setRows(res.data))
+        .then((res) => setParts(res.data))
         .catch((err) => console.log(err));
     }
   }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
@@ -96,6 +201,8 @@ function Parts() {
             toggleModal={toggleAddModal}
             locations={locations}
             statuses={statuses}
+            addPart={addPart}
+            parts={parts}
           />
         </ModalContainer>
       )}
@@ -128,6 +235,10 @@ function Parts() {
             locations={locations}
             statuses={statuses}
             row={row}
+            rows={rows}
+            changeQuantity={changeQuantity}
+            moveLocation={moveLocation}
+            addPart={addPart}
           />
         </ModalContainer>
       )}

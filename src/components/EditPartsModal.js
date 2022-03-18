@@ -2,16 +2,17 @@ import { render } from "@testing-library/react";
 import { useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 
-function ChangeQtyMenu({ toggleModal, row }) {
-  const [qty, setQty] = useState(0);
+function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
+  const [qty, setQty] = useState(row.quantity);
   return (
     <section>
       <ul>
         <li>Location: {row.location_name}</li>
         <li>Status: {row.status_name}</li>
+        <li>Current Qty for Location and Status: {row.quantity}</li>
       </ul>
-      <label>
-        Qty for Location and Status:
+      <label >
+        New Qty for Location and Status:
         <button
           className={styles.changeQty}
           onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
@@ -23,17 +24,26 @@ function ChangeQtyMenu({ toggleModal, row }) {
           +
         </button>
       </label>
+      <section className={styles.newQtyText}>
+
       <div className={styles.hiddenButton}>
-        <button className={styles.buttons} onClick={toggleModal}>
+        <button
+          className={styles.buttons}
+          onClick={() => {
+            changeQuantity(row, qty);
+            toggleModal();
+          }}
+          >
           Save
         </button>
       </div>
+          </section>
     </section>
   );
 }
 
 function ConvertMenu({ toggleModal, row }) {
-  const [qty, setQty] = useState(0);
+  // const [qty, setQty] = useState(0);
   return (
     <section>
       <h3>Placeholder until more information</h3>
@@ -41,8 +51,44 @@ function ConvertMenu({ toggleModal, row }) {
   );
 }
 
-function MoveLocationMenu({ toggleModal, locations, statuses, row }) {
-  const [qty, setQty] = useState(0);
+function MoveLocationMenu({
+  toggleModal,
+  locations,
+  statuses,
+  row,
+  rows,
+  moveLocation,
+}) {
+  const [moveQty, setMoveQty] = useState(0);
+  const [newLocation, setNewLocation] = useState("");
+  const [newStatus, setNewStatus] = useState("");
+  const [newLocationQty, setNewLocationQty] = useState(0);
+  const [newRow, setNewRow] = useState(false);
+
+  function getNewLocationQty() {
+    let newLocationRow = rows.find((ele) => {
+      return (
+        ele.internal_part_number === row.internal_part_number &&
+        ele.location_name === newLocation &&
+        ele.status_name === newStatus
+      );
+    });
+    if (typeof newLocationRow !== "undefined") {
+      setNewLocationQty((newLocationRow.quantity));
+      setNewRow((true));
+    } else if (
+      newLocationRow === row &&
+      newStatus !== "" &&
+      newLocation !== ""
+    ) {
+      setNewRow((false));
+    } else {
+      setNewLocationQty((0));
+      setNewRow((true));
+    }
+    setMoveQty(0);
+  }
+
   return (
     <section>
       <br></br>
@@ -57,12 +103,17 @@ function MoveLocationMenu({ toggleModal, locations, statuses, row }) {
         Move:{" "}
         <button
           className={styles.changeQty}
-          onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
+          onClick={moveQty > 0 ? () => setMoveQty(moveQty - 1) : () => {}}
         >
           -
         </button>
-        {qty}
-        <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
+        {moveQty}
+        <button
+          className={styles.changeQty}
+          onClick={
+            moveQty < row.quantity ? () => setMoveQty(moveQty + 1) : () => {}
+          }
+        >
           +
         </button>
       </div>
@@ -70,27 +121,64 @@ function MoveLocationMenu({ toggleModal, locations, statuses, row }) {
       <p>TO:</p>
       <div>
         Location:
-        <select className={styles.inputStyles}>
+        <select
+          className={styles.inputStyles}
+          onChange={(e) => {
+            setNewLocation((e.target.value));
+            getNewLocationQty();
+          }}
+          defaultValue=""
+        >
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {locations.map(({ location_id, location_name }) => (
-            <option key={location_id}>{location_name}</option>
+            <option key={location_id} value={location_name}>
+              {location_name}
+            </option>
           ))}
         </select>
         <br></br>
         Status:
-        <select className={styles.inputStyles}>
+        <select
+          className={styles.inputStyles}
+          onChange={(e) => {
+            setNewStatus((e.target.value));
+            getNewLocationQty();
+          }}
+          defaultValue=""
+        >
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {statuses.map(({ status_id, status_name }) => (
-            <option key={status_id}>{status_name}</option>
+            <option key={status_id} value={status_name}>
+              {status_name}
+            </option>
           ))}
         </select>
       </div>
       <br></br>
       <ul>
-        <li>Old Qty for Location and Status: {row.quantity}</li>
-        <li>New Qty for Location and Status:</li>
+        <li>Old Qty for Location and Status: {newLocationQty}</li>
+        <li>
+          New Qty for Location and Status:{" "}
+          {newRow === true ? newLocationQty + moveQty : newLocationQty}
+        </li>
       </ul>
       <br></br>
       <div className={styles.hiddenButton}>
-        <button className={styles.buttons} onClick={toggleModal}>
+        <button
+          className={styles.buttons}
+          onClick={
+            newRow === true
+              ? () => {
+                  if (newStatus !== "" && newLocation !== "") {
+                    moveLocation(row, newStatus, newLocation, moveQty);
+                  }
+                  toggleModal();
+                }
+              : () => {
+                  toggleModal();
+                }
+          }
+        >
           Save
         </button>
       </div>
@@ -121,9 +209,18 @@ function ShowNext({
   locations,
   statuses,
   row,
+  rows,
+  changeQuantity,
+  moveLocation,
 }) {
   if (showChangeQtyMenu) {
-    return <ChangeQtyMenu toggleModal={toggleModal} row={row} />;
+    return (
+      <ChangeQtyMenu
+        toggleModal={toggleModal}
+        row={row}
+        changeQuantity={changeQuantity}
+      />
+    );
   } else if (showConvertMenu) {
     return <ConvertMenu toggleModal={toggleModal} row={row} />;
   } else if (showMoveLocationMenu) {
@@ -133,6 +230,8 @@ function ShowNext({
         locations={locations}
         statuses={statuses}
         row={row}
+        rows={rows}
+        moveLocation={moveLocation}
       />
     );
   }
@@ -148,7 +247,15 @@ function validateNextMenu({ change, setShowMainMenu }) {
   return null;
 }
 
-function EditPartsModal({ toggleModal, locations, statuses, row }) {
+function EditPartsModal({
+  toggleModal,
+  locations,
+  statuses,
+  row,
+  rows,
+  changeQuantity,
+  moveLocation,
+}) {
   const [change, setChange] = useState("");
 
   //uses states for managing when to show components of the editPartsModal
@@ -221,6 +328,9 @@ function EditPartsModal({ toggleModal, locations, statuses, row }) {
           locations={locations}
           statuses={statuses}
           row={row}
+          rows={rows}
+          changeQuantity={changeQuantity}
+          moveLocation={moveLocation}
         />
       )}
     </section>

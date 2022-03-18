@@ -2,12 +2,59 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 
-function AddPartsModal({ toggleModal, locations, statuses }) {
+function AddPartsModal({ toggleModal, locations, statuses, addPart, parts }) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  let validPart = true;
+  let rowNotExists = true;
+  let formFilled = true;
+
+  function checkValidPart() {
+    let part = parts.find((ele) => ele.internal_part_number === partNumber);
+    if (typeof part === "undefined") {
+      validPart = false;
+      setErrorMsg(
+        "Internal Part Number does not exists. Add it in Table Management First"
+      );
+    } else {
+      validPart = true;
+    }
+  }
+
+  function checkRowNotExists() {
+    let row = parts.find((ele) => {
+      return (
+        ele.internal_part_number === partNumber &&
+        ele.location_id === location &&
+        ele.status_id === status
+      );
+    });
+
+    if (typeof row === "undefined") {
+      rowNotExists = false;
+      setErrorMsg(
+        "Part you are trying to add, already exists. Update quantity through the inventory management"
+      );
+    } else {
+      rowNotExists = true;
+    }
+  }
+
+  function checkFormFilled() {
+    if (partNumber === "" || status === "" || location === "") {
+      formFilled = false;
+      setErrorMsg(
+        "Enter an Internal part number and select a location and status before submitting"
+      );
+    } else {
+      formFilled = true;
+    }
+  }
+
   return (
     <form className={styles.container}>
       <XButton onClick={toggleModal} />
@@ -28,18 +75,14 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
         <select
           id={styles.location}
           className={styles.inputStyles}
-          value={location}
           onChange={(e) => setLocation(e.target.value)}
+          defaultValue=""
         >
-          <option
-            hidden
-            disabled
-            selected
-            value=""
-            id={styles.hiddenOption}
-          ></option>
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {locations.map(({ location_id, location_name }) => (
-            <option key={location_id}>{location_name}</option>
+            <option key={location_id} value={location_name}>
+              {location_name}
+            </option>
           ))}
         </select>
       </div>
@@ -48,18 +91,14 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
         <select
           id={styles.status}
           className={styles.inputStyles}
-          value={status}
           onChange={(e) => setStatus(e.target.value)}
+          defaultValue=""
         >
-          <option
-            hidden
-            disabled
-            selected
-            value=""
-            id={styles.hiddenOption}
-          ></option>
+          <option hidden disabled value="" id={styles.hiddenOption}></option>
           {statuses.map(({ status_id, status_name }) => (
-            <option key={status_id}>{status_name}</option>
+            <option key={status_id} value={status_name}>
+              {status_name}
+            </option>
           ))}
         </select>
       </div>
@@ -84,8 +123,28 @@ function AddPartsModal({ toggleModal, locations, statuses }) {
           onChange={(e) => setNote(e.target.value)}
         />
       </div>
+      <div className={styles.errorMsg}>
+        <p>{errorMsg}</p>
+      </div>
       <div className={styles.buttons}>
-        <button id={styles.okButton} onClick={toggleModal}>
+        <button
+          id={styles.okButton}
+          type="button"
+          onClick={(e) => {
+            checkFormFilled();
+            if (formFilled === true) {
+              checkValidPart();
+              if (validPart === true) {
+                checkRowNotExists();
+                if (rowNotExists === true) {
+                  console.log("here");
+                  addPart(partNumber, location, status, quantity, note);
+                  toggleModal();
+                }
+              }
+            }
+          }}
+        >
           OK
         </button>
       </div>
