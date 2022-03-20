@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
@@ -11,7 +11,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         <li>Status: {row.status_name}</li>
         <li>Current Qty for Location and Status: {row.quantity}</li>
       </ul>
-      <label >
+      <label>
         New Qty for Location and Status:
         <button
           className={styles.changeQty}
@@ -25,19 +25,18 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         </button>
       </label>
       <section className={styles.newQtyText}>
-
-      <div className={styles.hiddenButton}>
-        <button
-          className={styles.buttons}
-          onClick={() => {
-            changeQuantity(row, qty);
-            toggleModal();
-          }}
+        <div className={styles.hiddenButton}>
+          <button
+            className={styles.buttons}
+            onClick={() => {
+              changeQuantity(row, qty);
+              toggleModal();
+            }}
           >
-          Save
-        </button>
-      </div>
-          </section>
+            Save
+          </button>
+        </div>
+      </section>
     </section>
   );
 }
@@ -65,7 +64,9 @@ function MoveLocationMenu({
   const [newLocationQty, setNewLocationQty] = useState(0);
   const [newRow, setNewRow] = useState(false);
 
-  function getNewLocationQty() {
+  // updates every time user picks a new location or status
+  useEffect(() => {
+    // grabs the row that matches the information from the form
     let newLocationRow = rows.find((ele) => {
       return (
         ele.internal_part_number === row.internal_part_number &&
@@ -73,21 +74,24 @@ function MoveLocationMenu({
         ele.status_name === newStatus
       );
     });
-    if (typeof newLocationRow !== "undefined") {
-      setNewLocationQty((newLocationRow.quantity));
-      setNewRow((true));
-    } else if (
-      newLocationRow === row &&
-      newStatus !== "" &&
-      newLocation !== ""
-    ) {
-      setNewRow((false));
+
+    // if the row exists and the location we are moving into is not the same as it already is
+    if (typeof newLocationRow !== "undefined" && newLocationRow !== row) {
+      setNewLocationQty(newLocationRow.quantity);
+      setNewRow(true);
+    } else if (newLocationRow === row) {
+      // if they are just moving back into the same locaiton
+      setNewLocationQty(newLocationRow.quantity);
+      setNewRow(false);
     } else {
-      setNewLocationQty((0));
-      setNewRow((true));
+      // row did not exists so set teh quantity to be 0
+      setNewLocationQty(0);
+      setNewRow(true);
     }
+
+    // after every new selection reset the amount to be moved into a new location
     setMoveQty(0);
-  }
+  }, [newLocation, newStatus, row, rows]);
 
   return (
     <section>
@@ -124,8 +128,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewLocation((e.target.value));
-            getNewLocationQty();
+            setNewLocation(e.target.value);
           }}
           defaultValue=""
         >
@@ -141,8 +144,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewStatus((e.target.value));
-            getNewLocationQty();
+            setNewStatus(e.target.value);
           }}
           defaultValue=""
         >
