@@ -7,15 +7,13 @@ import bell from "../imgs/bell.svg";
 import help from "../imgs/help-circle.svg";
 import grid from "../imgs/grid.svg";
 import box from "../imgs/package.svg";
-import users from "../imgs/users.svg";
 import book from "../imgs/book-open.svg";
-import arrowDown from "../imgs/arrowDown.svg";
-import NavDropdownLink from "./NavDropdownLink";
 import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../contexts/UserContext";
 
 function Layout() {
+  const [selected, setSelected] = useState("Dashboard/Home");
   const [toggleNav, setToggleNav] = useState(true);
   const handleNavToggle = () => setToggleNav((cur) => !cur);
 
@@ -67,9 +65,14 @@ function Layout() {
         style={toggleNav ? null : { width: 0, padding: 0, display: "none" }}
       >
         <div
-          className={styles.homeButton}
+          className={`${styles.homeButton} ${styles.btnPadding} ${
+            selected === "dashboard/home" ? styles.navSelectedBg : ""
+          }`}
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            navigate("/");
+            setSelected("dashboard/home");
+          }}
         >
           <img src={grid} alt="" className={styles.gridImg}></img>
           <p className={styles.dashboard}>
@@ -77,26 +80,40 @@ function Layout() {
           </p>
         </div>
         <div
-          className={styles.inventoryButton}
+          className={`${styles.inventoryButton} ${styles.btnPadding} ${
+            selected === "inventory" ? styles.navSelectedBg : ""
+          }`}
           type="button"
-          onClick={() => navigate("/inventory")}
+          onClick={() => {
+            navigate("/inventory");
+            setSelected("inventory");
+          }}
         >
           <img src={box} alt="" className={styles.boxImg}></img>
           <p className={styles.inventory}>Inventory</p>
         </div>
         <div
-          className={styles.inventoryButton}
+          className={`${styles.inventoryButton} ${styles.btnPadding} ${
+            selected === "table-management" ? styles.navSelectedBg : ""
+          }`}
           type="button"
-          onClick={() => navigate("/table-management")}
+          onClick={() => {
+            navigate("/table-management");
+            setSelected("table-management");
+          }}
         >
           <img src={box} alt="" className={styles.boxImg}></img>
           <p className={styles.inventory}>Table Management</p>
         </div>
-        <div className={styles.supplierButton} type="button">
-          <img src={users} alt="" className={styles.usersImg}></img>
-          <p className={styles.supplier}>My Suppliers</p>
-        </div>
-        <div className={styles.reportButton} type="button">
+        <div
+          className={`${styles.reportButton} ${styles.btnPadding} ${
+            selected === "reports" ? styles.navSelectedBg : ""
+          }`}
+          type="button"
+          onClick={() => {
+            setSelected("reports");
+          }}
+        >
           <img src={book} alt="" className={styles.bookImg}></img>
           <p className={styles.report}>Reports</p>
         </div>

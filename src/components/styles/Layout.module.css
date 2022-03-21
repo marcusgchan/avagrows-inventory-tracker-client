@@ -196,3 +196,13 @@
   grid-area: section;
   height: 100%;
 }
+
+.btnPadding {
+  padding: 1rem;
+}
+
+/* Toggled Styles */
+
+.navSelectedBg {
+  background: var(--main-bg-light-clr);
+}
