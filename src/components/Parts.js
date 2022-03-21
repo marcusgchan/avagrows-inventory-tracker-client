@@ -16,6 +16,8 @@ import useStatusFilter from "../custom-hooks/useStatusFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
 import { partsTableHeadings } from "../configs/tableHeadingsConfig";
+import LayoutContainer from "./LayoutContainer";
+import MainHeading from "./MainHeading";
 
 function Parts() {
   function selectRow(serial) {
@@ -194,7 +196,7 @@ function Parts() {
   }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
 
   return (
-    <section className={styles.container}>
+    <LayoutContainer>
       {showAddModal && (
         <ModalContainer>
           <AddPartsModal
@@ -243,7 +245,7 @@ function Parts() {
           />
         </ModalContainer>
       )}
-      <h1 className={styles.mainHeading}>inventory</h1>
+      <MainHeading>inventory</MainHeading>
       <SearchFilterAdd
         toggleAddModal={toggleAddModal}
         toggleFilterModal={toggleFilterModal}
@@ -257,9 +259,8 @@ function Parts() {
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
         selectRow={selectRow}
-        setRow={setRow}
       />
-    </section>
+    </LayoutContainer>
   );
 }
 
