@@ -113,19 +113,14 @@
 .navBar {
   font-family: "Roboto";
   font-size: 110%;
-  justify-content: center;
   grid-area: nav;
   background-color: var(--main-bg-clr);
   border: 1px black solid;
-  display: grid;
-  grid-template-columns: 70%;
-  grid-template-rows: 10% 11.5% 11.5% 11.5% 11.5%;
-  grid-template-areas:
-    "."
-    "home"
-    "inventory"
-    "supplier"
-    "report";
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+  padding: 2rem 1rem;
 }
 
 .homeButton {
