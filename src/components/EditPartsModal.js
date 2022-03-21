@@ -2,6 +2,7 @@ import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 
+
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
   return (
@@ -41,11 +42,46 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   );
 }
 
-function ConvertMenu({ toggleModal, row }) {
-  // const [qty, setQty] = useState(0);
+function ConvertMenu({ toggleModal, row , convert, unconvert }) {
+  const [qty, setQty] = useState(row.quantity);
   return (
     <section>
-      <h3>Placeholder until more information</h3>
+      <li>Location: {row.location_name}</li>
+      <li>Status: {row.status_name}</li>
+      <label>
+        Convert Qty for Location and Status:
+        <p className={styles.convertQty}>
+        <button
+          className={styles.changeQty}
+          onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
+        >
+          -
+        </button>
+        {qty}
+        <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
+          +
+        </button>
+        </p>
+      </label>
+      <section className={styles.convertButtons}>
+        <div className={styles.hiddenButton}>
+          <button
+            className={styles.buttons}
+            onClick={unconvert(row, qty) ? () => toggleModal() : () => {}
+            }
+          >
+            Unconvert
+          </button>
+          <button
+            className={styles.buttons}
+            onClick={convert(row, qty) ? () => toggleModal() : () => {}
+          }
+          >
+            Covert
+          </button>
+        </div>
+
+      </section>
     </section>
   );
 }
@@ -212,6 +248,8 @@ function ShowNext({
   statuses,
   row,
   rows,
+  convert,
+  unconvert,
   changeQuantity,
   moveLocation,
 }) {
@@ -224,7 +262,7 @@ function ShowNext({
       />
     );
   } else if (showConvertMenu) {
-    return <ConvertMenu toggleModal={toggleModal} row={row} />;
+    return <ConvertMenu toggleModal={toggleModal} row={row} convert={convert} unconvert={unconvert}/>;
   } else if (showMoveLocationMenu) {
     return (
       <MoveLocationMenu
@@ -255,6 +293,8 @@ function EditPartsModal({
   statuses,
   row,
   rows,
+  convert,
+  unconvert,
   changeQuantity,
   moveLocation,
 }) {
@@ -331,6 +371,8 @@ function EditPartsModal({
           statuses={statuses}
           row={row}
           rows={rows}
+          convert={convert}
+          unconvert={unconvert}
           changeQuantity={changeQuantity}
           moveLocation={moveLocation}
         />

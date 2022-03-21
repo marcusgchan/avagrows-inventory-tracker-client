@@ -37,6 +37,49 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
+  function convert(row, newQuantity){
+    // gets the location and status ids
+    const locationId = lookUpTableRef.current.locationTable.get(
+      row.location_name
+    );
+    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+
+    //updates the database
+    tableServices
+      .convert({
+        ...row,
+        status_id: statusId,
+        location_id: locationId,
+        convertQty: newQuantity,
+      })
+      .then((res) => {setRows(res.data.rows);
+      return res.data.convertPossible })
+      .catch((err) => console.log(err));
+    
+  }
+
+  function unconvert(row, newQuantity){
+  // gets the location and status ids
+  const locationId = lookUpTableRef.current.locationTable.get(
+    row.location_name
+  );
+  const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+
+  //updates the database
+  tableServices
+    .unconvert({
+      ...row,
+      status_id: statusId,
+      location_id: locationId,
+      convertQty: newQuantity,
+    })
+    .then((res) => {setRows(res.data.rows);
+      return res.data.unconvertPossible })
+    .catch((err) => console.log(err));
+  }
+  
+
+
   function changeQuantity(row, newQuantity) {
     // gets the location and status ids
     const locationId = lookUpTableRef.current.locationTable.get(
@@ -237,6 +280,8 @@ function Parts() {
             statuses={statuses}
             row={row}
             rows={rows}
+            convert={convert}
+            unconvert={unconvert}
             changeQuantity={changeQuantity}
             moveLocation={moveLocation}
             addPart={addPart}

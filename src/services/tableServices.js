@@ -22,6 +22,12 @@ const tableServices = {
   deletePart(row) {
     return axios.post(BASE_URL + "/delete", row);
   },
+  convert(row) {
+    return axios.post(BASE_URL + "/convert", row);
+  },
+  unconvert(row) {
+    return axios.post(BASE_URL + "/unconvert", row);
+  },
   changeQuantity(row) {
     return axios.post(BASE_URL + "/changeQuantity", row);
   },
