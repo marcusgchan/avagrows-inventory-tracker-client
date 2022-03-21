@@ -16,7 +16,6 @@ function Login() {
     userServices
       .login({ username, password })
       .then((res) => {
-        console.log("test2", res);
         setUser(res.data);
         navigate("/");
       })
