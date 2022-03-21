@@ -195,56 +195,64 @@ function Parts() {
     }
   }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
 
+  function handleModals() {
+    return (
+      <>
+        {showAddModal && (
+          <ModalContainer>
+            <AddPartsModal
+              toggleModal={toggleAddModal}
+              locations={locations}
+              statuses={statuses}
+              addPart={addPart}
+              parts={parts}
+              rows={rows}
+            />
+          </ModalContainer>
+        )}
+        {showDeleteModal && (
+          <ModalContainer>
+            <DeletePartsModal
+              toggleModal={toggleDeleteModal}
+              row={row}
+              setRows={setRows}
+              deleteRow={deleteRow}
+            />
+          </ModalContainer>
+        )}
+        {showFilterModal && (
+          <ModalContainer>
+            <FilterPartsModal
+              toggleModal={toggleFilterModal}
+              categories={categories}
+              locations={locations}
+              handleFilter={handleFilter}
+              statuses={statuses}
+              resetFilters={resetFilters}
+            />
+          </ModalContainer>
+        )}
+        {showEditModal && (
+          <ModalContainer>
+            <EditPartsModal
+              toggleModal={toggleEditModal}
+              locations={locations}
+              statuses={statuses}
+              row={row}
+              rows={rows}
+              changeQuantity={changeQuantity}
+              moveLocation={moveLocation}
+              addPart={addPart}
+            />
+          </ModalContainer>
+        )}
+      </>
+    );
+  }
+
   return (
     <LayoutContainer>
-      {showAddModal && (
-        <ModalContainer>
-          <AddPartsModal
-            toggleModal={toggleAddModal}
-            locations={locations}
-            statuses={statuses}
-            addPart={addPart}
-            parts={parts}
-            rows={rows}
-          />
-        </ModalContainer>
-      )}
-      {showDeleteModal && (
-        <ModalContainer>
-          <DeletePartsModal
-            toggleModal={toggleDeleteModal}
-            row={row}
-            setRows={setRows}
-            deleteRow={deleteRow}
-          />
-        </ModalContainer>
-      )}
-      {showFilterModal && (
-        <ModalContainer>
-          <FilterPartsModal
-            toggleModal={toggleFilterModal}
-            categories={categories}
-            locations={locations}
-            handleFilter={handleFilter}
-            statuses={statuses}
-            resetFilters={resetFilters}
-          />
-        </ModalContainer>
-      )}
-      {showEditModal && (
-        <ModalContainer>
-          <EditPartsModal
-            toggleModal={toggleEditModal}
-            locations={locations}
-            statuses={statuses}
-            row={row}
-            rows={rows}
-            changeQuantity={changeQuantity}
-            moveLocation={moveLocation}
-            addPart={addPart}
-          />
-        </ModalContainer>
-      )}
+      {handleModals()}
       <MainHeading>inventory</MainHeading>
       <SearchFilterAdd
         toggleAddModal={toggleAddModal}
