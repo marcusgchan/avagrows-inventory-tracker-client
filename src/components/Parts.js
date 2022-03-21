@@ -15,6 +15,7 @@ import useCategoryFilter from "../custom-hooks/useCategoryFilter";
 import useStatusFilter from "../custom-hooks/useStatusFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
+import useFetch from "../custom-hooks/useFetch";
 import { partsTableHeadings } from "../configs/tableHeadingsConfig";
 
 function Parts() {
@@ -33,7 +34,7 @@ function Parts() {
     // updates the database
     tableServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
-      .then()
+      .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 
@@ -56,7 +57,7 @@ function Parts() {
         status_id: statusId,
         location_id: locationId,
       })
-      .then()
+      .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }
 
@@ -85,7 +86,7 @@ function Parts() {
         new_status_id: newStatusId,
         old_quantity: oldQuantity,
       })
-      .then()
+      .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }
 
@@ -126,11 +127,9 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useFetch(tableServices.getRows);
   const [row, setRow] = useState({});
 
-  // look up table for finding the assocaited id of a row attribute
-  // ex. status_name returns associated status_id
   const lookUpTableRef = useRef({
     locationTable: new Map(),
     categoryTable: new Map(),
@@ -139,11 +138,10 @@ function Parts() {
 
   const [searchState, dispatch] = useReducer(searchReducer, defaultState);
 
-  const [parts, setParts] = useState({});
-
   const [locations, setLocations] = useLocationFilter(lookUpTableRef);
   const [categories, setCategories] = useCategoryFilter(lookUpTableRef);
   const [statuses, setStatuses] = useStatusFilter(lookUpTableRef);
+
   const { handleFilter, resetFilters } = useFilterHandler(
     setCategories,
     setStatuses,
@@ -163,36 +161,6 @@ function Parts() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
-  // Fetch all rows
-  useEffect(() => {
-    if (
-      showAddModal === false &&
-      showFilterModal === false &&
-      showDeleteModal === false &&
-      showEditModal === false
-    ) {
-      tableServices
-        .getRows()
-        .then((res) => setRows(res.data))
-        .catch((err) => console.log(err));
-    }
-  }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
-
-  // fetch all parts update this into its own filter thing with marcus
-  useEffect(() => {
-    if (
-      showAddModal === false &&
-      showFilterModal === false &&
-      showDeleteModal === false &&
-      showEditModal === false
-    ) {
-      tableServices
-        .getParts()
-        .then((res) => setParts(res.data))
-        .catch((err) => console.log(err));
-    }
-  }, [showAddModal, showFilterModal, showDeleteModal, showEditModal]);
-
   return (
     <section className={styles.container}>
       {showAddModal && (
@@ -202,7 +170,6 @@ function Parts() {
             locations={locations}
             statuses={statuses}
             addPart={addPart}
-            parts={parts}
             rows={rows}
           />
         </ModalContainer>

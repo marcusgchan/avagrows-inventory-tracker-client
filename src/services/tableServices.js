@@ -31,6 +31,9 @@ const tableServices = {
   addPart(row) {
     return axios.post(BASE_URL + "/addPart", row);
   },
+  checkPartExists(partNumber) {
+    return axios.get(BASE_URL + "/checkPartExists", partNumber);
+  },
 };
 
 export default tableServices;

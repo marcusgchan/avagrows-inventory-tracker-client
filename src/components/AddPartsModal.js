@@ -1,15 +1,9 @@
 import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
+import tableServices from "../services/tableServices";
 
-function AddPartsModal({
-  toggleModal,
-  locations,
-  statuses,
-  addPart,
-  parts,
-  rows,
-}) {
+function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
@@ -20,16 +14,22 @@ function AddPartsModal({
   let rowNotExists = true;
   let formFilled = true;
 
-  function checkValidPart() {
-    let part = parts.find((ele) => ele.internal_part_number === partNumber);
-    if (typeof part === "undefined") {
-      validPart = false;
-      setErrorMsg(
-        "Internal Part Number does not exists. Add it in Table Management First"
-      );
-    } else {
-      validPart = true;
-    }
+  function checkValidPart(resolve, reject) {
+    tableServices
+      .checkPartExists(partNumber)
+      .then((res) => {
+        console.log(res);
+        if (res.data === false) {
+          validPart = false;
+          setErrorMsg(
+            "Internal Part Number does not exists. Add it in Table Management First"
+          );
+        } else {
+          validPart = true;
+        }
+        resolve();
+      })
+      .catch(reject);
   }
 
   function checkRowNotExists() {
@@ -139,14 +139,19 @@ function AddPartsModal({
           onClick={(e) => {
             checkFormFilled();
             if (formFilled === true) {
-              checkValidPart();
-              if (validPart === true) {
-                checkRowNotExists();
-                if (rowNotExists === true) {
-                  addPart(partNumber, location, status, quantity, note);
-                  toggleModal();
-                }
-              }
+              new Promise((resolve, reject) => {
+                checkValidPart(resolve, reject);
+              })
+                .then(() => {
+                  if (validPart === true) {
+                    checkRowNotExists();
+                    if (rowNotExists === true) {
+                      addPart(partNumber, location, status, quantity, note);
+                      toggleModal();
+                    }
+                  }
+                })
+                .catch((e) => console.log(e));
             }
           }}
         >
