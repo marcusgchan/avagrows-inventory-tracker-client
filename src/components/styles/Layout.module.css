@@ -11,7 +11,6 @@
 .headerBar {
   grid-area: header;
   display: flex;
-  /* flex-wrap: wrap; */
   flex: 1;
   justify-content: space-between;
   align-items: center;
@@ -148,4 +147,8 @@
 
 .navSelectedBg {
   background: var(--main-bg-light-clr);
+}
+
+.hidden {
+  display: none;
 }
