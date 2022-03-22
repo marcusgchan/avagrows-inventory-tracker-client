@@ -1,5 +1,4 @@
 import { useState, useReducer, useEffect, useRef } from "react";
-import styles from "./styles/Parts.module.css";
 import ModalContainer from "./ModalContainer";
 import AddPartsModal from "./AddPartsModal";
 import DeletePartsModal from "./DeletePartsModal";

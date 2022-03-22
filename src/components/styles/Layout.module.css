@@ -1,7 +1,7 @@
 .grid {
   display: grid;
   height: 100%;
-  grid-template-columns: 212px 1fr;
+  grid-template-columns: 240px 1fr;
   grid-template-rows: 101px 1fr;
   grid-template-areas:
     "header header"
@@ -120,85 +120,28 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 2rem;
-  padding: 2rem 1rem;
+  padding: 2rem 0.8rem;
 }
 
-.homeButton {
-  text-align: left;
-  grid-area: home;
-  display: grid;
-  grid-template-columns: 25% 75%;
-  grid-template-rows: 30%;
-  grid-template-areas: "logo text";
+.navBtnContainer {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+
+  padding: 0.5rem;
   cursor: pointer;
-}
-.gridImg {
-  grid-area: logo;
-}
-.dashboard {
-  grid-area: text;
-  padding-left: 5%;
+  transition: background 250ms;
 }
 
-.inventoryButton {
-  grid-area: inventory;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 25% 50% 20%;
-  grid-template-rows: 30%;
-  grid-template-areas: "logo text img";
-  cursor: pointer;
-}
-.boxImg {
-  grid-area: logo;
-}
-.inventory {
-  grid-area: text;
-  padding-left: 5%;
-}
-.arrowImg {
-  grid-area: img;
-  padding-left: 5%;
+.navBtnContainer:hover {
+  background: var(--main-bg-dark-clr);
 }
 
-.supplierButton {
-  grid-area: supplier;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 25% 75%;
-  grid-template-rows: 30%;
-  grid-template-areas: "logo text";
-}
-.usersImg {
-  grid-area: logo;
-}
-.supplier {
-  grid-area: text;
-  padding-left: 5%;
-}
-
-.reportButton {
-  grid-area: report;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 25% 75%;
-  grid-template-rows: 30%;
-  grid-template-areas: "logo text";
-}
-.bookImg {
-  grid-area: logo;
-}
-.report {
-  grid-area: text;
-  padding-left: 5%;
-}
-.content {
-  grid-area: section;
-  height: 100%;
-}
-
-.btnPadding {
-  padding: 1rem;
+.img {
+  height: 2rem;
+  width: auto;
 }
 
 /* Toggled Styles */
