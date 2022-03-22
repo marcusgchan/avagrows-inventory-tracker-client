@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import styles from "./styles/Layout.module.css";
 import hamburgerButton from "../imgs/hamburger-button.svg";
 import logo from "../imgs/logo.PNG";
@@ -12,12 +12,13 @@ import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../contexts/UserContext";
 
+// The values are used to
 const navConfig = [
-  { text: "Dashboard/Home", value: "dashboard/home", logo: grid, to: "/" },
+  { text: "Dashboard/Home", value: "", logo: grid, to: "/" },
   { text: "Inventory", value: "inventory", logo: box, to: "/inventory" },
   {
     text: "Table Management",
-    value: "tableManagement",
+    value: "table-management",
     logo: box,
     to: "/table-management",
   },
@@ -87,6 +88,12 @@ function Heading({ handleNavToggle }) {
 function Nav({ isToggled }) {
   const [selected, setSelected] = useState(navConfig[0].value);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle nav select highlighted based on url
+  useEffect(() => {
+    setSelected(location.pathname.split("/")[1]);
+  }, [location]);
 
   return (
     <nav className={`${styles.navBar} ${isToggled ? "" : styles.hidden}`}>
