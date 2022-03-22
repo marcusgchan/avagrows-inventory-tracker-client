@@ -92,7 +92,6 @@ function Parts() {
 
     // sets the old quantity and new quantity
     let oldQuantity = row.quantity;
-    setRow((row.quantity = newQuantity));
 
     //updates the database
     tableServices
@@ -101,6 +100,7 @@ function Parts() {
         old_quantity: oldQuantity,
         status_id: statusId,
         location_id: locationId,
+        new_quantity: newQuantity,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
@@ -119,7 +119,7 @@ function Parts() {
 
     // sets the old quantity and new quantity
     let oldQuantity = row.quantity;
-    setRow((row.quantity -= moveQty));
+    let newQuantity = row.quantity - moveQty;
 
     //updates the database
     tableServices
@@ -130,6 +130,7 @@ function Parts() {
         new_location_id: newLocationId,
         new_status_id: newStatusId,
         old_quantity: oldQuantity,
+        new_quantity: newQuantity,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
