@@ -31,13 +31,11 @@ function Layout() {
   return (
     <section
       className={styles.grid}
-      style={toggleNav ? null : { gridTemplateColumns: "0 1fr " }}
+      style={toggleNav ? null : { gridTemplateColumns: "1fr" }}
     >
       <Heading handleNavToggle={handleNavToggle} />
-      <Nav />
-      <section className={styles.content}>
-        <Outlet />
-      </section>
+      <Nav isToggled={toggleNav} />
+      <Outlet />
     </section>
   );
 }
@@ -86,12 +84,12 @@ function Heading({ handleNavToggle }) {
   );
 }
 
-function Nav() {
+function Nav({ isToggled }) {
   const [selected, setSelected] = useState(navConfig[0].value);
   const navigate = useNavigate();
 
   return (
-    <nav className={styles.navBar}>
+    <nav className={`${styles.navBar} ${isToggled ? "" : styles.hidden}`}>
       {navConfig.map(({ text, value, logo, to }) => {
         return (
           <div
