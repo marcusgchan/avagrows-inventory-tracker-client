@@ -5,15 +5,15 @@ export const partsTableHeadings = [
   { name: "location_name", filterable: true },
   { name: "status_name", filterable: true },
   { name: "quantity", filterable: true },
-  { name: "actions", filterable: false },
+  { name: "actions", filterable: false, type: "action" },
   { name: "total_quantity", filterable: true },
 ];
+export const partsTableConfig = { uniqueIdProperty: "serial" };
 
-export const tableManagementHeadings = [
-  { name: "status ID", filterable: true },
-  { name: "status name", filterable: true },
+export const statusHeadings = [
+  { name: "status_id", filterable: true },
+  { name: "status_name", filterable: true },
   { name: "notes", filterable: true },
-  { name: "actions", filterable: true },
-  { name: "last edited at", filterable: true },
-  { name: "last edited by", filterable: true },
+  { name: "actions", filterable: false, type: "action" },
 ];
+export const statusConfig = { uniqueIdProperty: "status_id" };

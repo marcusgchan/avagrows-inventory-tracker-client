@@ -36,7 +36,9 @@ function Layout() {
     >
       <Heading handleNavToggle={handleNavToggle} />
       <Nav isToggled={toggleNav} />
-      <Outlet />
+      <section className={styles.container}>
+        <Outlet />
+      </section>
     </section>
   );
 }

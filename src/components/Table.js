@@ -6,6 +6,7 @@ import upDownArrow from "../imgs/up-down-arrow.svg";
 import upArrow from "../imgs/up-arrow.svg";
 
 function Table({
+  tableConfig,
   headings,
   rows,
   defaultSortedHeading,
@@ -14,54 +15,47 @@ function Table({
   selectRow,
 }) {
   function generateTableRows(rows) {
-    return rows.map(
-      ({
-        serial,
-        internal_part_number,
-        part_name,
-        part_category_name,
-        location_name,
-        status_name,
-        quantity,
-        date_time,
-        name,
-        total_quantity,
-      }) => (
-        <tr className={styles.dataRow} key={serial}>
-          <td className={styles.dataCell}>{internal_part_number}</td>
-          <td className={styles.dataCell}>{part_name}</td>
-          <td className={styles.dataCell}>{part_category_name}</td>
-          <td className={styles.dataCell}>{location_name}</td>
-          <td className={styles.dataCell}>{status_name}</td>
-          <td className={styles.dataCell}>{quantity}</td>
-          <td className={styles.dataCell}>
-            <button
-              type="button"
-              className={styles.tableButton}
-              onClick={() => {
-                selectRow(serial);
-                toggleEditModal();
-              }}
-            >
-              <img src={edit} alt="" className={styles.tableImg}></img>
-            </button>
-            <button
-              type="button"
-              className={styles.tableButton}
-              onClick={() => {
-                selectRow(serial);
-                toggleDeleteModal();
-              }}
-            >
-              <img src={trash} alt="" className={styles.tableImg}></img>
-            </button>
-          </td>
-          {/* <td className={styles.dataCell}>{date_time}</td>
-          <td className={styles.dataCell}>{name}</td> */}
-          <td className={styles.dataCell}>{total_quantity}</td>
+    const headingsConfig = headings.map(({ name, type }) => ({
+      name,
+      type: type,
+    }));
+    return rows.map((row) => {
+      const id = row[tableConfig.uniqueIdProperty];
+      return (
+        <tr className={styles.dataRow} key={id.toString()}>
+          {headingsConfig.map(({ name, type }) =>
+            type == undefined ? (
+              <td key={name} className={styles.dataCell}>
+                {row[name]}
+              </td>
+            ) : (
+              <td className={styles.dataCell} key={name}>
+                <button
+                  type="button"
+                  className={styles.tableButton}
+                  onClick={() => {
+                    selectRow(id);
+                    toggleEditModal();
+                  }}
+                >
+                  <img src={edit} alt="" className={styles.tableImg}></img>
+                </button>
+                <button
+                  type="button"
+                  className={styles.tableButton}
+                  onClick={() => {
+                    selectRow(id);
+                    toggleDeleteModal();
+                  }}
+                >
+                  <img src={trash} alt="" className={styles.tableImg}></img>
+                </button>
+              </td>
+            )
+          )}
         </tr>
-      )
-    );
+      );
+    });
   }
   // default sorted head and acending or not
   const [sortedColumn, setSortedColumn] = useState({

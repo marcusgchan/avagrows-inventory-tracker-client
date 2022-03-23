@@ -15,7 +15,10 @@ import useStatusFilter from "../custom-hooks/useStatusFilter";
 import useFilterHandler from "../custom-hooks/useFilterHandler";
 import useModalToggle from "../custom-hooks/useModalToggle";
 import useFetch from "../custom-hooks/useFetch";
-import { partsTableHeadings } from "../configs/tableHeadingsConfig";
+import {
+  partsTableHeadings,
+  partsTableConfig,
+} from "../configs/tableHeadingsConfig";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 
@@ -272,6 +275,7 @@ function Parts() {
         searchState={searchState}
       />
       <Table
+        tableConfig={partsTableConfig}
         headings={partsTableHeadings}
         rows={filteredRowsMemo}
         defaultSortedHeading="internal_part_number"
