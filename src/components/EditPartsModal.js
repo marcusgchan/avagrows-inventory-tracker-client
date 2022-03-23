@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
+import tableServices from "../services/tableServices";
 
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
@@ -44,6 +45,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
 
 function ConvertMenu({ toggleModal, row , convert, unconvert }) {
   const [qty, setQty] = useState(row.quantity);
+  const [errorMsg, setErrorMsg] = useState("");
   return (
     <section>
       <li>Location: {row.location_name}</li>
@@ -63,21 +65,24 @@ function ConvertMenu({ toggleModal, row , convert, unconvert }) {
         </button>
         </p>
       </label>
+      <div className={styles.errorMsg}>
+        <p>{errorMsg}</p>
+      </div>
       <section className={styles.convertButtons}>
         <div className={styles.hiddenButton}>
           <button
             className={styles.buttons}
-            onClick={unconvert(row, qty) ? () => toggleModal() : () => {}
+            onClick={unconvert(row, qty) ? () => toggleModal() : () => {setErrorMsg("No part to unconvert")}
             }
           >
             Unconvert
           </button>
           <button
             className={styles.buttons}
-            onClick={convert(row, qty) ? () => toggleModal() : () => {}
+            onClick={convert(row, qty) ? () => toggleModal() : () => {setErrorMsg("Not enough parts in the current location to convert")}
           }
           >
-            Covert
+            Convert
           </button>
         </div>
 
@@ -297,7 +302,10 @@ function EditPartsModal({
   unconvert,
   changeQuantity,
   moveLocation,
-}) {
+  lookUpTableRef,
+}) 
+
+{
   const [change, setChange] = useState("");
 
   //uses states for managing when to show components of the editPartsModal
@@ -305,7 +313,22 @@ function EditPartsModal({
   const [showChangeQtyMenu, setShowChangeQtyMenu] = useState(false);
   const [showConvertMenu, setShowConvertMenu] = useState(false);
   const [showMoveLocationMenu, setShowMoveLocationMenu] = useState(false);
+  const [showConvertOption, setShowConvertOption] = useState(false);
+  
+  function checkValidConvertOption() {
+    tableServices.getWip().then((res) => {
+      let wipTable = res.data;
+      let locationId = lookUpTableRef.current.locationTable.get(row.location_name);
+      let statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+      let wipRow = wipTable.find((ele) => {
+        return (ele.part_id === row.internal_part_number && ele.final_location_id === locationId && statusId === 2)});
+      if (typeof wipRow !== "undefined") {
+        setShowConvertOption(true);
+      }
+    }).catch((e) => console.log(e));
+  }
 
+  checkValidConvertOption();
   return (
     <section className={styles.container}>
       <div className={styles.close} onClick={toggleModal}></div>
@@ -340,7 +363,7 @@ function EditPartsModal({
                 id={styles.hiddenOption}
               ></option>
               <option value="changeQuantity"> Change quantity</option>
-              <option value="convert"> Convert</option>
+              {showConvertOption ? (<option value="convert"> Convert</option>) : () => {}}
               <option value="moveLocation"> Move Location</option>
             </select>
           </div>

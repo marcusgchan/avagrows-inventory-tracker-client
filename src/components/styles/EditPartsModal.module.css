@@ -105,3 +105,8 @@
 .convertQty {
   text-align: center;
 }
+
+.errorMsg {
+  color: red;
+  text-align: center;
+}

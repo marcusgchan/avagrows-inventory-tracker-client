@@ -42,7 +42,7 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
-  function convert(row, newQuantity) {
+  function convert(row, convertQuantity) {
     // gets the location and status ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
@@ -52,10 +52,8 @@ function Parts() {
     //updates the database
     tableServices
       .convert({
-        ...row,
-        status_id: statusId,
-        location_id: locationId,
-        convertQty: newQuantity,
+        internal_part_number : row.internal_part_number,
+        conversionQuantity: convertQuantity,
       })
       .then((res) => {
         setRows(res.data.rows);
@@ -64,7 +62,7 @@ function Parts() {
       .catch((err) => console.log(err));
   }
 
-  function unconvert(row, newQuantity) {
+  function unconvert(row, unConvertQuantity) {
     // gets the location and status ids
     const locationId = lookUpTableRef.current.locationTable.get(
       row.location_name
@@ -74,10 +72,8 @@ function Parts() {
     //updates the database
     tableServices
       .unconvert({
-        ...row,
-        status_id: statusId,
-        location_id: locationId,
-        convertQty: newQuantity,
+        internal_part_number : row.internal_part_number,
+        conversionQuantity: unConvertQuantity,
       })
       .then((res) => {
         setRows(res.data.rows);
@@ -254,9 +250,11 @@ function Parts() {
               statuses={statuses}
               row={row}
               rows={rows}
+              convert={convert}
+              unconvert={unconvert}
               changeQuantity={changeQuantity}
               moveLocation={moveLocation}
-              addPart={addPart}
+              lookUpTableRef={lookUpTableRef}
             />
           </ModalContainer>
         )}

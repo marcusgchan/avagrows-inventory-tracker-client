@@ -15,17 +15,20 @@ const tableServices = {
   getStatuses() {
     return axios.get(BASE_URL + "/statuses");
   },
+  getWip() {
+    return axios.get(BASE_URL + "/wip");
+  },
   getCategories() {
     return axios.get(BASE_URL + "/categories");
   },
   deletePart(row) {
     return axios.post(BASE_URL + "/delete", row);
   },
-  convert(row) {
-    return axios.post(BASE_URL + "/convert", row);
+  convert(convertInfo) {
+    return axios.post(BASE_URL + "/convert", convertInfo);
   },
-  unconvert(row) {
-    return axios.post(BASE_URL + "/unconvert", row);
+  unconvert(unconvertInfo) {
+    return axios.post(BASE_URL + "/unconvert", unconvertInfo);
   },
   changeQuantity(row) {
     return axios.post(BASE_URL + "/changeQuantity", row);
