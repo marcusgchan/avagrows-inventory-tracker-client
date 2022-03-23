@@ -21,6 +21,7 @@ import {
 } from "../configs/tableHeadingsConfig";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
+import { render } from "@testing-library/react";
 
 function Parts() {
   function selectRow(serial) {
@@ -38,48 +39,46 @@ function Parts() {
     // updates the database
     tableServices
       .deletePart({ ...row, location_id: locationId, status_id: statusId })
-      .then((res) => res.data)
+      .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }
 
   function convert(row, convertQuantity) {
-    // gets the location and status ids
-    const locationId = lookUpTableRef.current.locationTable.get(
-      row.location_name
-    );
-    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
-
     //updates the database
-    tableServices
-      .convert({
-        internal_part_number : row.internal_part_number,
-        conversionQuantity: convertQuantity,
-      })
-      .then((res) => {
-        setRows(res.data.rows);
-        return res.data.convertPossible;
-      })
-      .catch((err) => console.log(err));
+    return new Promise((resolve, reject) => {
+      tableServices
+        .convert({
+          internal_part_number: row.internal_part_number,
+          conversionQuantity: convertQuantity,
+        })
+        .then((res) => {
+          setRows(res.data.rows);
+          resolve(res.data.convertPossible);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject();
+        });
+    });
   }
 
   function unconvert(row, unConvertQuantity) {
-    // gets the location and status ids
-    const locationId = lookUpTableRef.current.locationTable.get(
-      row.location_name
-    );
-    const statusId = lookUpTableRef.current.statusTable.get(row.status_name);
-
     //updates the database
-    tableServices
-      .unconvert({
-        internal_part_number : row.internal_part_number,
-        conversionQuantity: unConvertQuantity,
-      })
-      .then((res) => {
-        setRows(res.data.rows);
-        return res.data.unconvertPossible;
-      })
-      .catch((err) => console.log(err));
+    return new Promise((resolve, reject) => {
+      tableServices
+        .unconvert({
+          internal_part_number: row.internal_part_number,
+          conversionQuantity: unConvertQuantity,
+        })
+        .then((res) => {
+          setRows(res.data.rows);
+          resolve(res.data.unconvertPossible);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject();
+        });
+    });
   }
 
   function changeQuantity(row, newQuantity) {
@@ -168,7 +167,7 @@ function Parts() {
     // updates the database
     tableServices
       .addPart(row)
-      .then()
+      .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }
 
