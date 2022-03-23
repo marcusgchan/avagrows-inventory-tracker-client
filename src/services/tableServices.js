@@ -6,7 +6,6 @@ const tableServices = {
   getRows() {
     return axios.get(BASE_URL + "/rows");
   },
-
   getParts() {
     return axios.get(BASE_URL + "/parts");
   },
