@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
+
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
@@ -11,7 +12,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         <li>Status: {row.status_name}</li>
         <li>Current Qty for Location and Status: {row.quantity}</li>
       </ul>
-      <label >
+      <label>
         New Qty for Location and Status:
         <button
           className={styles.changeQty}
@@ -25,28 +26,62 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         </button>
       </label>
       <section className={styles.newQtyText}>
-
-      <div className={styles.hiddenButton}>
-        <button
-          className={styles.buttons}
-          onClick={() => {
-            changeQuantity(row, qty);
-            toggleModal();
-          }}
+        <div className={styles.hiddenButton}>
+          <button
+            className={styles.buttons}
+            onClick={() => {
+              changeQuantity(row, qty);
+              toggleModal();
+            }}
           >
-          Save
-        </button>
-      </div>
-          </section>
+            Save
+          </button>
+        </div>
+      </section>
     </section>
   );
 }
 
-function ConvertMenu({ toggleModal, row }) {
-  // const [qty, setQty] = useState(0);
+function ConvertMenu({ toggleModal, row , convert, unconvert }) {
+  const [qty, setQty] = useState(row.quantity);
   return (
     <section>
-      <h3>Placeholder until more information</h3>
+      <li>Location: {row.location_name}</li>
+      <li>Status: {row.status_name}</li>
+      <label>
+        Convert Qty for Location and Status:
+        <p className={styles.convertQty}>
+        <button
+          className={styles.changeQty}
+          onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
+        >
+          -
+        </button>
+        {qty}
+        <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
+          +
+        </button>
+        </p>
+      </label>
+      <section className={styles.convertButtons}>
+        <div className={styles.hiddenButton}>
+          <button
+            className={styles.buttons}
+            onClick={unconvert(row, qty) ? () => toggleModal() : () => {}
+            }
+          >
+            Unconvert
+          </button>
+          <button
+            className={styles.buttons}
+            onClick={convert(row, qty) ? () => toggleModal() : () => {}
+          }
+          >
+            Covert
+          </button>
+        </div>
+
+      </section>
     </section>
   );
 }
@@ -60,12 +95,14 @@ function MoveLocationMenu({
   moveLocation,
 }) {
   const [moveQty, setMoveQty] = useState(0);
-  let [newLocation, setNewLocation] = useState("");
-  let [newStatus, setNewStatus] = useState("");
-  let [newLocationQty, setNewLocationQty] = useState(0);
-  let [newRow, setNewRow] = useState(false);
+  const [newLocation, setNewLocation] = useState("");
+  const [newStatus, setNewStatus] = useState("");
+  const [newLocationQty, setNewLocationQty] = useState(0);
+  const [newRow, setNewRow] = useState(false);
 
-  function getNewLocationQty() {
+  // updates every time user picks a new location or status
+  useEffect(() => {
+    // grabs the row that matches the information from the form
     let newLocationRow = rows.find((ele) => {
       return (
         ele.internal_part_number === row.internal_part_number &&
@@ -73,21 +110,24 @@ function MoveLocationMenu({
         ele.status_name === newStatus
       );
     });
-    if (typeof newLocationRow !== "undefined") {
-      setNewLocationQty((newLocationQty = newLocationRow.quantity));
-      setNewRow((newRow = true));
-    } else if (
-      newLocationRow === row &&
-      newStatus !== "" &&
-      newLocation !== ""
-    ) {
-      setNewRow((newRow = false));
+
+    // if the row exists and the location we are moving into is not the same as it already is
+    if (typeof newLocationRow !== "undefined" && newLocationRow !== row) {
+      setNewLocationQty(newLocationRow.quantity);
+      setNewRow(true);
+    } else if (newLocationRow === row) {
+      // if they are just moving back into the same locaiton
+      setNewLocationQty(newLocationRow.quantity);
+      setNewRow(false);
     } else {
-      setNewLocationQty((newLocationQty = 0));
-      setNewRow((newRow = true));
+      // row did not exists so set teh quantity to be 0
+      setNewLocationQty(0);
+      setNewRow(true);
     }
+
+    // after every new selection reset the amount to be moved into a new location
     setMoveQty(0);
-  }
+  }, [newLocation, newStatus, row, rows]);
 
   return (
     <section>
@@ -124,8 +164,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewLocation((newLocation = e.target.value));
-            getNewLocationQty();
+            setNewLocation(e.target.value);
           }}
           defaultValue=""
         >
@@ -141,8 +180,7 @@ function MoveLocationMenu({
         <select
           className={styles.inputStyles}
           onChange={(e) => {
-            setNewStatus((newStatus = e.target.value));
-            getNewLocationQty();
+            setNewStatus(e.target.value);
           }}
           defaultValue=""
         >
@@ -210,6 +248,8 @@ function ShowNext({
   statuses,
   row,
   rows,
+  convert,
+  unconvert,
   changeQuantity,
   moveLocation,
 }) {
@@ -222,7 +262,7 @@ function ShowNext({
       />
     );
   } else if (showConvertMenu) {
-    return <ConvertMenu toggleModal={toggleModal} row={row} />;
+    return <ConvertMenu toggleModal={toggleModal} row={row} convert={convert} unconvert={unconvert}/>;
   } else if (showMoveLocationMenu) {
     return (
       <MoveLocationMenu
@@ -253,6 +293,8 @@ function EditPartsModal({
   statuses,
   row,
   rows,
+  convert,
+  unconvert,
   changeQuantity,
   moveLocation,
 }) {
@@ -329,6 +371,8 @@ function EditPartsModal({
           statuses={statuses}
           row={row}
           rows={rows}
+          convert={convert}
+          unconvert={unconvert}
           changeQuantity={changeQuantity}
           moveLocation={moveLocation}
         />

@@ -12,7 +12,6 @@ function Table({
   toggleDeleteModal,
   toggleEditModal,
   selectRow,
-  setRow,
 }) {
   function generateTableRows(rows) {
     return rows.map(
@@ -40,7 +39,7 @@ function Table({
               type="button"
               className={styles.tableButton}
               onClick={() => {
-                selectRow(serial, setRow);
+                selectRow(serial);
                 toggleEditModal();
               }}
             >
@@ -50,7 +49,7 @@ function Table({
               type="button"
               className={styles.tableButton}
               onClick={() => {
-                selectRow(serial, setRow);
+                selectRow(serial);
                 toggleDeleteModal();
               }}
             >

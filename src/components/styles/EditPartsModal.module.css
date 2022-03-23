@@ -97,3 +97,11 @@
   padding-bottom: 1rem;
   padding-top: 3rem;
 }
+.convertButtons {
+  padding-bottom: 1rem;
+  padding-top: 3rem;
+}
+
+.convertQty {
+  text-align: center;
+}
