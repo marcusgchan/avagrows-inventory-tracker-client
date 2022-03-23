@@ -15,10 +15,11 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
   let formFilled = true;
 
   function checkValidPart(resolve, reject) {
+    let partInfo = { partNumber: partNumber };
+    console.log(partInfo);
     tableServices
-      .checkPartExists(partNumber)
+      .checkPartExists(partInfo)
       .then((res) => {
-        console.log(res);
         if (res.data === false) {
           validPart = false;
           setErrorMsg(
