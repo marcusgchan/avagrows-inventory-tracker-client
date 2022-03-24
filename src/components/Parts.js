@@ -272,7 +272,7 @@ function Parts() {
         searchState={searchState}
       />
       <Table
-        tableConfig={partsTableConfig}
+        config={partsTableConfig}
         headings={partsTableHeadings}
         rows={filteredRowsMemo}
         defaultSortedHeading="internal_part_number"
