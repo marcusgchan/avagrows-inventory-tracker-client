@@ -6,7 +6,7 @@ import upDownArrow from "../imgs/up-down-arrow.svg";
 import upArrow from "../imgs/up-arrow.svg";
 
 function Table({
-  tableConfig,
+  config,
   headings,
   rows,
   defaultSortedHeading,
@@ -20,11 +20,11 @@ function Table({
       type: type,
     }));
     return rows.map((row) => {
-      const id = row[tableConfig.uniqueIdProperty];
+      const id = row[config.uniqueIdProperty];
       return (
         <tr className={styles.dataRow} key={id.toString()}>
           {headingsConfig.map(({ name, type }) =>
-            type == undefined ? (
+            type === undefined ? (
               <td key={name} className={styles.dataCell}>
                 {row[name]}
               </td>
@@ -78,7 +78,7 @@ function Table({
         const [aVal, bVal] = [a[toggledColumnName], b[toggledColumnName]];
 
         if (typeof aVal === "number") {
-          return sortedColumn.isAcending ? aVal - bVal : -(aVal - bVal);
+          return sortedColumn.isAcending ? -(aVal - bVal) : aVal - bVal;
         } else {
           if (aVal < bVal) {
             return sortedColumn.isAcending ? -1 : 1;

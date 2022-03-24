@@ -17,3 +17,10 @@ export const statusHeadings = [
   { name: "actions", filterable: false, type: "action" },
 ];
 export const statusConfig = { uniqueIdProperty: "status_id" };
+
+export const locationHeadings = [
+  { name: "location_id", filterable: true },
+  { name: "location_name", filterable: true },
+  { name: "actions", filterable: false, type: "action" },
+];
+export const locationConfig = { uniqueIdProperty: "location_id" };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useReducer } from "react";
 import Table from "./Table";
 import TableHeaderComponent from "./TableHeaderContainer";
 import useModalToggle from "../custom-hooks/useModalToggle";
@@ -6,13 +6,32 @@ import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 import TableButton from "./TableButton";
 import TableSelectMenu from "./TableSelectMenu";
-import useFetch from "../custom-hooks/useFetch";
 import tableServices from "../services/tableServices";
-import { statusHeadings, statusConfig } from "../configs/tableHeadingsConfig";
+import tableManagementReducer, {
+  DEFAULT_STATE,
+} from "../reducers/tableManagementReducer";
 
 function TableManagement() {
-  const [selectMenu, setSelectMenu] = useState("status");
-  const [rows, setRows] = useFetch(tableServices.getStatuses);
+  const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
+
+  // Fetch data based on select menu
+  useEffect(() => {
+    switch (state.selectMenu) {
+      case "status":
+        tableServices
+          .getStatuses()
+          .then((res) => dispatch({ type: "STATUS", payload: res.data }))
+          .catch((e) => console.log(e));
+        break;
+      case "location":
+        tableServices
+          .getLocations()
+          .then((res) => dispatch({ type: "LOCATION", payload: res.data }))
+          .catch((e) => console.log(e));
+        break;
+      default:
+    }
+  }, [state.selectMenu]);
 
   // Modal toggles
   const [showAddModal, toggleAddModal] = useModalToggle();
@@ -26,11 +45,13 @@ function TableManagement() {
       <MainHeading>table management</MainHeading>
       <TableHeaderComponent>
         <TableSelectMenu
-          value={selectMenu}
-          onChange={(e) => setSelectMenu(e.target.value)}
+          value={state.selectMenu}
+          onChange={(e) =>
+            dispatch({ type: "UPDATE_SELECT_MENU", payload: e.target.value })
+          }
         >
-          <option value="locations">locations</option>
-          <option value="statuses">statuses</option>
+          <option value="status">status</option>
+          <option value="location">location</option>
           <option value="parts">parts</option>
           <option value="manufactures">manufactures</option>
           <option value="users">users</option>
@@ -39,12 +60,9 @@ function TableManagement() {
         <TableButton>+ add</TableButton>
       </TableHeaderComponent>
       <Table
-        tableConfig={statusConfig}
-        headings={statusHeadings}
-        defaultSortedHeading="status_id"
+        {...state}
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
-        rows={rows}
         selectRow={selectRows}
       />
     </LayoutContainer>
