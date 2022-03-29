@@ -1,0 +1,14 @@
+.btn {
+  padding: 0.2rem 0.5rem;
+  background-color: var(--main-bg-light-clr);
+  transition: transform 250ms;
+  border-radius: 5px;
+  transform: translateZ(0); /* Fix blury text on chrome because of scale */
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background-color: var(--main-bg-clr);
+}
