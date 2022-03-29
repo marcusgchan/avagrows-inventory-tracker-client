@@ -1,3 +1,4 @@
+import ModalButton from "./ModalButton";
 import styles from "./styles/FilterPartsModal.module.css";
 
 function FilterPartsModal({
@@ -63,11 +64,8 @@ function FilterPartsModal({
           </div>
         );
       })}
-
       <br></br>
-      <button className={styles.buttons} onClick={resetFilters}>
-        Clear Filter
-      </button>
+      <ModalButton onClick={resetFilters}>Clear Filter</ModalButton>
     </section>
   );
 }
