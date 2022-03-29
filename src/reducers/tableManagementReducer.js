@@ -4,6 +4,12 @@ import {
   locationHeadings,
   locationConfig,
 } from "../configs/tableHeadingsConfig";
+import { addStatus, deleteStatus, editStatus } from "../utils/statusUtils";
+import {
+  addLocation,
+  deleteLocation,
+  editLocation,
+} from "../utils/locationUtils";
 
 export default function tableManagementReducer(state, action) {
   switch (action.type) {
@@ -15,6 +21,9 @@ export default function tableManagementReducer(state, action) {
         headings: statusHeadings,
         config: statusConfig,
         defaultSortedHeading: "status_id",
+        handleAdding: addStatus,
+        handleDeleting: deleteStatus,
+        handleEditing: editStatus,
       };
     case "LOCATION":
       return {
@@ -24,6 +33,9 @@ export default function tableManagementReducer(state, action) {
         headings: locationHeadings,
         config: locationConfig,
         defaultSortedHeading: "location_id",
+        handleAdding: addLocation,
+        handleDeleting: deleteLocation,
+        handleEditing: editLocation,
       };
     case "UPDATE_SELECT_MENU":
       return {
@@ -41,4 +53,8 @@ export const DEFAULT_STATE = {
   headings: statusHeadings,
   config: statusConfig,
   defaultSortedHeading: "status_id",
+  selectedRow: {},
+  handleAdding: addStatus,
+  handleDeleting: deleteStatus,
+  handleEditing: editStatus,
 };
