@@ -57,7 +57,7 @@ function TableManagement() {
           <option value="users">users</option>
           <option value="partsCategories">part categories</option>
         </TableSelectMenu>
-        <TableButton>+ add</TableButton>
+        <TableButton>+ Add</TableButton>
       </TableHeaderComponent>
       <Table
         {...state}

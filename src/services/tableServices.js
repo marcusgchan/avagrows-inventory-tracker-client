@@ -42,6 +42,24 @@ const tableServices = {
   checkPartExists(partInfo) {
     return axios.post(BASE_URL + "/checkPartExists", partInfo);
   },
+  addLocation(name, note, address, postalCode) {
+    return axios.post(BASE_URL + "/addLocation", name, note, address, postalCode);
+  },
+  deleteLocation(id) {
+    return axios.post(BASE_URL + "/deleteLocation", id);
+  },
+  editLocation(name, note, address, postalCode) {
+    return axios.post(BASE_URL + "/editLocation", name, note, address, postalCode);
+  },
+  addStatus(name, note) {
+    return axios.post(BASE_URL + "/addStatus", name, note);
+  },
+  deleteStatus(id) {
+    return axios.post(BASE_URL + "/deletStatus", id);
+  },
+  editStatus(id, name, note) {
+    return axios.post(BASE_URL + "/editStatus", id, name, note);
+  },
 };
 
 export default tableServices;
