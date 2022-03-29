@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 import tableServices from "../services/tableServices";
