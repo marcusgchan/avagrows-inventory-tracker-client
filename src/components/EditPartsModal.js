@@ -382,11 +382,7 @@ function EditPartsModal({
                 id={styles.hiddenOption}
               ></option>
               <option value="changeQuantity"> Change quantity</option>
-              {showConvertOption ? (
-                <option value="convert"> Convert</option>
-              ) : (
-                () => {}
-              )}
+              {showConvertOption && <option value="convert"> Convert</option>}
               <option value="moveLocation"> Move Location</option>
             </select>
           </div>
