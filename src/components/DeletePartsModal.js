@@ -1,4 +1,4 @@
-import { useState } from "react";
+import ModalButton from "./ModalButton";
 import styles from "./styles/DeletePartsModal.module.css";
 
 function DeletePartsModal({ toggleModal, row, setRows, deleteRow }) {
@@ -16,18 +16,15 @@ function DeletePartsModal({ toggleModal, row, setRows, deleteRow }) {
       </ul>
       <br />
       <div className={styles.buttons}>
-        <button
-          id={styles.yesButton}
+        <ModalButton
           onClick={() => {
             deleteRow(row);
             toggleModal();
           }}
         >
           Yes
-        </button>
-        <button id={styles.noButton} onClick={toggleModal}>
-          No
-        </button>
+        </ModalButton>
+        <ModalButton onClick={toggleModal}>No</ModalButton>
       </div>
     </section>
   );
