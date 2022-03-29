@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
+import XButton from "./XButton";
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
@@ -354,7 +355,7 @@ function EditPartsModal({
 
   return (
     <section className={styles.container}>
-      <div className={styles.close} onClick={toggleModal}></div>
+      <XButton onClick={toggleModal} />
       <h2>Edit</h2>
       <ul>
         <li>Internal Part Number: {row.internal_part_number}</li>

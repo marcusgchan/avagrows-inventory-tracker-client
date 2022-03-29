@@ -1,5 +1,6 @@
 import ModalButton from "./ModalButton";
 import styles from "./styles/FilterPartsModal.module.css";
+import XButton from "./XButton";
 
 function FilterPartsModal({
   toggleModal,
@@ -11,7 +12,7 @@ function FilterPartsModal({
 }) {
   return (
     <section className={styles.container}>
-      <div className={styles.close} onClick={toggleModal}></div>
+      <XButton onClick={toggleModal} />
       <h2>Category</h2>
       {categories.map(({ part_category_name, isChecked }) => {
         return (
