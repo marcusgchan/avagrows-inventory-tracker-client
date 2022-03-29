@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 import tableServices from "../services/tableServices";
+import ModalButton from "./ModalButton";
 
 function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
   const [partNumber, setPartNumber] = useState("");
@@ -65,10 +66,9 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
     <form className={styles.container}>
       <XButton onClick={toggleModal} />
       <h2> Add New Entry</h2>
-      <div className={styles.partNumber}>
+      <div className={styles.row}>
         <label htmlFor="partNumber">Internal Part Number: </label>
         <input
-          id={styles.partNumber}
           className={styles.inputStyles}
           type="text"
           required
@@ -76,10 +76,9 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
           onChange={(e) => setPartNumber(e.target.value)}
         />
       </div>
-      <div className={styles.location}>
+      <div className={styles.row}>
         <label htmlFor="location">Location </label>
         <select
-          id={styles.location}
           className={styles.inputStyles}
           onChange={(e) => setLocation(e.target.value)}
           defaultValue=""
@@ -92,10 +91,9 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
           ))}
         </select>
       </div>
-      <div className={styles.status}>
+      <div className={styles.row}>
         <label htmlFor="status">Status </label>
         <select
-          id={styles.status}
           className={styles.inputStyles}
           onChange={(e) => setStatus(e.target.value)}
           defaultValue=""
@@ -108,10 +106,9 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
           ))}
         </select>
       </div>
-      <div className={styles.quantity}>
+      <div className={styles.row}>
         <label htmlFor="quantity">Qty for loc/status: </label>
         <input
-          id={styles.quantity}
           className={styles.inputStyles}
           type="number"
           min="0"
@@ -133,9 +130,7 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
         <p>{errorMsg}</p>
       </div>
       <div className={styles.buttons}>
-        <button
-          id={styles.okButton}
-          type="button"
+        <ModalButton
           onClick={(e) => {
             checkFormFilled();
             if (formFilled === true) {
@@ -156,7 +151,7 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
           }}
         >
           OK
-        </button>
+        </ModalButton>
       </div>
     </form>
   );

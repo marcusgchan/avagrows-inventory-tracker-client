@@ -13,17 +13,3 @@
   display: flex;
   justify-content: space-evenly;
 }
-
-#noButton {
-  min-width: 20%;
-  background: var(--main-bg-clr);
-  border: none;
-  cursor: pointer;
-}
-
-#yesButton {
-  min-width: 20%;
-  background: var(--main-bg-clr);
-  border: none;
-  cursor: pointer;
-}

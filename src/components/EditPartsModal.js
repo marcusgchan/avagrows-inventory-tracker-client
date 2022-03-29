@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./styles/EditPartsModal.module.css";
 import tableServices from "../services/tableServices";
+import ModalButton from "./ModalButton";
+import XButton from "./XButton";
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
@@ -26,15 +28,14 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
       </label>
       <section className={styles.newQtyText}>
         <div className={styles.hiddenButton}>
-          <button
-            className={styles.buttons}
+          <ModalButton
             onClick={() => {
               changeQuantity(row, qty);
               toggleModal();
             }}
           >
             Save
-          </button>
+          </ModalButton>
         </div>
       </section>
     </section>
@@ -86,9 +87,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
           <button className={styles.buttons} onClick={handleUnconvert}>
             Unconvert
           </button>
-          <button className={styles.buttons} onClick={handleConvert}>
-            Convert
-          </button>
+          <ModalButton onClick={handleConvert}>Convert</ModalButton>
         </div>
       </section>
     </section>
@@ -169,37 +168,45 @@ function MoveLocationMenu({
       <br></br>
       <p>TO:</p>
       <div>
-        Location:
-        <select
-          className={styles.inputStyles}
-          onChange={(e) => {
-            setNewLocation(e.target.value);
-          }}
-          defaultValue=""
-        >
-          <option hidden disabled value="" id={styles.hiddenOption}></option>
-          {locations.map(({ location_id, location_name }) => (
-            <option key={location_id} value={location_name}>
-              {location_name}
-            </option>
-          ))}
-        </select>
-        <br></br>
-        Status:
-        <select
-          className={styles.inputStyles}
-          onChange={(e) => {
-            setNewStatus(e.target.value);
-          }}
-          defaultValue=""
-        >
-          <option hidden disabled value="" id={styles.hiddenOption}></option>
-          {statuses.map(({ status_id, status_name }) => (
-            <option key={status_id} value={status_name}>
-              {status_name}
-            </option>
-          ))}
-        </select>
+        <div className={styles.row}>
+          <label htmlFor="location" className={styles.label}>
+            Label:
+          </label>
+          <select
+            className={styles.inputStyles}
+            onChange={(e) => {
+              setNewLocation(e.target.value);
+            }}
+            defaultValue=""
+          >
+            <option hidden disabled value="" id={styles.hiddenOption}></option>
+            {locations.map(({ location_id, location_name }) => (
+              <option key={location_id} value={location_name}>
+                {location_name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.row}>
+          <label htmlFor="location" className={styles.label}>
+            Status:
+          </label>
+          <select
+            id="location"
+            className={styles.inputStyles}
+            onChange={(e) => {
+              setNewStatus(e.target.value);
+            }}
+            defaultValue=""
+          >
+            <option hidden disabled value="" id={styles.hiddenOption}></option>
+            {statuses.map(({ status_id, status_name }) => (
+              <option key={status_id} value={status_name}>
+                {status_name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <br></br>
       <ul>
@@ -211,8 +218,7 @@ function MoveLocationMenu({
       </ul>
       <br></br>
       <div className={styles.hiddenButton}>
-        <button
-          className={styles.buttons}
+        <ModalButton
           onClick={
             newRow === true
               ? () => {
@@ -227,7 +233,7 @@ function MoveLocationMenu({
           }
         >
           Save
-        </button>
+        </ModalButton>
       </div>
     </section>
   );
@@ -349,7 +355,7 @@ function EditPartsModal({
 
   return (
     <section className={styles.container}>
-      <div className={styles.close} onClick={toggleModal}></div>
+      <XButton onClick={toggleModal} />
       <h2>Edit</h2>
       <ul>
         <li>Internal Part Number: {row.internal_part_number}</li>
@@ -386,8 +392,7 @@ function EditPartsModal({
             </select>
           </div>
           <div className={styles.hiddenButton}>
-            <button
-              className={styles.buttons}
+            <ModalButton
               onClick={() => {
                 validateNextMenu({ change, setShowMainMenu });
                 selectMenu({
@@ -399,7 +404,7 @@ function EditPartsModal({
               }}
             >
               Next
-            </button>
+            </ModalButton>
           </div>
         </section>
       ) : (

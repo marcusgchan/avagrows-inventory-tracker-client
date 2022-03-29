@@ -1,4 +1,6 @@
+import ModalButton from "./ModalButton";
 import styles from "./styles/FilterPartsModal.module.css";
+import XButton from "./XButton";
 
 function FilterPartsModal({
   toggleModal,
@@ -10,7 +12,7 @@ function FilterPartsModal({
 }) {
   return (
     <section className={styles.container}>
-      <div className={styles.close} onClick={toggleModal}></div>
+      <XButton onClick={toggleModal} />
       <h2>Category</h2>
       {categories.map(({ part_category_name, isChecked }) => {
         return (
@@ -63,11 +65,8 @@ function FilterPartsModal({
           </div>
         );
       })}
-
       <br></br>
-      <button className={styles.buttons} onClick={resetFilters}>
-        Clear Filter
-      </button>
+      <ModalButton onClick={resetFilters}>Clear Filter</ModalButton>
     </section>
   );
 }
