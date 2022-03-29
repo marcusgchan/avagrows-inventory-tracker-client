@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from "react";
-import { searchParamToColumnName } from "../configs/searchConfig";
 
 export default function useSearch(
   searchState,
@@ -10,7 +9,7 @@ export default function useSearch(
 ) {
   const containsFilter = useCallback(
     (row) => {
-      return row[searchParamToColumnName.get(searchState.searchParam)]
+      return row[searchState.searchParam]
         .toString()
         .toLowerCase()
         .includes(searchState.search.toLowerCase());
@@ -20,20 +19,14 @@ export default function useSearch(
 
   const lessFilter = useCallback(
     (row) => {
-      return (
-        row[searchParamToColumnName.get(searchState.searchParam)] <
-        Number(searchState.search)
-      );
+      return row[searchState.searchParam] < Number(searchState.search);
     },
     [searchState.searchParam, searchState.search]
   );
 
   const greaterFilter = useCallback(
     (row) => {
-      return (
-        row[searchParamToColumnName.get(searchState.searchParam)] >
-        Number(searchState.search)
-      );
+      return row[searchState.searchParam] > Number(searchState.search);
     },
     [searchState.searchParam, searchState.search]
   );

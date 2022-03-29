@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./styles/TableButton.module.css";
+import s from "./styles/TableButton.module.css";
 
-function TableButton({ children, onClick }) {
+function TableButton({ children, onClick, style }) {
   return (
-    <button className={styles.btn} onClick={onClick}>
+    <button style={style} className={`${s.btn}`} onClick={onClick}>
       {children}
     </button>
   );

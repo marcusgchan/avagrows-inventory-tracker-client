@@ -4,13 +4,13 @@ import TableHeaderComponent from "./TableHeaderContainer";
 import TableSelectMenu from "./TableSelectMenu";
 import TableInput from "./TableInput";
 import TableButton from "./TableButton";
-import Table from "./Table";
 
 function SearchFilterAdd({
   toggleAddModal,
   toggleFilterModal,
   dispatch,
   searchState,
+  isFilterActive,
 }) {
   return (
     <TableHeaderComponent>
@@ -22,9 +22,13 @@ function SearchFilterAdd({
             dispatch({ type: "UPDATE_SEARCH_PARAMS", payload: e.target.value })
           }
         >
-          {DEFAULT_SEARCH_PARAMS.map(({ value }) => (
-            <option key={value}>{value}</option>
-          ))}
+          {DEFAULT_SEARCH_PARAMS.map(({ value, columnName }) => {
+            return (
+              <option key={columnName} value={columnName}>
+                {value}
+              </option>
+            );
+          })}
         </TableSelectMenu>
         <TableSelectMenu
           value={searchState.searchOptions}
@@ -48,7 +52,12 @@ function SearchFilterAdd({
         </TableButton>
       </div>
       <div className={styles.btnContainer}>
-        <TableButton onClick={toggleFilterModal}>Filter</TableButton>
+        <TableButton
+          style={isFilterActive ? { backgroundColor: "red" } : null}
+          onClick={toggleFilterModal}
+        >
+          Filter
+        </TableButton>
         <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </div>
     </TableHeaderComponent>
