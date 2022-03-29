@@ -2,12 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
 import Inventory from "./Inventory";
-import Category from "./Category";
 import Error from "./Error";
-import Contacts from "./Contacts";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import TableManagement from "./TableManagement";
+import Reports from "./Reports";
 
 function App() {
   return (
@@ -19,8 +18,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="table-management" element={<TableManagement />} />
-          {/* <Route path="inventory/category" element={<Category />} /> */}
-          <Route path="suppliers/contacts" element={<Contacts />} />
+          <Route path="reports" element={<Reports />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Route>
