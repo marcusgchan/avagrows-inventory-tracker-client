@@ -16,7 +16,6 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
 
   function checkValidPart(resolve, reject) {
     let partInfo = { partNumber: partNumber };
-    console.log(partInfo);
     tableServices
       .checkPartExists(partInfo)
       .then((res) => {
