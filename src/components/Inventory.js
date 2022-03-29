@@ -23,7 +23,7 @@ import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 import { render } from "@testing-library/react";
 
-function Parts() {
+function Inventory() {
   function selectRow(serial) {
     // gets the row object that has the serial
     setRow(rows.find((element) => element.serial === serial));
@@ -294,4 +294,4 @@ function Parts() {
   );
 }
 
-export default Parts;
+export default Inventory;
