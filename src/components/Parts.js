@@ -38,7 +38,12 @@ function Parts() {
 
     // updates the database
     tableServices
-      .deletePart({ ...row, location_id: locationId, status_id: statusId })
+      .deletePart({
+        ...row,
+        location_id: locationId,
+        status_id: statusId,
+        user_id: 1,
+      })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
   }
@@ -50,6 +55,7 @@ function Parts() {
         .convert({
           internal_part_number: row.internal_part_number,
           conversionQuantity: convertQuantity,
+          user_id: 1,
         })
         .then((res) => {
           setRows(res.data.rows);
@@ -69,6 +75,7 @@ function Parts() {
         .unconvert({
           internal_part_number: row.internal_part_number,
           conversionQuantity: unConvertQuantity,
+          user_id: 1,
         })
         .then((res) => {
           setRows(res.data.rows);
@@ -99,6 +106,7 @@ function Parts() {
         status_id: statusId,
         location_id: locationId,
         new_quantity: newQuantity,
+        user_id: 1,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
@@ -129,6 +137,7 @@ function Parts() {
         new_status_id: newStatusId,
         old_quantity: oldQuantity,
         new_quantity: newQuantity,
+        user_id: 1,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
@@ -162,6 +171,7 @@ function Parts() {
       quantity: quantity,
       note: note,
       total_quantity: totalQuantity,
+      user_id: 1,
     };
 
     // updates the database
