@@ -34,7 +34,7 @@ export default function searchReducer(state, action) {
 
 function getSearchTypeOptions(payload) {
   const payloadType = DEFAULT_SEARCH_PARAMS.find(
-    ({ value }) => payload === value
+    ({ columnName }) => payload === columnName
   ).type;
   if (payloadType !== "number" && payloadType !== "string")
     throw TypeError("Type must be number or string");
@@ -42,8 +42,8 @@ function getSearchTypeOptions(payload) {
 }
 
 export const defaultState = {
-  searchParam: "part name",
+  searchParam: "part_name",
   searchOption: "contains",
-  searchTypeOptions: getSearchTypeOptions("part name"),
+  searchTypeOptions: getSearchTypeOptions("part_name"),
   search: "",
 };

@@ -11,9 +11,5 @@ export const DEFAULT_SEARCH_PARAMS = [
   },
   { columnName: "part_name", value: "part name", type: "string" },
   { columnName: "quantity", value: "qty for loc, status", type: "number" },
+  { columnName: "total_quantity", value: "total quantity", type: "number" },
 ];
-
-export const searchParamToColumnName = new Map();
-DEFAULT_SEARCH_PARAMS.forEach(({ value, columnName }) =>
-  searchParamToColumnName.set(value, columnName)
-);

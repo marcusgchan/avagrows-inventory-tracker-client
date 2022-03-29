@@ -21,7 +21,6 @@ import {
 } from "../configs/tableHeadingsConfig";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
-import { render } from "@testing-library/react";
 
 function Inventory() {
   function selectRow(serial) {
@@ -215,6 +214,16 @@ function Inventory() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
+  function isFilterActive() {
+    const isNotActive = ({ isChecked }) => isChecked === false;
+    const isLocationFilterActive = locations.some(isNotActive);
+    const isCategoryFilterActive = categories.some(isNotActive);
+    const isStatusFilterActive = statuses.some(isNotActive);
+    return (
+      isLocationFilterActive || isCategoryFilterActive || isStatusFilterActive
+    );
+  }
+
   function handleModals() {
     return (
       <>
@@ -280,6 +289,7 @@ function Inventory() {
         toggleFilterModal={toggleFilterModal}
         dispatch={dispatch}
         searchState={searchState}
+        isFilterActive={isFilterActive()}
       />
       <Table
         config={partsTableConfig}
