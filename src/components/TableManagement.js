@@ -11,7 +11,7 @@ import tableManagementReducer, {
   DEFAULT_STATE,
 } from "../reducers/tableManagementReducer";
 import ModalContainer from "./ModalContainer";
-import AddStatusModal from "./AddStatusModal";
+import AddModal from "./AddModal";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -47,7 +47,7 @@ function TableManagement() {
       <>
         {showAddModal && (
           <ModalContainer>
-            <AddStatusModal toggleModal={toggleAddModal} />
+            <AddModal toggleModal={toggleAddModal} config={state.modalConfig} />
           </ModalContainer>
         )}
       </>

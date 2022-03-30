@@ -10,6 +10,7 @@ import {
   deleteLocation,
   editLocation,
 } from "../utils/locationUtils";
+import { statusConfig as modalConfig } from "../configs/tmConfig";
 
 export default function tableManagementReducer(state, action) {
   switch (action.type) {
@@ -20,6 +21,7 @@ export default function tableManagementReducer(state, action) {
         rows: action.payload,
         headings: statusHeadings,
         config: statusConfig,
+        modalConfig: modalConfig,
         defaultSortedHeading: "status_id",
         handleAdding: addStatus,
         handleDeleting: deleteStatus,
