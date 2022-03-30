@@ -1,3 +1,3 @@
-export function addUsers() {}
-export function deleteUsers() {}
-export function editUsers() {}
+export function addUsers(name) {}
+export function deleteUsers(name) {}
+export function editUsers(name) {}
