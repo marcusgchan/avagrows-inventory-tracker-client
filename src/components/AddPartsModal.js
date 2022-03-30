@@ -132,6 +132,7 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
       <div className={styles.buttons}>
         <ModalButton
           onClick={(e) => {
+            e.preventDefault();
             checkFormFilled();
             if (formFilled === true) {
               new Promise((resolve, reject) => {
