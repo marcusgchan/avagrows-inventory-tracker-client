@@ -10,6 +10,8 @@ import tableServices from "../services/tableServices";
 import tableManagementReducer, {
   DEFAULT_STATE,
 } from "../reducers/tableManagementReducer";
+import ModalContainer from "./ModalContainer";
+import AddStatusModal from "./AddStatusModal";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -40,9 +42,22 @@ function TableManagement() {
 
   function selectRows() {}
 
+  function handleModals() {
+    return (
+      <>
+        {showAddModal && (
+          <ModalContainer>
+            <AddStatusModal toggleModal={toggleAddModal} />
+          </ModalContainer>
+        )}
+      </>
+    );
+  }
+
   return (
     <LayoutContainer>
       <MainHeading>table management</MainHeading>
+      {handleModals()}
       <TableHeaderComponent>
         <TableSelectMenu
           value={state.selectMenu}
@@ -57,7 +72,7 @@ function TableManagement() {
           <option value="users">users</option>
           <option value="partsCategories">part categories</option>
         </TableSelectMenu>
-        <TableButton>+ Add</TableButton>
+        <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </TableHeaderComponent>
       <Table
         {...state}
