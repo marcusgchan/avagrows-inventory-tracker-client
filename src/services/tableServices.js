@@ -72,6 +72,86 @@ const tableServices = {
   editStatus(id, name, note) {
     return axios.post(BASE_URL + "/statuses/edit", id, name, note);
   },
+  addParts(
+    internal_part_number,
+    part_name,
+    manufacture_name,
+    manufacture_part_number,
+    item_description,
+    unit_price,
+    line_price,
+    lead_time,
+    total_quantity,
+    category_id
+  ) {
+    return axios.post(
+      BASE_URL + "/addParts",
+      internal_part_number,
+      part_name,
+      manufacture_name,
+      manufacture_part_number,
+      item_description,
+      unit_price,
+      line_price,
+      lead_time,
+      total_quantity,
+      category_id
+    );
+  },
+  deleteParts(internal_part_number) {
+    return axios.post(BASE_URL + "/deleteParts", internal_part_number);
+  },
+  editParts(
+    internal_part_number,
+    old_internal_part_number,
+    part_name,
+    manufacture_name,
+    manufacture_part_number,
+    item_description,
+    unit_price,
+    line_price,
+    lead_time,
+    total_quantity,
+    category_id
+  ) {
+    return axios.post(
+      BASE_URL + "/editParts",
+      internal_part_number,
+      part_name,
+      manufacture_name,
+      manufacture_part_number,
+      item_description,
+      unit_price,
+      line_price,
+      lead_time,
+      total_quantity,
+      category_id
+    );
+  },
+  addPartCategory(part_category_id, part_id, part_category_name) {
+    return axios.post(
+      BASE_URL + "/addPartCategory",
+      part_category_id,
+      part_id,
+      part_category_name
+    );
+  },
+  deletePartCategory(part_id, part_category_id, part_category_name) {
+    return axios.post(
+      BASE_URL + "/deletePartCategory",
+      part_id,
+      part_category_id,
+      part_category_name
+    );
+  },
+  editPartCategory(new_part_category_id, part_id, part_category_name) {
+    return axios.post(
+      BASE_URL + "/editPartCategory",
+      new_part_category_id,
+      part_id,
+      part_category_name
+    );
+  },
 };
 
 export default tableServices;
