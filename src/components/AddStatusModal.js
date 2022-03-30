@@ -9,8 +9,8 @@ function AddStatusModal({ toggleModal, selectedRow, handleAdd }) {
   const [input, setInput] = useState({ status_name: "", notes: "" });
   return (
     <>
-      <XButton onClick={toggleModal} />
       <form className={styles.container}>
+        <XButton onClick={toggleModal} />
         <h2>Add parts</h2>
         {statusConfig.map(({ label, value, isEditable, getElement }) => {
           return (
