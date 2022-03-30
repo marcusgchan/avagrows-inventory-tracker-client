@@ -117,6 +117,7 @@ const tableServices = {
     return axios.post(
       BASE_URL + "/editParts",
       internal_part_number,
+      old_internal_part_number,
       part_name,
       manufacture_name,
       manufacture_part_number,
