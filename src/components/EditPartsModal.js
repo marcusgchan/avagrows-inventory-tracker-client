@@ -84,9 +84,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
       </div>
       <section className={styles.convertButtons}>
         <div className={styles.hiddenButton}>
-          <button className={styles.buttons} onClick={handleUnconvert}>
-            Unconvert
-          </button>
+          <ModalButton onClick={handleUnconvert}>Unconvert</ModalButton>
           <ModalButton onClick={handleConvert}>Convert</ModalButton>
         </div>
       </section>

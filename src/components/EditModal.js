@@ -1,6 +1,6 @@
 import XButton from "./XButton";
 import { useState } from "react";
-import styles from "./styles/AddModal.module.css";
+import styles from "./styles/EditModal.module.css";
 import ModalButton from "./ModalButton";
 
 const LOCATION_TABLE = "location";
@@ -9,7 +9,14 @@ const PART_TABLE = "parts";
 const CATEGORY_TABLE = "part categories";
 const USERS_TABLE = "users";
 
-function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
+function EditModal({
+  toggleModal,
+  selectedRow,
+  tableType,
+  editRow,
+  config,
+  dispatch,
+}) {
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -30,23 +37,24 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
     return msg;
   }
 
-  // handles the adding when the user clicks the "add" button
-  async function handleAdd(e) {
+  // handles the editing when the user clicks the "save" button
+  async function handleEdit(e) {
     e.preventDefault();
-    let result = await addRow(input, dispatch);
+    let result = await editRow(input, dispatch);
+    console.log(result);
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === CATEGORY_TABLE && result.partExists === false) {
       setErrorMsg("The internal part number does not exists");
     } else {
-      result.canAdd ? toggleModal() : setErrorMsg(getErrorMsg());
+      result.canEdit ? toggleModal() : setErrorMsg(getErrorMsg());
     }
   }
 
   function createDefaultState() {
     const defaultState = {};
     config
-      .filter(({ isDisplayed }) => isDisplayed.add === true)
-      .forEach(({ value }) => (defaultState[value] = ""));
+      .filter(({ isDisplayed }) => isDisplayed.edit === true)
+      .forEach(({ value }) => (defaultState[value] = selectedRow.value));
     return defaultState;
   }
 
@@ -54,10 +62,10 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
     <>
       <form className={styles.container}>
         <XButton onClick={toggleModal} />
-        <h2>Add</h2>
+        <h2>Edit</h2>
         {config.map(({ label, value, isEditable, isDisplayed, getElement }) => {
           return (
-            isDisplayed.add && (
+            isDisplayed.edit && (
               <div key={value} className={styles.row}>
                 <label htmlFor={value} className={styles.label}>
                   {label}
@@ -78,10 +86,10 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
           );
         })}
         {errorMsg !== "" && <p>{errorMsg}</p>}
-        <ModalButton onClick={(e) => handleAdd(e)}>Add</ModalButton>
+        <ModalButton onClick={(e) => handleEdit(e)}>Save</ModalButton>
       </form>
     </>
   );
 }
 
-export default AddModal;
+export default EditModal;

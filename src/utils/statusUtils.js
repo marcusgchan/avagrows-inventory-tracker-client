@@ -1,50 +1,45 @@
-// export function addStatus(id, name, note) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .addStatus({
-//         name: name,
-//         note: note,
-//         id: id,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
-// export function deleteStatus(id) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .deleteStatus({
-//         id: id,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
-// export function editStatus(id, name, note, oldId) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .editStatus({
-//         name: name,
-//         note: note,
-//         id: id,
-//         oldId: oldId,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
+import tableServices from "../services/tableServices";
+export function addStatus(addInfo, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .addStatus(addInfo)
+      .then((res) => {
+        dispatch({ type: "STATUS", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}
+export function deleteStatus(id, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .deleteStatus({
+        id: id,
+      })
+      .then((res) => {
+        dispatch({ type: "STATUS", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}
+export function editStatus(editInfo, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .editStatus(editInfo)
+      .then((res) => {
+        dispatch({ type: "STATUS", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}

@@ -12,6 +12,8 @@ import tableManagementReducer, {
 } from "../reducers/tableManagementReducer";
 import ModalContainer from "./ModalContainer";
 import AddModal from "./AddModal";
+import DeleteModal from "./DeleteModal";
+import EditModal from "./EditModal";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -31,6 +33,24 @@ function TableManagement() {
           .then((res) => dispatch({ type: "LOCATION", payload: res.data }))
           .catch((e) => console.log(e));
         break;
+      case "parts":
+        tableServices
+          .getParts()
+          .then((res) => dispatch({ type: "PART", payload: res.data }))
+          .catch((e) => console.log(e));
+        break;
+      case "partCategories":
+        tableServices
+          .getCategories()
+          .then((res) => dispatch({ type: "CATEGORY", payload: res.data }))
+          .catch((e) => console.log(e));
+        break;
+      case "users":
+        tableServices
+          .getUsers()
+          .then((res) => dispatch({ type: "USER", payload: res.data }))
+          .catch((e) => console.log(e));
+        break;
       default:
     }
   }, [state.selectMenu]);
@@ -40,14 +60,52 @@ function TableManagement() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
-  function selectRows() {}
+  function selectRow(id) {
+    // gets the row object that has the serial
+    dispatch({
+      type: "UPDATE_SELECTED_ROW",
+      payload: state.rows.find(
+        (element) => element[state.config.uniqueIdProperty] === id
+      ),
+    });
+  }
 
   function handleModals() {
     return (
       <>
         {showAddModal && (
           <ModalContainer>
-            <AddModal toggleModal={toggleAddModal} config={state.modalConfig} />
+            <AddModal
+              toggleModal={toggleAddModal}
+              config={state.modalConfig}
+              tableType={state.selectMenu}
+              addRow={state.handleAdding}
+              dispatch={dispatch}
+            />
+          </ModalContainer>
+        )}
+        {showDeleteModal && (
+          <ModalContainer>
+            <DeleteModal
+              toggleModal={toggleDeleteModal}
+              config={state.modalConfig}
+              selectedRow={state.selectedRow}
+              deleteRow={state.handleDeleting}
+              dispatch={dispatch}
+              tableType={state.selectMenu}
+            />
+          </ModalContainer>
+        )}
+        {showEditModal && (
+          <ModalContainer>
+            <EditModal
+              toggleModal={toggleEditModal}
+              config={state.modalConfig}
+              selectedRow={state.selectedRow}
+              editRow={state.handleEditing}
+              dispatch={dispatch}
+              tableType={state.selectMenu}
+            />
           </ModalContainer>
         )}
       </>
@@ -70,7 +128,7 @@ function TableManagement() {
           <option value="parts">parts</option>
           <option value="manufactures">manufactures</option>
           <option value="users">users</option>
-          <option value="partsCategories">part categories</option>
+          <option value="partCategories">part categories</option>
         </TableSelectMenu>
         <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </TableHeaderComponent>
@@ -78,7 +136,7 @@ function TableManagement() {
         {...state}
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
-        selectRow={selectRows}
+        selectRow={selectRow}
       />
     </LayoutContainer>
   );

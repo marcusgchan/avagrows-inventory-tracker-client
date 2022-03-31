@@ -5,7 +5,7 @@ export default function useCategoryFilter(lookUpTableRef) {
   const [filters, setFilters] = useState([]);
   useEffect(() => {
     tableServices
-      .getCategories()
+      .getDistinctCategories()
       .then((res) => {
         const data = res.data;
         const lookUpTable = lookUpTableRef.current.categoryTable;

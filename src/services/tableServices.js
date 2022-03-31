@@ -18,8 +18,14 @@ const tableServices = {
   getWip() {
     return axios.get(BASE_URL + "/wip/");
   },
+  getDistinctCategories() {
+    return axios.get(BASE_URL + "/categories/distinct");
+  },
   getCategories() {
     return axios.get(BASE_URL + "/categories/");
+  },
+  getUsers() {
+    return axios.get(BASE_URL + "/people/");
   },
   deletePart(row) {
     return axios.post(BASE_URL + "/inventory/delete", row);
@@ -77,6 +83,15 @@ const tableServices = {
   },
   editPartCategory(editPartCategoryInfo) {
     return axios.post(BASE_URL + "/categories/edit", editPartCategoryInfo);
+  },
+  addUser(addInfo) {
+    return axios.post(BASE_URL + "/people/add", addInfo);
+  },
+  deleteUser(deleteInfo) {
+    return axios.post(BASE_URL + "/people/delete", deleteInfo);
+  },
+  editUser(editInfo) {
+    return axios.post(BASE_URL + "/people/edit", editInfo);
   },
 };
 

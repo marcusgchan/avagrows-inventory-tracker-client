@@ -1,53 +1,46 @@
-// import tableServices from "../services/tableServices";
+import tableServices from "../services/tableServices";
 
-// export function addLocation(name, note, address, postalCode, setRows) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .addLocation({
-//         name: name,
-//         note: note,
-//         address: address,
-//         postalCode: postalCode,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
-// export function deleteLocation(id) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .deleteLocation({
-//         id: id,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
-// export function editLocation(name, note, address, postalCode) {
-//   return new Promise((resolve, reject) => {
-//     tableServices
-//       .editLocation({
-//         name: name,
-//         note: note,
-//         address: address,
-//         postalCode: postalCode,
-//       })
-//       .then((res) => {
-//         setRows(res.data.rows);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         reject();
-//       });
-//   });
-// }
+export function addLocation(addInfo, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .addLocation(addInfo)
+      .then((res) => {
+        dispatch({ type: "LOCATION", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}
+export function deleteLocation(id, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .deleteLocation({
+        id: id,
+      })
+      .then((res) => {
+        dispatch({ type: "LOCATION", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}
+export function editLocation(editInfo, dispatch) {
+  return new Promise((resolve, reject) => {
+    tableServices
+      .editLocation(editInfo)
+      .then((res) => {
+        dispatch({ type: "LOCATION", payload: res.data.rows });
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject();
+      });
+  });
+}
