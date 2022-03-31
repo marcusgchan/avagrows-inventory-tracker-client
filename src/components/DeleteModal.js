@@ -9,7 +9,14 @@ const PART_TABLE = "parts";
 const CATEGORY_TABLE = "part categories";
 const USERS_TABLE = "users";
 
-function DeleteModal({ toggleModal, deleteRow, tableType, config, dispatch }) {
+function DeleteModal({
+  toggleModal,
+  selectedRow,
+  deleteRow,
+  tableType,
+  config,
+  dispatch,
+}) {
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -39,7 +46,7 @@ function DeleteModal({ toggleModal, deleteRow, tableType, config, dispatch }) {
     const defaultState = {};
     config
       .filter(({ isDisplayed }) => isDisplayed.delete === true)
-      .forEach(({ value }) => (defaultState[value] = ""));
+      .forEach(({ value }) => (defaultState[value] = selectedRow[value]));
     return defaultState;
   }
 

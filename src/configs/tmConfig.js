@@ -15,7 +15,7 @@ export const statusConfig = [
   },
   {
     label: "notes",
-    value: "notes",
+    value: "note",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
     getElement: (props) => <textarea {...props} style={{ resize: "none" }} />,

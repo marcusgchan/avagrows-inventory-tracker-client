@@ -29,7 +29,7 @@ import {
   editPartCategory,
   deletePartCategory,
 } from "../utils/partCategoryUtils";
-// import { addUsers, deleteUsers, editUsers } from "../utils/usersUtils";
+import { addUsers, deleteUsers, editUsers } from "../utils/usersUtils";
 
 export default function tableManagementReducer(state, action) {
   switch (action.type) {
@@ -87,19 +87,20 @@ export default function tableManagementReducer(state, action) {
         handleEditing: editPartCategory,
       };
     }
-    // case "USER": {
-    //   return {
-    //     ...state,
-    //     selectMenu: "users",
-    //     rows: action.payload,
-    //     headings: usersHeadings,
-    //     config: usersConfig,
-    //     defaultSortedHeading: "user_id",
-    //     handleAdding: addUsers,
-    //     handleDeleting: deleteUsers,
-    //     handleEditing: editUsers,
-    //   };
-    // }
+    case "USER": {
+      return {
+        ...state,
+        selectMenu: "users",
+        rows: action.payload,
+        headings: usersHeadings,
+        config: usersConfig,
+        modalConfig: usersModalConfig,
+        defaultSortedHeading: "user_id",
+        handleAdding: addUsers,
+        handleDeleting: deleteUsers,
+        handleEditing: editUsers,
+      };
+    }
     case "UPDATE_SELECT_MENU":
       return {
         ...state,
