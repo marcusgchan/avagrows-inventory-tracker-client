@@ -13,10 +13,10 @@ export function addUsers(addInfo, dispatch) {
       });
   });
 }
-export function deleteUsers(deleteInfo, dispatch) {
+export function deleteUsers(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .deleteUser(deleteInfo)
+      .deleteUser({ user_id: selectedRow.user_id })
       .then((res) => {
         dispatch({ type: "STATUS", payload: res.data.rows });
         resolve(res.data);
@@ -27,10 +27,13 @@ export function deleteUsers(deleteInfo, dispatch) {
       });
   });
 }
-export function editUsers(editInfo, dispatch) {
+export function editUsers(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .editUser(editInfo)
+      .editUser({
+        user_id: selectedRow.user_id,
+        ...editInfo,
+      })
       .then((res) => {
         dispatch({ type: "USER", payload: res.data.rows });
         resolve(res.data);

@@ -13,18 +13,11 @@ export function addPartCategory(addInfo, dispatch) {
       });
   });
 }
-export function deletePartCategory(
-  part_id,
-  part_category_id,
-  part_category_name,
-  dispatch
-) {
+export function deletePartCategory(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .deletePartCategory({
-        part_category_id: part_category_id,
-        part_id: part_id,
-        part_category_name: part_category_name,
+        part_id: selectedRow.part_id,
       })
       .then((res) => {
         dispatch({ type: "CATEGORY", payload: res.data.rows });
@@ -36,10 +29,13 @@ export function deletePartCategory(
       });
   });
 }
-export function editPartCategory(editInfo, dispatch) {
+export function editPartCategory(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .editPartCategory(editInfo)
+      .editPartCategory({
+        part_id: selectedRow.part_id,
+        editInfo,
+      })
       .then((res) => {
         dispatch({ type: "CATEGORY", payload: res.data.rows });
         resolve(res.data);

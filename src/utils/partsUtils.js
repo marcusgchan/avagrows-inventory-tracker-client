@@ -13,11 +13,11 @@ export function addParts(addInfo, dispatch) {
       });
   });
 }
-export function deleteParts(internal_part_number, dispatch) {
+export function deleteParts(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .deleteParts({
-        internal_part_number: internal_part_number,
+        internal_part_number: selectedRow.internal_part_number,
       })
       .then((res) => {
         dispatch({ type: "PART", payload: res.data.rows });
@@ -29,10 +29,13 @@ export function deleteParts(internal_part_number, dispatch) {
       });
   });
 }
-export function editParts(editInfo, dispatch) {
+export function editParts(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .editParts(editInfo)
+      .editParts({
+        old_internal_part_number: selectedRow,
+        editInfo,
+      })
       .then((res) => {
         dispatch({ type: "PART", payload: res.data.rows });
         resolve(res.data);

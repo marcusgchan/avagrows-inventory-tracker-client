@@ -24,15 +24,15 @@ function EditModal({
   function getErrorMsg() {
     let msg;
     if (tableType === STATUS_TABLE) {
-      msg = "There is already a status with that status name";
+      msg = "The status is already using that status name";
     } else if (tableType === LOCATION_TABLE) {
-      msg = "There is already a location with that location name";
+      msg = "The location is already using that location name";
     } else if (tableType === PART_TABLE) {
-      msg = "There is already a part with that internal part number";
+      msg = "The part is already using that internal part number";
     } else if (tableType === CATEGORY_TABLE) {
       msg = "There is already an assigned category for that part";
     } else if (tableType === USERS_TABLE) {
-      msg = "There is already an user with that name";
+      msg = "The user is already using that name";
     }
     return msg;
   }
@@ -40,8 +40,7 @@ function EditModal({
   // handles the editing when the user clicks the "save" button
   async function handleEdit(e) {
     e.preventDefault();
-    let result = await editRow(input, dispatch);
-    console.log(result);
+    let result = await editRow(selectedRow, input, dispatch);
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === CATEGORY_TABLE && result.partExists === false) {
       setErrorMsg("The internal part number does not exists");

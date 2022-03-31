@@ -14,11 +14,11 @@ export function addLocation(addInfo, dispatch) {
       });
   });
 }
-export function deleteLocation(id, dispatch) {
+export function deleteLocation(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .deleteLocation({
-        id: id,
+        location_id: selectedRow.location_id,
       })
       .then((res) => {
         dispatch({ type: "LOCATION", payload: res.data.rows });
@@ -30,10 +30,13 @@ export function deleteLocation(id, dispatch) {
       });
   });
 }
-export function editLocation(editInfo, dispatch) {
+export function editLocation(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .editLocation(editInfo)
+      .editLocation({
+        location_id: selectedRow.location_id,
+        ...editInfo,
+      })
       .then((res) => {
         dispatch({ type: "LOCATION", payload: res.data.rows });
         resolve(res.data);

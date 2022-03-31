@@ -17,7 +17,7 @@ function DeleteModal({
   config,
   dispatch,
 }) {
-  const [input, setInput] = useState(createDefaultState());
+  const [info, setInfo] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
   function getErrorMsg() {
@@ -38,7 +38,7 @@ function DeleteModal({
 
   async function handleDelete(e) {
     e.preventDefault();
-    let result = await deleteRow(input, dispatch);
+    let result = await deleteRow(selectedRow, dispatch);
     result.canDelete ? toggleModal() : setErrorMsg(getErrorMsg());
   }
 
@@ -65,13 +65,8 @@ function DeleteModal({
                 {getElement({
                   id: value,
                   disabled: !isEditable,
-                  value: input[value],
+                  value: info[value],
                   name: value,
-                  onChange: (e) => {
-                    let updated = { ...input };
-                    updated[e.target.name] = e.target.value;
-                    setInput(updated);
-                  },
                 })}
               </div>
             )

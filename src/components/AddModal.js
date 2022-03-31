@@ -34,6 +34,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   async function handleAdd(e) {
     e.preventDefault();
     let result = await addRow(input, dispatch);
+    console.log(result);
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === CATEGORY_TABLE && result.partExists === false) {
       setErrorMsg("The internal part number does not exists");

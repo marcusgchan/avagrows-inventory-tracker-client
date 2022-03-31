@@ -26,8 +26,8 @@ export const locationHeadings = [
 export const locationConfig = { uniqueIdProperty: "location_id" };
 
 export const usersHeadings = [
-  { name: "users_id", filterable: true },
-  { name: "user_name", filterable: true },
+  { name: "user_id", filterable: true },
+  { name: "name", filterable: true },
   { name: "actions", filterable: false, type: "action" },
 ];
 export const usersConfig = { uniqueIdProperty: "user_id" };

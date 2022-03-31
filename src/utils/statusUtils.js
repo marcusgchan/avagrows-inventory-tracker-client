@@ -13,11 +13,11 @@ export function addStatus(addInfo, dispatch) {
       });
   });
 }
-export function deleteStatus(id, dispatch) {
+export function deleteStatus(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .deleteStatus({
-        id: id,
+        status_id: selectedRow.status_id,
       })
       .then((res) => {
         dispatch({ type: "STATUS", payload: res.data.rows });
@@ -29,10 +29,13 @@ export function deleteStatus(id, dispatch) {
       });
   });
 }
-export function editStatus(editInfo, dispatch) {
+export function editStatus(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
-      .editStatus(editInfo)
+      .editStatus({
+        status_id: selectedRow.status_id,
+        editInfo,
+      })
       .then((res) => {
         dispatch({ type: "STATUS", payload: res.data.rows });
         resolve(res.data);
