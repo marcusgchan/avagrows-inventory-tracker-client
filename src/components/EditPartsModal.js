@@ -17,6 +17,12 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         New Qty for Location and Status:
         <button
           className={styles.changeQty}
+          onClick={qty - 10 > 0 ? () => setQty(qty - 10) : () => {}}
+        >
+          -10
+        </button>
+        <button
+          className={styles.changeQty}
           onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
         >
           -
@@ -24,6 +30,9 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
         {qty}
         <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
           +
+        </button>
+        <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
+          +10
         </button>
       </label>
       <section className={styles.newQtyText}>
@@ -69,6 +78,12 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
         <p className={styles.convertQty}>
           <button
             className={styles.changeQty}
+            onClick={qty - 10 > 0 ? () => setQty(qty - 10) : () => {}}
+          >
+            -10
+          </button>
+          <button
+            className={styles.changeQty}
             onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
           >
             -
@@ -76,6 +91,9 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
           {qty}
           <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
             +
+          </button>
+          <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
+            +10
           </button>
         </p>
       </label>
