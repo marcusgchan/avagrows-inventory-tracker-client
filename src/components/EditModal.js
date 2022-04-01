@@ -24,15 +24,15 @@ function EditModal({
   function getErrorMsg() {
     let msg;
     if (tableType === STATUS_TABLE) {
-      msg = "The status is already using that status name";
+      msg = "That status name is already in use";
     } else if (tableType === LOCATION_TABLE) {
-      msg = "The location is already using that location name";
+      msg = "That location name is already in use";
     } else if (tableType === PART_TABLE) {
-      msg = "The part is already using that internal part number";
+      msg = "That internal part number is already in use";
     } else if (tableType === CATEGORY_TABLE) {
       msg = "There is already an assigned category for that part";
     } else if (tableType === USERS_TABLE) {
-      msg = "The user is already using that name";
+      msg = "That user name is already in use";
     }
     return msg;
   }
