@@ -34,7 +34,7 @@ export function editStatus(selectedRow, editInfo, dispatch) {
     tableServices
       .editStatus({
         status_id: selectedRow.status_id,
-        editInfo,
+        ...editInfo,
       })
       .then((res) => {
         dispatch({ type: "STATUS", payload: res.data.rows });

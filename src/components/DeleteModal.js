@@ -64,7 +64,7 @@ function DeleteModal({
                 </label>
                 {getElement({
                   id: value,
-                  disabled: !isEditable,
+                  disabled: true,
                   value: info[value],
                   name: value,
                 })}

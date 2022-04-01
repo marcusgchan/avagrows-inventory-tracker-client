@@ -34,7 +34,7 @@ export function editPartCategory(selectedRow, editInfo, dispatch) {
     tableServices
       .editPartCategory({
         part_id: selectedRow.part_id,
-        editInfo,
+        ...editInfo,
       })
       .then((res) => {
         dispatch({ type: "CATEGORY", payload: res.data.rows });

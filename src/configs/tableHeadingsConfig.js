@@ -13,7 +13,7 @@ export const partsTableConfig = { uniqueIdProperty: "serial" };
 export const statusHeadings = [
   { name: "status_id", filterable: true },
   { name: "status_name", filterable: true },
-  { name: "notes", filterable: true },
+  { name: "note", filterable: true },
   { name: "actions", filterable: false, type: "action" },
 ];
 export const statusConfig = { uniqueIdProperty: "status_id" };

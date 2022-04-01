@@ -34,7 +34,7 @@ export function editParts(selectedRow, editInfo, dispatch) {
     tableServices
       .editParts({
         old_internal_part_number: selectedRow,
-        editInfo,
+        ...editInfo,
       })
       .then((res) => {
         dispatch({ type: "PART", payload: res.data.rows });
