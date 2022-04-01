@@ -55,17 +55,17 @@ export const locationConfig = [
 
 export const partCategoryConfig = [
   {
-    label: "part_category_id",
+    label: "part category id",
     value: "part_category_id",
-    isDisplayed: { add: false, edit: true, delete: false },
+    isDisplayed: { add: false, edit: true, delete: true },
     isEditable: false,
     getElement: (props) => <input {...props} />,
   },
   {
-    label: "part_id",
+    label: "internal part number",
     value: "part_id",
-    isDisplayed: { add: false, edit: true, delete: false },
-    isEditable: true,
+    isDisplayed: { add: true, edit: true, delete: true },
+    isEditable: false,
     getElement: (props) => <input required {...props} />,
   },
   {
@@ -73,7 +73,13 @@ export const partCategoryConfig = [
     value: "part_category_name",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
-    getElement: (props) => <input required {...props} />,
+    getElement: (props) => (
+      <select required selected={props.value} {...props}>
+        <option value={"Raw Material"}>Raw Material</option>
+        <option value={"Work In Progress"}>Work In Progress</option>
+        <option value={"Finished Good"}>Finished Good</option>
+      </select>
+    ),
   },
 ];
 

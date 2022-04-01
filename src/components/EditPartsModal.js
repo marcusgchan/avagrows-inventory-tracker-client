@@ -43,7 +43,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
 }
 
 function ConvertMenu({ toggleModal, row, convert, unconvert }) {
-  const [qty, setQty] = useState(row.quantity);
+  const [qty, setQty] = useState(1);
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleUnconvert() {

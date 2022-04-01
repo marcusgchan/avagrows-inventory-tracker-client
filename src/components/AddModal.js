@@ -65,7 +65,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
                 </label>
                 {getElement({
                   id: value,
-                  disabled: !isEditable,
+                  disabled: false,
                   value: input[value],
                   name: value,
                   onChange: (e) => {
