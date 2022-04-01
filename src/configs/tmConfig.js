@@ -74,10 +74,16 @@ export const partCategoryConfig = [
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
     getElement: (props) => (
-      <select required selected={props.value} {...props}>
-        <option value={"Raw Material"}>Raw Material</option>
-        <option value={"Work In Progress"}>Work In Progress</option>
-        <option value={"Finished Good"}>Finished Good</option>
+      <select required selected={props.value}>
+        <option name={"part_category_name"} value={"raw material"}>
+          Raw Material
+        </option>
+        <option name={"part_category_name"} value={"work in progress"}>
+          Work In Progress
+        </option>
+        <option name={"part_category_name"} value={"finished good"}>
+          Finished Good
+        </option>
       </select>
     ),
   },
