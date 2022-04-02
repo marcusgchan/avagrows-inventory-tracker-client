@@ -9,26 +9,26 @@ export default function useSearch(
 ) {
   const containsFilter = useCallback(
     (row) => {
-      return row[searchState.searchParam]
+      return row[searchState.searchColumn]
         .toString()
         .toLowerCase()
         .includes(searchState.search.toLowerCase());
     },
-    [searchState.searchParam, searchState.search]
+    [searchState.searchColumn, searchState.search]
   );
 
   const lessFilter = useCallback(
     (row) => {
-      return row[searchState.searchParam] < Number(searchState.search);
+      return row[searchState.searchColumn] < Number(searchState.search);
     },
-    [searchState.searchParam, searchState.search]
+    [searchState.searchColumn, searchState.search]
   );
 
   const greaterFilter = useCallback(
     (row) => {
-      return row[searchState.searchParam] > Number(searchState.search);
+      return row[searchState.searchColumn] > Number(searchState.search);
     },
-    [searchState.searchParam, searchState.search]
+    [searchState.searchColumn, searchState.search]
   );
 
   const filteredRowsMemo = useMemo(() => {

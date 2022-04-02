@@ -2,14 +2,14 @@ import { SELECT_OPTIONS, DEFAULT_SEARCH_PARAMS } from "../configs/searchConfig";
 
 export default function searchReducer(state, action) {
   switch (action.type) {
-    case "UPDATE_SEARCH_PARAMS":
+    case "UPDATE_SEARCH_COLUMN":
       return {
         ...state,
-        searchParam: action.payload,
+        searchColumn: action.payload,
         searchOption: "contains", // Default search option is contains
         searchTypeOptions: getSearchTypeOptions(action.payload),
       };
-    case "UPDATE_SEARCH_TYPES":
+    case "UPDATE_SEARCH_OPTION":
       return {
         ...state,
         searchOption: action.payload,
@@ -23,7 +23,7 @@ export default function searchReducer(state, action) {
       return {
         ...state,
         search: defaultState.search,
-        searchParam: defaultState.searchParam,
+        searchColumn: defaultState.searchColumn,
         searchOption: defaultState.searchOption,
         searchTypeOptions: defaultState.searchTypeOptions,
       };
@@ -42,7 +42,7 @@ function getSearchTypeOptions(payload) {
 }
 
 export const defaultState = {
-  searchParam: "part_name",
+  searchColumn: "part_name",
   searchOption: "contains",
   searchTypeOptions: getSearchTypeOptions("part_name"),
   search: "",

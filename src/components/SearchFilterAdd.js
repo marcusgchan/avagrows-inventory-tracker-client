@@ -17,9 +17,9 @@ function SearchFilterAdd({
       <div className={styles.searchContainer}>
         <span>search</span>
         <TableSelectMenu
-          value={searchState.searchParam}
+          value={searchState.searchColumn}
           onChange={(e) =>
-            dispatch({ type: "UPDATE_SEARCH_PARAMS", payload: e.target.value })
+            dispatch({ type: "UPDATE_SEARCH_COLUMN", payload: e.target.value })
           }
         >
           {DEFAULT_SEARCH_PARAMS.map(({ value, columnName }) => {
@@ -31,9 +31,9 @@ function SearchFilterAdd({
           })}
         </TableSelectMenu>
         <TableSelectMenu
-          value={searchState.searchOptions}
+          value={searchState.searchOption}
           onChange={(e) =>
-            dispatch({ type: "UPDATE_SEARCH_TYPES", payload: e.target.value })
+            dispatch({ type: "UPDATE_SEARCH_OPTION", payload: e.target.value })
           }
         >
           {searchState.searchTypeOptions.map((option) => (
