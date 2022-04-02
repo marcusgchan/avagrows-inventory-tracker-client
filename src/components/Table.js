@@ -33,15 +33,15 @@ function Table(props) {
 }
 
 function TableHeadings({ headings, sortedColumn, handleColumnSorting }) {
-  return headings.map(({ name, filterable }) => (
+  return headings.map(({ name, sortable }) => (
     <th
       className={styles.headerCell}
       key={name}
-      onClick={filterable ? () => handleColumnSorting(name) : undefined}
+      onClick={sortable ? () => handleColumnSorting(name) : undefined}
     >
       <div className={styles.headerFlex}>
         <span>{name.replaceAll("_", " ")}</span>
-        {filterable && (
+        {sortable && (
           <img
             src={sortedColumn.activeColumn === name ? upArrow : upDownArrow}
             alt=""
