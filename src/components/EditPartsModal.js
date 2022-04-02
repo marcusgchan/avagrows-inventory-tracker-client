@@ -25,11 +25,11 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
           className={styles.changeQty}
           onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
         >
-          -
+          -1
         </button>
         {qty}
         <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
-          +
+          +1
         </button>
         <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
           +10
@@ -86,11 +86,11 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
             className={styles.changeQty}
             onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
           >
-            -
+            -1
           </button>
           {qty}
           <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
-            +
+            +1
           </button>
           <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
             +10
