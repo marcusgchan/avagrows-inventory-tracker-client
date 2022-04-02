@@ -70,7 +70,7 @@ function TableRows({
     type: type,
   }));
   return sortedRows.map((row) => {
-    const id = row[config.uniqueIdProperty];
+    const id = row[config.uniqueId];
     return (
       <tr className={styles.dataRow} key={id.toString()}>
         {/* Display td or action column with buttons based on type  */}
