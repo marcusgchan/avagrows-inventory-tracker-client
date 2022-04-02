@@ -64,14 +64,14 @@ function EditModal({
       <form className={styles.container}>
         <XButton onClick={toggleModal} />
         <h2>Edit</h2>
-        {config.map(({ label, value, isEditable, isDisplayed, getElement }) => {
+        {config.map(({ label, value, isEditable, isDisplayed, element }) => {
           return (
             isDisplayed.edit && (
               <div key={value} className={styles.row}>
                 <label htmlFor={value} className={styles.label}>
                   {label}
                 </label>
-                {getElement({
+                {element.getElement({
                   id: value,
                   disabled: !isEditable,
                   value: input[value],

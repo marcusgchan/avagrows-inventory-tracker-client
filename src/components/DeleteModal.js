@@ -55,14 +55,14 @@ function DeleteModal({
       <form className={styles.container}>
         <XButton onClick={toggleModal} />
         <h2>Delete</h2>
-        {config.map(({ label, value, isEditable, isDisplayed, getElement }) => {
+        {config.map(({ label, value, isDisplayed, element }) => {
           return (
             isDisplayed.delete && (
               <div key={value} className={styles.row}>
                 <label htmlFor={value} className={styles.label}>
                   {label}
                 </label>
-                {getElement({
+                {element.getElement({
                   id: value,
                   disabled: true,
                   value: info[value],

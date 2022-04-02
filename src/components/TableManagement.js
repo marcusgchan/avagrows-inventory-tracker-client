@@ -126,7 +126,6 @@ function TableManagement() {
           <option value="status">status</option>
           <option value="location">location</option>
           <option value="parts">parts</option>
-          <option value="manufactures">manufactures</option>
           <option value="users">users</option>
           <option value="partCategories">part categories</option>
         </TableSelectMenu>

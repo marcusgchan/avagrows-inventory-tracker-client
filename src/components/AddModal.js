@@ -1,5 +1,5 @@
 import XButton from "./XButton";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import styles from "./styles/AddModal.module.css";
 import ModalButton from "./ModalButton";
 
@@ -10,6 +10,10 @@ const CATEGORY_TABLE = "part categories";
 const USERS_TABLE = "users";
 
 function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
+  useLayoutEffect(() => {
+    console.log("hi");
+  }, []);
+
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -34,7 +38,6 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   async function handleAdd(e) {
     e.preventDefault();
     let result = await addRow(input, dispatch);
-    console.log(result);
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === CATEGORY_TABLE && result.partExists === false) {
       setErrorMsg("The internal part number does not exists");
@@ -47,7 +50,14 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
     const defaultState = {};
     config
       .filter(({ isDisplayed }) => isDisplayed.add === true)
-      .forEach(({ value }) => (defaultState[value] = ""));
+      .forEach((row) => {
+        const defaultValue = row.element.defaultValue;
+        if (defaultValue) {
+          defaultState[row.value] = defaultValue;
+        } else {
+          defaultState[row.value] = "";
+        }
+      });
     return defaultState;
   }
 
@@ -56,14 +66,14 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
       <form className={styles.container}>
         <XButton onClick={toggleModal} />
         <h2>Add</h2>
-        {config.map(({ label, value, isEditable, isDisplayed, getElement }) => {
+        {config.map(({ label, value, isDisplayed, element }) => {
           return (
             isDisplayed.add && (
               <div key={value} className={styles.row}>
                 <label htmlFor={value} className={styles.label}>
                   {label}
                 </label>
-                {getElement({
+                {element.getElement({
                   id: value,
                   disabled: false,
                   value: input[value],
