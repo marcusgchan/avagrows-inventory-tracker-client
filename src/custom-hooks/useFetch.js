@@ -7,9 +7,8 @@ export default function useFetch(service) {
   useEffect(() => {
     service()
       .then((res) => {
-        const dataWithId = res.data.map((row) => ({ ...row, id: row.serial }));
-        console.log(dataWithId);
-        setRows(dataWithId);
+        const data = res.data.map((row) => ({ ...row }));
+        setRows(data);
       })
       .catch((e) => console.log(e));
   }, [service]);
