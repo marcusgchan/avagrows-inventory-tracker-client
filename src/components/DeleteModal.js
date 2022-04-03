@@ -21,7 +21,6 @@ function DeleteModal({
   const [errorMsg, setErrorMsg] = useState("");
 
   function getErrorMsg() {
-    console.log(tableType);
     let msg;
     if (tableType === STATUS_TABLE) {
       msg = "A row in the inventory table is currently using this Status";

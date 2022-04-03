@@ -115,16 +115,16 @@ export const partsConfig = [
   {
     label: "internal part number",
     value: "internal_part_number",
-    isDisplayed: { add: false, edit: true, delete: false },
+    isDisplayed: { add: true, edit: true, delete: true },
     isEditable: false,
-    element: { getElement: (props) => <input {...props} /> },
+    element: { getElement: (props) => <input required {...props} /> },
   },
   {
     label: "part name",
     value: "part_name",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
-    element: { getElement: (props) => <input {...props} /> },
+    element: { getElement: (props) => <input required {...props} /> },
   },
   {
     label: "part description",
@@ -157,8 +157,8 @@ export const partsConfig = [
   {
     label: "total quantity",
     value: "total_quantity",
-    isDisplayed: { add: true, edit: true, delete: true },
-    isEditable: true,
+    isDisplayed: { add: false, edit: true, delete: true },
+    isEditable: false,
     element: { getElement: (props) => <input {...props} /> },
   },
 ];
