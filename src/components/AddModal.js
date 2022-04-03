@@ -6,7 +6,7 @@ import ModalButton from "./ModalButton";
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
 const PART_TABLE = "parts";
-const CATEGORY_TABLE = "part categories";
+const CATEGORY_TABLE = "partCategories";
 const USERS_TABLE = "users";
 
 function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {

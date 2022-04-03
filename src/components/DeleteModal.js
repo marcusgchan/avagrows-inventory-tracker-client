@@ -6,7 +6,7 @@ import ModalButton from "./ModalButton";
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
 const PART_TABLE = "parts";
-const CATEGORY_TABLE = "part categories";
+const CATEGORY_TABLE = "partCategories";
 const USERS_TABLE = "users";
 
 function DeleteModal({
@@ -21,6 +21,7 @@ function DeleteModal({
   const [errorMsg, setErrorMsg] = useState("");
 
   function getErrorMsg() {
+    console.log(tableType);
     let msg;
     if (tableType === STATUS_TABLE) {
       msg = "A row in the inventory table is currently using this Status";

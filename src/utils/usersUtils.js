@@ -18,7 +18,7 @@ export function deleteUsers(selectedRow, dispatch) {
     tableServices
       .deleteUser({ user_id: selectedRow.user_id })
       .then((res) => {
-        dispatch({ type: "STATUS", payload: res.data.rows });
+        dispatch({ type: "USER", payload: res.data.rows });
         resolve(res.data);
       })
       .catch((err) => {
