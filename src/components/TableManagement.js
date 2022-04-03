@@ -65,7 +65,7 @@ function TableManagement() {
     dispatch({
       type: "UPDATE_SELECTED_ROW",
       payload: state.rows.find(
-        (element) => element[state.config.uniqueIdProperty] === id
+        (element) => element[state.config.uniqueId] === id
       ),
     });
   }

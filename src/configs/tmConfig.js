@@ -96,8 +96,8 @@ export const partCategoryConfig = [
 
 export const usersConfig = [
   {
-    label: "users id",
-    value: "users_id",
+    label: "user id",
+    value: "user_id",
     isDisplayed: { add: false, edit: true, delete: false },
     isEditable: false,
     element: { getElement: (props) => <input {...props} /> },

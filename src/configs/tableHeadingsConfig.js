@@ -21,6 +21,8 @@ export const statusConfig = { uniqueId: "status_id" };
 export const locationHeadings = [
   { name: "location_id", sortable: true },
   { name: "location_name", sortable: true },
+  { name: "address", sortable: true },
+  { name: "postal_code", sortable: true },
   { name: "actions", sortable: false, type: "action" },
 ];
 export const locationConfig = { uniqueId: "location_id" };

@@ -55,7 +55,7 @@ const tableServices = {
     return axios.post(BASE_URL + "/locations/delete", deleteLocationInfo);
   },
   editLocation(editLocationInfo) {
-    return axios.post(BASE_URL + "locations/edit", editLocationInfo);
+    return axios.post(BASE_URL + "/locations/edit", editLocationInfo);
   },
   addStatus(addStatusInfo) {
     return axios.post(BASE_URL + "/statuses/add", addStatusInfo);

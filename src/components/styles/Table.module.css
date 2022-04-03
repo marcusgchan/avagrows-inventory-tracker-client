@@ -11,6 +11,7 @@
 .dataRow {
   height: 45px;
   align-items: center;
+  text-transform: none;
 }
 
 .dataRow:nth-child(odd) {

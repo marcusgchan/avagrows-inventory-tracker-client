@@ -22,3 +22,8 @@
 .label {
   width: 8rem;
 }
+
+.errorMsg {
+  color: red;
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 import XButton from "./XButton";
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import styles from "./styles/AddModal.module.css";
 import ModalButton from "./ModalButton";
 
@@ -10,10 +10,6 @@ const CATEGORY_TABLE = "part categories";
 const USERS_TABLE = "users";
 
 function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
-  useLayoutEffect(() => {
-    console.log("hi");
-  }, []);
-
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -88,7 +84,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
             )
           );
         })}
-        {errorMsg !== "" && <p>{errorMsg}</p>}
+        {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
         <ModalButton onClick={(e) => handleAdd(e)}>Add</ModalButton>
       </form>
     </>
