@@ -22,7 +22,71 @@ import {
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 
+import { DataGrid } from "@mui/x-data-grid";
+
 function Inventory() {
+  const partsTableHeadings = [
+    {
+      field: "internal_part_number",
+      headerName: "Interal Part Number",
+      sortable: true,
+      width: 200,
+    },
+    { field: "part_name", headerName: "Part Name", sortable: true, width: 140 },
+    {
+      field: "part_category_name",
+      headerName: "Part Category Name",
+      sortable: true,
+      width: 200,
+    },
+    {
+      field: "location_name",
+      headerName: "Location Name",
+      sortable: true,
+      width: 120,
+    },
+    {
+      field: "status_name",
+      headerName: "Status Name",
+      sortable: true,
+      width: 120,
+    },
+    { field: "quantity", headerName: "Quantity", sortable: true, width: 100 },
+    {
+      field: "",
+      headerName: "Actions",
+      sortable: false,
+      width: 140,
+      renderCell: (params) => {
+        return (
+          <>
+            <button
+              onClick={() => {
+                selectRow(params.id);
+                toggleEditModal();
+              }}
+            >
+              edit
+            </button>
+            <button
+              onClick={() => {
+                selectRow(params.id);
+                toggleDeleteModal();
+              }}
+            >
+              delete
+            </button>
+          </>
+        );
+      },
+    },
+    {
+      field: "total_quantity",
+      headerName: "Total Quantity",
+      sortable: true,
+      width: 110,
+    },
+  ];
   function selectRow(serial) {
     // gets the row object that has the serial
     setRow(rows.find((element) => element.serial === serial));
@@ -291,7 +355,15 @@ function Inventory() {
         searchState={searchState}
         isFilterActive={isFilterActive()}
       />
-      <Table
+      <div style={{ height: "500px" }}>
+        <DataGrid
+          rows={filteredRowsMemo}
+          getRowId={(row) => row.serial}
+          columns={partsTableHeadings}
+          options={{ tableLayout: "auto" }}
+        />
+      </div>
+      {/* <Table
         config={partsTableConfig}
         headings={partsTableHeadings}
         rows={filteredRowsMemo}
@@ -299,7 +371,7 @@ function Inventory() {
         toggleDeleteModal={toggleDeleteModal}
         toggleEditModal={toggleEditModal}
         selectRow={selectRow}
-      />
+      /> */}
     </LayoutContainer>
   );
 }

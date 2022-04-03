@@ -6,7 +6,11 @@ export default function useFetch(service) {
 
   useEffect(() => {
     service()
-      .then((res) => setRows(res.data))
+      .then((res) => {
+        const dataWithId = res.data.map((row) => ({ ...row, id: row.serial }));
+        console.log(dataWithId);
+        setRows(dataWithId);
+      })
       .catch((e) => console.log(e));
   }, [service]);
 

@@ -1,12 +1,62 @@
 export const partsTableHeadings = [
-  { name: "internal_part_number", sortable: true, minWidth: 260 },
-  { name: "part_name", sortable: true },
-  { name: "part_category_name", sortable: true },
-  { name: "location_name", sortable: true },
-  { name: "status_name", sortable: true },
-  { name: "quantity", sortable: true },
-  { name: "actions", sortable: false, type: "action" },
-  { name: "total_quantity", sortable: true },
+  {
+    field: "internal_part_number",
+    headerName: "Interal Part Number",
+    sortable: true,
+    width: 200,
+  },
+  { field: "part_name", headerName: "Part Name", sortable: true, width: 140 },
+  {
+    field: "part_category_name",
+    headerName: "Part Category Name",
+    sortable: true,
+    width: 200,
+  },
+  {
+    field: "location_name",
+    headerName: "Location Name",
+    sortable: true,
+    width: 120,
+  },
+  {
+    field: "status_name",
+    headerName: "Status Name",
+    sortable: true,
+    width: 120,
+  },
+  { field: "quantity", headerName: "Quantity", sortable: true, width: 100 },
+  {
+    field: "action",
+    headerName: "Actions",
+    sortable: false,
+    width: 140,
+    renderCell: () => {
+      return (
+        <>
+          <button
+            onClick={() => {
+              console.log("eyess");
+            }}
+          >
+            dsaasdf
+          </button>
+          <button
+            onClick={() => {
+              console.log("eyess");
+            }}
+          >
+            dsaasdf
+          </button>
+        </>
+      );
+    },
+  },
+  {
+    field: "total_quantity",
+    headerName: "Total Quantity",
+    sortable: true,
+    width: 110,
+  },
 ];
 export const partsTableConfig = { uniqueId: "serial" };
 
