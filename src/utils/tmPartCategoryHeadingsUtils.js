@@ -22,12 +22,6 @@ export default function handleTmPartCategoryHeadings(
     },
     { field: "part_id", headerName: "Part ID", sortable: true, width: 210 },
     {
-      field: "part_description",
-      headerName: "Part Description",
-      sortable: true,
-      width: 300,
-    },
-    {
       field: "part_category_name",
       headerName: "part Category Name",
       sortable: true,

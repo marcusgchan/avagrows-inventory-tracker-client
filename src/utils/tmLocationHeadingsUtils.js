@@ -26,7 +26,14 @@ export default function handleTmLocationHeadings(
       sortable: true,
       width: 200,
     },
-    { field: "note", headerName: "note", sortable: true, width: 500 },
+    { field: "address", headerName: "address", sortable: true, width: 500 },
+    {
+      field: "postal_code",
+      headerName: "Postal Code",
+      sortable: true,
+      width: 500,
+    },
+
     {
       field: "",
       headerName: "actions",
