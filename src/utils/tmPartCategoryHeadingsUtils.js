@@ -20,7 +20,6 @@ export default function handleTmPartCategoryHeadings(
           operator.value === "="
       ),
     },
-    { field: "part_id", headerName: "Part ID", sortable: true, width: 210 },
     {
       field: "part_category_name",
       headerName: "part Category Name",
