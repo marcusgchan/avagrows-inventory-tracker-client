@@ -1,0 +1,8 @@
+.tableImg:hover {
+  transform: scale(1.06);
+}
+
+.tableButton {
+  cursor: pointer;
+  border: none;
+}
