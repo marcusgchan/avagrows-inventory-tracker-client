@@ -85,7 +85,9 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-        <ModalButton onClick={(e) => handleAdd(e)}>Add</ModalButton>
+        <ModalButton type="submit" onSubmit={(e) => handleAdd(e)}>
+          Add
+        </ModalButton>
       </form>
     </>
   );

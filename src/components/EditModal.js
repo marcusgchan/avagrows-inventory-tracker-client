@@ -91,7 +91,9 @@ function EditModal({
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-        <ModalButton onClick={(e) => handleEdit(e)}>Save</ModalButton>
+        <ModalButton type="submit" onSubmit={(e) => handleEdit(e)}>
+          Save
+        </ModalButton>
       </form>
     </>
   );
