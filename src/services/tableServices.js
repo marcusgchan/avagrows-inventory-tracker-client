@@ -27,6 +27,9 @@ const tableServices = {
   getUsers() {
     return axios.get(BASE_URL + "/people/");
   },
+  getLogs() {
+    return axios.get(BASE_URL + "/logs/");
+  },
   deletePart(row) {
     return axios.post(BASE_URL + "/inventory/delete", row);
   },
