@@ -46,7 +46,13 @@ function DeleteModal({
     const defaultState = {};
     config
       .filter(({ isDisplayed }) => isDisplayed.delete === true)
-      .forEach(({ value }) => (defaultState[value] = selectedRow[value]));
+      .forEach(({ value }) => {
+        if (selectedRow[value] !== null) {
+          defaultState[value] = selectedRow[value];
+        } else {
+          defaultState[value] = "";
+        }
+      });
     return defaultState;
   }
 

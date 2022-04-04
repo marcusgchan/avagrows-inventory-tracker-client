@@ -54,7 +54,11 @@ function EditModal({
     config
       .filter(({ isDisplayed }) => isDisplayed.edit === true)
       .forEach(({ value }) => {
-        defaultState[value] = selectedRow[value];
+        if (selectedRow[value] !== null) {
+          defaultState[value] = selectedRow[value];
+        } else {
+          defaultState[value] = "";
+        }
       });
     return defaultState;
   }
