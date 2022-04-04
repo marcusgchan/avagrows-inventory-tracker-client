@@ -21,9 +21,10 @@ const dataGridStyles = {
   ".MuiDataGrid-columnHeaderTitleContainer, .MuiDataGrid-cell": {
     justifyContent: "center",
   },
-  "& .MuiDataGrid-cell:focus, .MuiDataGrid-cell--withRenderer:focus": {
-    outline: "none",
-  },
+  "& .MuiDataGrid-cell:focus, .MuiDataGrid-cell--withRenderer:focus, &.MuiDataGrid-columnHeader, .MuiDataGrid-cell:focus-within":
+    {
+      outline: "none",
+    },
 };
 
 export default dataGridStyles;

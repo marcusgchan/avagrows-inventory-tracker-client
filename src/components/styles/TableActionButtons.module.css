@@ -2,6 +2,10 @@
   transform: scale(1.06);
 }
 
+.tableButton:focus {
+  outline: none;
+}
+
 .tableButton {
   cursor: pointer;
   border: none;
