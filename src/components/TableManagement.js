@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react";
-import Table from "./Table";
 import TableHeaderComponent from "./TableHeaderContainer";
 import useModalToggle from "../custom-hooks/useModalToggle";
 import LayoutContainer from "./LayoutContainer";
@@ -14,6 +13,11 @@ import ModalContainer from "./ModalContainer";
 import AddModal from "./AddModal";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
+import HandleModalDisplay from "./HandleModalDisplay";
+import DataGridContainer from "./DataGridContainer";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import dataGridStyles from "../configs/dataGridStylesConfig";
+import handleTmHeadings from "../utils/tmHeadingsUtils";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -64,58 +68,57 @@ function TableManagement() {
     // gets the row object that has the serial
     dispatch({
       type: "UPDATE_SELECTED_ROW",
-      payload: state.rows.find(
-        (element) => element[state.config.uniqueIdProperty] === id
-      ),
+      payload: state.rows.find((element) => {
+        return element[state.config] === id;
+      }),
     });
   }
 
-  function handleModals() {
-    return (
-      <>
-        {showAddModal && (
-          <ModalContainer>
-            <AddModal
-              toggleModal={toggleAddModal}
-              config={state.modalConfig}
-              tableType={state.selectMenu}
-              addRow={state.handleAdding}
-              dispatch={dispatch}
-            />
-          </ModalContainer>
-        )}
-        {showDeleteModal && (
-          <ModalContainer>
-            <DeleteModal
-              toggleModal={toggleDeleteModal}
-              config={state.modalConfig}
-              selectedRow={state.selectedRow}
-              deleteRow={state.handleDeleting}
-              dispatch={dispatch}
-              tableType={state.selectMenu}
-            />
-          </ModalContainer>
-        )}
-        {showEditModal && (
-          <ModalContainer>
-            <EditModal
-              toggleModal={toggleEditModal}
-              config={state.modalConfig}
-              selectedRow={state.selectedRow}
-              editRow={state.handleEditing}
-              dispatch={dispatch}
-              tableType={state.selectMenu}
-            />
-          </ModalContainer>
-        )}
-      </>
-    );
-  }
+  const columns = handleTmHeadings(
+    state.selectMenu,
+    selectRow,
+    toggleEditModal,
+    toggleDeleteModal
+  );
 
   return (
     <LayoutContainer>
+      <HandleModalDisplay isDisplayed={showAddModal}>
+        <ModalContainer>
+          <AddModal
+            toggleModal={toggleAddModal}
+            config={state.modalConfig}
+            tableType={state.selectMenu}
+            addRow={state.handleAdding}
+            dispatch={dispatch}
+          />
+        </ModalContainer>
+      </HandleModalDisplay>
+      <HandleModalDisplay isDisplayed={showDeleteModal}>
+        <ModalContainer>
+          <DeleteModal
+            toggleModal={toggleDeleteModal}
+            config={state.modalConfig}
+            selectedRow={state.selectedRow}
+            deleteRow={state.handleDeleting}
+            dispatch={dispatch}
+            tableType={state.selectMenu}
+          />
+        </ModalContainer>
+      </HandleModalDisplay>
+      <HandleModalDisplay isDisplayed={showEditModal}>
+        <ModalContainer>
+          <EditModal
+            toggleModal={toggleEditModal}
+            config={state.modalConfig}
+            selectedRow={state.selectedRow}
+            editRow={state.handleEditing}
+            dispatch={dispatch}
+            tableType={state.selectMenu}
+          />
+        </ModalContainer>
+      </HandleModalDisplay>
       <MainHeading>table management</MainHeading>
-      {handleModals()}
       <TableHeaderComponent>
         <TableSelectMenu
           value={state.selectMenu}
@@ -126,18 +129,21 @@ function TableManagement() {
           <option value="status">status</option>
           <option value="location">location</option>
           <option value="parts">parts</option>
-          <option value="manufactures">manufactures</option>
           <option value="users">users</option>
           <option value="partCategories">part categories</option>
         </TableSelectMenu>
         <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </TableHeaderComponent>
-      <Table
-        {...state}
-        toggleDeleteModal={toggleDeleteModal}
-        toggleEditModal={toggleEditModal}
-        selectRow={selectRow}
-      />
+      <DataGridContainer>
+        <DataGrid
+          rows={state.rows}
+          columns={columns}
+          getRowId={state.getRowId}
+          components={{ Toolbar: GridToolbar }}
+          disableSelectionOnClick
+          sx={dataGridStyles}
+        />
+      </DataGridContainer>
     </LayoutContainer>
   );
 }

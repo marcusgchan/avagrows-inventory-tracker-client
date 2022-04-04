@@ -23,6 +23,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import handleInventoryHeadings from "../utils/inventoryHeadingsUtils";
 import dataGridStyles from "../configs/dataGridStylesConfig";
 import DataGridContainer from "./DataGridContainer";
+import HandleModalDisplay from "./HandleModalDisplay";
 
 function Inventory() {
   function selectRow(serial) {
@@ -143,7 +144,6 @@ function Inventory() {
           rows={filteredRowsMemo}
           getRowId={(row) => row.serial}
           columns={partsTableHeadings}
-          options={{ tableLayout: "auto" }}
           components={{ Toolbar: GridToolbar }}
           disableSelectionOnClick
           sx={dataGridStyles}
@@ -151,10 +151,6 @@ function Inventory() {
       </DataGridContainer>
     </LayoutContainer>
   );
-}
-
-function HandleModalDisplay({ children, isDisplayed }) {
-  return isDisplayed && children;
 }
 
 function isFilterActive(locations, categories, statuses) {
