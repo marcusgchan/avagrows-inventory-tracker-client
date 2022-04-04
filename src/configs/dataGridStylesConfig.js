@@ -25,6 +25,7 @@ const dataGridStyles = {
     {
       outline: "none",
     },
+  ".MuiDataGrid-cell": { textTransform: "none" },
 };
 
 export default dataGridStyles;
