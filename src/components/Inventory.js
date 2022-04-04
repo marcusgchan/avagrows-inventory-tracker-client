@@ -24,7 +24,6 @@ import handleInventoryHeadings from "../utils/inventoryHeadingsUtils";
 import dataGridStyles from "../configs/dataGridStylesConfig";
 import DataGridContainer from "./DataGridContainer";
 import HandleModalDisplay from "./HandleModalDisplay";
-// import { makeStyles } from "@material-ui/core/styles";
 
 function Inventory() {
   function selectRow(serial) {
