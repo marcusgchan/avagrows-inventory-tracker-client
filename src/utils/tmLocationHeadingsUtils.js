@@ -35,7 +35,7 @@ export default function handleTmLocationHeadings(
       renderCell: (params) => {
         return (
           <TableActionButtons
-            onClickEdit={() => {
+            onClickEdit={(e) => {
               selectRow(params.id);
               toggleEditModal();
             }}

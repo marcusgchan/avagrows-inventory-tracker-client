@@ -44,7 +44,7 @@ export default function tableManagementReducer(state, action) {
       return {
         ...state,
         selectMenu: "location",
-        config: locationConfig.uniqueId,
+        config: locationConfig,
         rows: action.payload,
         getRowId: (row) => row[locationConfig.uniqueId],
         modalConfig: locationModalConfig,
@@ -56,7 +56,7 @@ export default function tableManagementReducer(state, action) {
       return {
         ...state,
         selectMenu: "parts",
-        config: partsConfig.uniqueId,
+        config: partsConfig,
         rows: action.payload,
         getRowId: (row) => row[partsConfig.uniqueId],
         modalConfig: partsModalConfig,
@@ -71,7 +71,7 @@ export default function tableManagementReducer(state, action) {
         selectMenu: "partCategories",
         rows: action.payload,
         getRowId: (row) => row[partCategoryConfig.uniqueId],
-        config: partCategoryConfig.uniqueId,
+        config: partCategoryConfig,
         modalConfig: partCategoryModalConfig,
         handleAdding: addPartCategory,
         handleDeleting: deletePartCategory,
@@ -109,7 +109,7 @@ export default function tableManagementReducer(state, action) {
 export const DEFAULT_STATE = {
   selectMenu: "status",
   rows: [],
-  config: statusConfig.uniqueId,
+  config: statusConfig,
   getRowId: (row) => row[statusConfig.uniqueId],
   selectedRow: {},
   modalConfig: statusModalConfig,
