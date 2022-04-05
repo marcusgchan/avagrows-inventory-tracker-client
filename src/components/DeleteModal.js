@@ -58,7 +58,7 @@ function DeleteModal({
 
   return (
     <>
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => handleDelete(e)}>
         <XButton onClick={toggleModal} />
         <h2>Delete</h2>
         {config.map(({ label, value, isDisplayed, element }) => {
@@ -80,9 +80,7 @@ function DeleteModal({
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
         <div className="buttons">
-          <ModalButton type="submit" onSubmit={(e) => handleDelete(e)}>
-            Yes
-          </ModalButton>
+          <ModalButton type="submit">Yes</ModalButton>
           <ModalButton onClick={toggleModal}>No</ModalButton>
         </div>
       </form>

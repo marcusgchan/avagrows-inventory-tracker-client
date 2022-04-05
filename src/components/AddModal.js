@@ -33,10 +33,12 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   // handles the adding when the user clicks the "add" button
   async function handleAdd(e) {
     e.preventDefault();
+    console.log(input);
     let result = await addRow(input, dispatch);
+    console.log(result);
     // For adding a part category column there is an extra type of error that is handled
-    if (tableType === CATEGORY_TABLE && result.partExists === false) {
-      setErrorMsg("The internal part number does not exists");
+    if (tableType === PART_TABLE && result.categoryExists === false) {
+      setErrorMsg("That part category does not exists");
     } else {
       result.canAdd ? toggleModal() : setErrorMsg(getErrorMsg());
     }
@@ -59,7 +61,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
 
   return (
     <>
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => handleAdd(e)}>
         <XButton onClick={toggleModal} />
         <h2>Add</h2>
         {config.map(({ label, value, isDisplayed, element }) => {
@@ -85,9 +87,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-        <ModalButton type="submit" onSubmit={(e) => handleAdd(e)}>
-          Add
-        </ModalButton>
+        <ModalButton type="submit">Add</ModalButton>
       </form>
     </>
   );

@@ -42,8 +42,8 @@ function EditModal({
     e.preventDefault();
     let result = await editRow(selectedRow, input, dispatch);
     // For adding a part category column there is an extra type of error that is handled
-    if (tableType === CATEGORY_TABLE && result.partExists === false) {
-      setErrorMsg("The internal part number does not exists");
+    if (tableType === PART_TABLE && result.categoryExists === false) {
+      setErrorMsg("That part category does not exists");
     } else {
       result.canEdit ? toggleModal() : setErrorMsg(getErrorMsg());
     }
@@ -54,6 +54,7 @@ function EditModal({
     config
       .filter(({ isDisplayed }) => isDisplayed.edit === true)
       .forEach(({ value }) => {
+        console.log(selectedRow);
         if (selectedRow[value] !== null) {
           defaultState[value] = selectedRow[value];
         } else {
@@ -65,7 +66,7 @@ function EditModal({
 
   return (
     <>
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => handleEdit(e)}>
         <XButton onClick={toggleModal} />
         <h2>Edit</h2>
         {config.map(({ label, value, isEditable, isDisplayed, element }) => {
@@ -91,9 +92,7 @@ function EditModal({
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-        <ModalButton type="submit" onSubmit={(e) => handleEdit(e)}>
-          Save
-        </ModalButton>
+        <ModalButton type="submit">Save</ModalButton>
       </form>
     </>
   );

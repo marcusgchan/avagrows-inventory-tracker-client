@@ -8,4 +8,4 @@ export const usersConfig = { uniqueId: "user_id" };
 
 export const partsConfig = { uniqueId: "internal_part_number" };
 
-export const partCategoryConfig = { uniqueId: "part_id" };
+export const partCategoryConfig = { uniqueId: "part_category_id" };
