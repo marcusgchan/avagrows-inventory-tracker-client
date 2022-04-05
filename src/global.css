@@ -102,3 +102,6 @@ li {
 .MuiDataGrid-cell:focus-within {
   outline: none !important;
 }
+.MuiDataGrid-cell {
+  text-transform: none !important;
+}
