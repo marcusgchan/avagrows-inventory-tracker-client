@@ -16,7 +16,6 @@ import EditModal from "./EditModal";
 import HandleModalDisplay from "./HandleModalDisplay";
 import DataGridContainer from "./DataGridContainer";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import dataGridStyles from "../configs/dataGridStylesConfig";
 import handleTmHeadings from "../utils/tmHeadingsUtils";
 
 function TableManagement() {
@@ -141,7 +140,6 @@ function TableManagement() {
           getRowId={state.getRowId}
           components={{ Toolbar: GridToolbar }}
           disableSelectionOnClick
-          sx={dataGridStyles}
         />
       </DataGridContainer>
     </LayoutContainer>

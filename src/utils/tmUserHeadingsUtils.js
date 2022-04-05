@@ -26,6 +26,7 @@ export default function handleTmUserHeadings(
       headerName: "actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons

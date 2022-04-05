@@ -32,6 +32,7 @@ export default function handleTmStatusHeadings(
       headerName: "actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons
