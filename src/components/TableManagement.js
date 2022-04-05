@@ -4,7 +4,7 @@ import useModalToggle from "../custom-hooks/useModalToggle";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 import TableButton from "./TableButton";
-import TableSelectMenu from "./TableSelectMenu";
+import TableSelectMenu from "./SelectMenu";
 import tableServices from "../services/tableServices";
 import tableManagementReducer, {
   DEFAULT_STATE,

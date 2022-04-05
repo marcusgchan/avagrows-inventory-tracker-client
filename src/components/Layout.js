@@ -12,7 +12,6 @@ import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../contexts/UserContext";
 
-// The values are used to
 const navConfig = [
   { text: "Dashboard/Home", value: "", logo: grid, to: "/" },
   { text: "Inventory", value: "inventory", logo: box, to: "/inventory" },

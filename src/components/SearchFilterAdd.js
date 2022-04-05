@@ -1,7 +1,7 @@
 import styles from "./styles/SearchFilterAdd.module.css";
 import { DEFAULT_SEARCH_PARAMS } from "../configs/searchConfig";
 import TableHeaderComponent from "./TableHeaderContainer";
-import TableSelectMenu from "./TableSelectMenu";
+import TableSelectMenu from "./SelectMenu";
 import TableInput from "./TableInput";
 import TableButton from "./TableButton";
 
