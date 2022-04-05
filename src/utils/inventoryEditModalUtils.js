@@ -1,6 +1,10 @@
 import tableServices from "../services/tableServices";
 
-export default function handleInventoryEditModal(setRows, lookUpTableRef) {
+export default function handleInventoryEditModal(
+  setRows,
+  lookUpTableRef,
+  userId
+) {
   function convert(row, convertQuantity) {
     //updates the database
     return new Promise((resolve, reject) => {
@@ -8,7 +12,7 @@ export default function handleInventoryEditModal(setRows, lookUpTableRef) {
         .convert({
           internal_part_number: row.internal_part_number,
           conversionQuantity: convertQuantity,
-          user_id: 1,
+          user_id: userId,
         })
         .then((res) => {
           setRows(res.data.rows);
@@ -28,7 +32,7 @@ export default function handleInventoryEditModal(setRows, lookUpTableRef) {
         .unconvert({
           internal_part_number: row.internal_part_number,
           conversionQuantity: unConvertQuantity,
-          user_id: 1,
+          user_id: userId,
         })
         .then((res) => {
           setRows(res.data.rows);
@@ -59,7 +63,7 @@ export default function handleInventoryEditModal(setRows, lookUpTableRef) {
         status_id: statusId,
         location_id: locationId,
         new_quantity: newQuantity,
-        user_id: 1,
+        user_id: userId,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));
@@ -90,7 +94,7 @@ export default function handleInventoryEditModal(setRows, lookUpTableRef) {
         new_status_id: newStatusId,
         old_quantity: oldQuantity,
         new_quantity: newQuantity,
-        user_id: 1,
+        user_id: userId,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));

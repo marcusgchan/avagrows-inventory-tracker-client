@@ -28,6 +28,7 @@
 
 .rightHeader {
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding-right: 0.8rem;
   font-style: normal;

@@ -11,6 +11,9 @@ import book from "../imgs/book-open.svg";
 import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../contexts/UserContext";
+import SelectMenu from "./SelectMenu";
+import usePeople from "../custom-hooks/usePeople";
+import useSelectedPerson from "../contexts/PeopleContext";
 
 const navConfig = [
   { text: "Dashboard/Home", value: "", logo: grid, to: "/" },
@@ -45,6 +48,8 @@ function Layout() {
 function Heading({ handleNavToggle }) {
   const navigate = useNavigate();
   const { setUser } = useLogin();
+  const people = usePeople();
+  const { selectedPerson, handleSelection } = useSelectedPerson();
 
   function handleLogout() {
     userServices
@@ -71,7 +76,18 @@ function Heading({ handleNavToggle }) {
         </div>
       </div>
       <div className={styles.rightHeader}>
-        <button className={`${styles.btn}`}>Username</button>
+        <SelectMenu
+          value={selectedPerson.user_id}
+          onChange={(e) => handleSelection(e, people)}
+        >
+          {people.map(({ user_id, name }) => {
+            return (
+              <option key={user_id} value={user_id}>
+                {name}
+              </option>
+            );
+          })}
+        </SelectMenu>
         <button className={styles.bellButton} type="button">
           <img src={bell} alt="bell"></img>
         </button>

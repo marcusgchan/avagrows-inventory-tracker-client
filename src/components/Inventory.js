@@ -1,9 +1,9 @@
 import { useState, useReducer, useRef } from "react";
 import ModalContainer from "./ModalContainer";
-import AddPartsModal from "./AddPartsModal";
-import DeletePartsModal from "./DeletePartsModal";
+import AddInventoryModal from "./AddInventoryModal";
+import DeleteInventoryModal from "./DeleteInventoryModal";
 import FilterPartsModal from "./FilterPartsModal";
-import EditPartsModal from "./EditPartsModal";
+import EditInventoryModal from "./EditInventoryModal";
 import SearchFilterAdd from "./SearchFilterAdd";
 import searchReducer, { defaultState } from "../reducers/searchReducer";
 import tableServices from "../services/tableServices";
@@ -23,6 +23,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import handleInventoryHeadings from "../utils/inventoryHeadingsUtils";
 import DataGridContainer from "./DataGridContainer";
 import HandleModalDisplay from "./HandleModalDisplay";
+import useSelectedPerson from "../contexts/PeopleContext";
 
 function Inventory() {
   function selectRow(serial) {
@@ -65,13 +66,26 @@ function Inventory() {
   const [showDeleteModal, toggleDeleteModal] = useModalToggle();
   const [showEditModal, toggleEditModal] = useModalToggle();
 
+  // The current user that is selected
+  const { selectedPerson } = useSelectedPerson();
+
   // Handle logic for modals
   const { convert, unconvert, changeQuantity, moveLocation } = handleEditModal(
     setRows,
-    lookUpTableRef
+    lookUpTableRef,
+    selectedPerson.user_id
   );
-  const { deleteRow } = handleDeleteModal(setRows, lookUpTableRef);
-  const { addPart } = handleAddModal(rows, setRows, lookUpTableRef);
+  const { deleteRow } = handleDeleteModal(
+    setRows,
+    lookUpTableRef,
+    selectedPerson.user_id
+  );
+  const { addPart } = handleAddModal(
+    rows,
+    setRows,
+    lookUpTableRef,
+    selectedPerson.user_id
+  );
 
   const partsTableHeadings = handleInventoryHeadings(
     selectRow,
@@ -83,7 +97,7 @@ function Inventory() {
     <LayoutContainer>
       <HandleModalDisplay isDisplayed={showAddModal}>
         <ModalContainer>
-          <AddPartsModal
+          <AddInventoryModal
             toggleModal={toggleAddModal}
             locations={locations}
             statuses={statuses}
@@ -94,7 +108,7 @@ function Inventory() {
       </HandleModalDisplay>
       <HandleModalDisplay isDisplayed={showDeleteModal}>
         <ModalContainer>
-          <DeletePartsModal
+          <DeleteInventoryModal
             toggleModal={toggleDeleteModal}
             row={row}
             setRows={setRows}
@@ -116,7 +130,7 @@ function Inventory() {
       </HandleModalDisplay>
       <HandleModalDisplay isDisplayed={showEditModal}>
         <ModalContainer>
-          <EditPartsModal
+          <EditInventoryModal
             toggleModal={toggleEditModal}
             locations={locations}
             statuses={statuses}

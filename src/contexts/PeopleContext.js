@@ -8,8 +8,17 @@ export default function useSelectedPerson() {
 
 export function SelectedPersonProvider({ children }) {
   const [selectedPerson, setSelectedPerson] = useState({});
+
+  function handleSelection(e, people) {
+    const personArray = people.filter(({ user_id }) => {
+      return user_id === Number(e.target.value);
+    });
+    const person = personArray[0] || {};
+    setSelectedPerson(person);
+  }
+
   return (
-    <SelectedPerson.Provider value={{ selectedPerson, setSelectedPerson }}>
+    <SelectedPerson.Provider value={{ selectedPerson, handleSelection }}>
       {children}
     </SelectedPerson.Provider>
   );

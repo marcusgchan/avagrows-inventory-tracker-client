@@ -1,6 +1,10 @@
 import tableServices from "../services/tableServices";
 
-export default function handleInventoryDeleteModal(setRows, lookUpTableRef) {
+export default function handleInventoryDeleteModal(
+  setRows,
+  lookUpTableRef,
+  userId
+) {
   function deleteRow(row) {
     // gets the ids
     const locationId = lookUpTableRef.current.locationTable.get(
@@ -14,7 +18,7 @@ export default function handleInventoryDeleteModal(setRows, lookUpTableRef) {
         ...row,
         location_id: locationId,
         status_id: statusId,
-        user_id: 1,
+        user_id: userId,
       })
       .then((res) => setRows(res.data))
       .catch((err) => console.log(err));

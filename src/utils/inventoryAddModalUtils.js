@@ -1,6 +1,11 @@
 import tableServices from "../services/tableServices";
 
-export default function handleInventoryAddModal(rows, setRows, lookUpTableRef) {
+export default function handleInventoryAddModal(
+  rows,
+  setRows,
+  lookUpTableRef,
+  userId
+) {
   function addPart(
     internalPartNumber,
     locationName,
@@ -29,7 +34,7 @@ export default function handleInventoryAddModal(rows, setRows, lookUpTableRef) {
       quantity: quantity,
       note: note,
       total_quantity: totalQuantity,
-      user_id: 1,
+      user_id: userId,
     };
 
     // updates the database
