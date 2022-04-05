@@ -30,7 +30,7 @@ function EditModal({
     } else if (tableType === PART_TABLE) {
       msg = "That internal part number is already in use";
     } else if (tableType === CATEGORY_TABLE) {
-      msg = "There is already an assigned category for that part";
+      msg = "There is already a category with that name";
     } else if (tableType === USERS_TABLE) {
       msg = "That user name is already in use";
     }

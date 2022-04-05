@@ -23,7 +23,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
     } else if (tableType === PART_TABLE) {
       msg = "There is already a part with that internal part number";
     } else if (tableType === CATEGORY_TABLE) {
-      msg = "There is already an assigned category for that part";
+      msg = "There is already a category with that category name";
     } else if (tableType === USERS_TABLE) {
       msg = "There is already an user with that name";
     }

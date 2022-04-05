@@ -29,7 +29,7 @@ function DeleteModal({
     } else if (tableType === PART_TABLE) {
       msg = "A row in the inventory table is currently using this Part";
     } else if (tableType === CATEGORY_TABLE) {
-      msg = "A row in the inventory table is currently using this";
+      msg = "A part is currently has that part category";
     } else if (tableType === USERS_TABLE) {
       msg = "A log in the log table is using this name";
     }
