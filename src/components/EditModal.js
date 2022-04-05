@@ -54,7 +54,6 @@ function EditModal({
     config
       .filter(({ isDisplayed }) => isDisplayed.edit === true)
       .forEach(({ value }) => {
-        console.log(selectedRow);
         if (selectedRow[value] !== null) {
           defaultState[value] = selectedRow[value];
         } else {

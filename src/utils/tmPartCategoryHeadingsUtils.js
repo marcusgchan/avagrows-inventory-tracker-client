@@ -22,7 +22,7 @@ export default function handleTmPartCategoryHeadings(
     },
     {
       field: "part_category_name",
-      headerName: "part Category Name",
+      headerName: "Part Category Name",
       sortable: true,
       width: 200,
     },

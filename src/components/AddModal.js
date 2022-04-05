@@ -33,9 +33,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   // handles the adding when the user clicks the "add" button
   async function handleAdd(e) {
     e.preventDefault();
-    console.log(input);
     let result = await addRow(input, dispatch);
-    console.log(result);
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === PART_TABLE && result.categoryExists === false) {
       setErrorMsg("That part category does not exists");
