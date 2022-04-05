@@ -17,7 +17,7 @@ export function deletePartCategory(selectedRow, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .deletePartCategory({
-        part_id: selectedRow.part_id,
+        part_category_id: selectedRow.part_category_id,
       })
       .then((res) => {
         dispatch({ type: "CATEGORY", payload: res.data.rows });
@@ -33,7 +33,6 @@ export function editPartCategory(selectedRow, editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .editPartCategory({
-        part_id: selectedRow.part_id,
         ...editInfo,
       })
       .then((res) => {
