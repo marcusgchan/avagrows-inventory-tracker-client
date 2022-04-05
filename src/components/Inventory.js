@@ -21,7 +21,6 @@ import handleDeleteModal from "../utils/inventoryDeleteModalUtils";
 import handleAddModal from "../utils/inventoryAddModalUtils";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import handleInventoryHeadings from "../utils/inventoryHeadingsUtils";
-import dataGridStyles from "../configs/dataGridStylesConfig";
 import DataGridContainer from "./DataGridContainer";
 import HandleModalDisplay from "./HandleModalDisplay";
 
@@ -146,7 +145,6 @@ function Inventory() {
           columns={partsTableHeadings}
           components={{ Toolbar: GridToolbar }}
           disableSelectionOnClick
-          sx={dataGridStyles}
         />
       </DataGridContainer>
     </LayoutContainer>

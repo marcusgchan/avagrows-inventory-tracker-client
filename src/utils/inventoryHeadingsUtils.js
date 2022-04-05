@@ -50,6 +50,7 @@ export default function handleInventoryHeadings(
       headerName: "Actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons
