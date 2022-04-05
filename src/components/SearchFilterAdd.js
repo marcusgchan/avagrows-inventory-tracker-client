@@ -1,8 +1,8 @@
 import styles from "./styles/SearchFilterAdd.module.css";
 import { DEFAULT_SEARCH_PARAMS } from "../configs/searchConfig";
 import TableHeaderComponent from "./TableHeaderContainer";
-import TableSelectMenu from "./SelectMenu";
-import TableInput from "./TableInput";
+import SelectMenu from "./SelectMenu";
+import Input from "./Input";
 import TableButton from "./TableButton";
 
 function SearchFilterAdd({
@@ -16,7 +16,7 @@ function SearchFilterAdd({
     <TableHeaderComponent>
       <div className={styles.searchContainer}>
         <span>search</span>
-        <TableSelectMenu
+        <SelectMenu
           value={searchState.searchColumn}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SEARCH_COLUMN", payload: e.target.value })
@@ -29,8 +29,8 @@ function SearchFilterAdd({
               </option>
             );
           })}
-        </TableSelectMenu>
-        <TableSelectMenu
+        </SelectMenu>
+        <SelectMenu
           value={searchState.searchOption}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SEARCH_OPTION", payload: e.target.value })
@@ -39,8 +39,8 @@ function SearchFilterAdd({
           {searchState.searchTypeOptions.map((option) => (
             <option key={option}>{option}</option>
           ))}
-        </TableSelectMenu>
-        <TableInput
+        </SelectMenu>
+        <Input
           type="text"
           value={searchState.search}
           onChange={(e) =>

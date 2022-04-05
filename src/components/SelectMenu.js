@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles/TableSelectMenu.module.css";
+import styles from "./styles/SelectMenu.module.css";
 
 function SelectMenu(props) {
   return (

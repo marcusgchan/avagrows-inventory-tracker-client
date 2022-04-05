@@ -4,7 +4,7 @@ import useModalToggle from "../custom-hooks/useModalToggle";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 import TableButton from "./TableButton";
-import TableSelectMenu from "./SelectMenu";
+import SelectMenu from "./SelectMenu";
 import tableServices from "../services/tableServices";
 import tableManagementReducer, {
   DEFAULT_STATE,
@@ -119,7 +119,7 @@ function TableManagement() {
       </HandleModalDisplay>
       <MainHeading>table management</MainHeading>
       <TableHeaderComponent>
-        <TableSelectMenu
+        <SelectMenu
           value={state.selectMenu}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SELECT_MENU", payload: e.target.value })
@@ -130,7 +130,7 @@ function TableManagement() {
           <option value="parts">parts</option>
           <option value="users">users</option>
           <option value="partCategories">part categories</option>
-        </TableSelectMenu>
+        </SelectMenu>
         <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </TableHeaderComponent>
       <DataGridContainer>
