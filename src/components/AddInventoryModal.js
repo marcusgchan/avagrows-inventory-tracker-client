@@ -3,6 +3,7 @@ import styles from "./styles/AddPartsModal.module.css";
 import XButton from "./XButton";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
+import Input from "./Input.js";
 
 function AddInventoryModal({
   toggleModal,
@@ -74,13 +75,13 @@ function AddInventoryModal({
       <h2> Add New Entry</h2>
       <div className={styles.row}>
         <label htmlFor="partNumber">Internal Part Number: </label>
-        <input
+        <Input
           className={styles.inputStyles}
           type="text"
           required
           value={partNumber}
           onChange={(e) => setPartNumber(e.target.value)}
-        />
+        ></Input>
       </div>
       <div className={styles.row}>
         <label htmlFor="location">Location </label>
@@ -114,14 +115,14 @@ function AddInventoryModal({
       </div>
       <div className={styles.row}>
         <label htmlFor="quantity">Qty for loc/status: </label>
-        <input
+        <Input
           className={styles.inputStyles}
           type="number"
           min="0"
           required
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
-        />
+        ></Input>
       </div>
       <div className={styles.note}>
         <textarea

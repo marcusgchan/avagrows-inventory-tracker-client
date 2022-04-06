@@ -4,6 +4,7 @@ import userServices from "../services/userServices";
 import useLogin from "../contexts/UserContext";
 import styles from "./styles/Login.module.css";
 import logo from "../imgs/logo.PNG";
+import Input from "./Input";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -33,24 +34,24 @@ function Login() {
           <label htmlFor="username" className={`${styles.fontStyles}`}>
             Username
           </label>
-          <input
+          <Input
             className={styles.textField}
             autoComplete="off"
             type="text"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          />
+          ></Input>
           <label htmlFor="password" className={`${styles.fontStyles}`}>
             Password
           </label>
-          <input
+          <Input
             className={styles.textField}
             type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+          ></Input>
           <button className={`${styles.fontStyles} ${styles.btn}`}>
             login
           </button>
