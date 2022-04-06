@@ -94,13 +94,8 @@ function DeleteModal({
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-<<<<<<< HEAD
         <div className={styles.buttons}>
           <ModalButton onClick={(e) => handleDelete(e)}>Yes</ModalButton>
-=======
-        <div className="buttons">
-          <ModalButton type="submit">Yes</ModalButton>
->>>>>>> 0ecdd230b4dc9ba9b45a3be9c9c150629b9aa33d
           <ModalButton onClick={toggleModal}>No</ModalButton>
         </div>
       </form>
