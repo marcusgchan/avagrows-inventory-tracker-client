@@ -6,7 +6,7 @@ import Error from "./Error";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import TableManagement from "./TableManagement";
-import Reports from "./Reports";
+import Logging from "./Logging";
 import SelectUser from "./SelectUser";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="table-management" element={<TableManagement />} />
-            <Route path="reports" element={<Reports />} />
+            <Route path="logging" element={<Logging />} />
             <Route path="*" element={<Error />} />
           </Route>
         </Route>

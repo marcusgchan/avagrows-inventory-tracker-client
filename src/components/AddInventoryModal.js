@@ -4,6 +4,7 @@ import XButton from "./XButton";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
 import Input from "./Input.js";
+import SelectMenu from "./SelectMenu";
 
 function AddInventoryModal({
   toggleModal,
@@ -85,7 +86,7 @@ function AddInventoryModal({
       </div>
       <div className={styles.row}>
         <label htmlFor="location">Location </label>
-        <select
+        <SelectMenu
           className={styles.inputStyles}
           onChange={(e) => setLocation(e.target.value)}
           defaultValue=""
@@ -96,11 +97,11 @@ function AddInventoryModal({
               {location_name}
             </option>
           ))}
-        </select>
+        </SelectMenu>
       </div>
       <div className={styles.row}>
         <label htmlFor="status">Status </label>
-        <select
+        <SelectMenu
           className={styles.inputStyles}
           onChange={(e) => setStatus(e.target.value)}
           defaultValue=""
@@ -111,7 +112,7 @@ function AddInventoryModal({
               {status_name}
             </option>
           ))}
-        </select>
+        </SelectMenu>
       </div>
       <div className={styles.row}>
         <label htmlFor="quantity">Qty for loc/status: </label>

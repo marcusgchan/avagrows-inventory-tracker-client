@@ -3,6 +3,7 @@ import styles from "./styles/EditPartsModal.module.css";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
 import XButton from "./XButton";
+import SelectMenu from "./SelectMenu";
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
@@ -15,25 +16,27 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
       </ul>
       <label>
         New Qty for Location and Status:
-        <button
-          className={styles.changeQty}
-          onClick={qty - 10 > 0 ? () => setQty(qty - 10) : () => {}}
-        >
-          -10
-        </button>
-        <button
-          className={styles.changeQty}
-          onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
-        >
-          -1
-        </button>
-        {qty}
-        <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
-          +1
-        </button>
-        <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
-          +10
-        </button>
+        <p className={styles.convertQty}>
+          <button
+            className={styles.changeQty}
+            onClick={qty - 10 >= 0 ? () => setQty(qty - 10) : () => {}}
+          >
+            -10
+          </button>
+          <button
+            className={styles.changeQty}
+            onClick={qty > 0 ? () => setQty(qty - 1) : () => {}}
+          >
+            -1
+          </button>
+          <h2>{qty}</h2>
+          <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
+            +1
+          </button>
+          <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
+            +10
+          </button>
+        </p>
       </label>
       <section className={styles.newQtyText}>
         <div className={styles.hiddenButton}>
@@ -78,7 +81,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
         <p className={styles.convertQty}>
           <button
             className={styles.changeQty}
-            onClick={qty - 10 > 0 ? () => setQty(qty - 10) : () => {}}
+            onClick={qty - 10 >= 0 ? () => setQty(qty - 10) : () => {}}
           >
             -10
           </button>
@@ -88,7 +91,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
           >
             -1
           </button>
-          {qty}
+          <h2>{qty}</h2>
           <button className={styles.changeQty} onClick={() => setQty(qty + 1)}>
             +1
           </button>
@@ -101,7 +104,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
         <p>{errorMsg}</p>
       </div>
       <section className={styles.convertButtons}>
-        <div className={styles.hiddenButton}>
+        <div className={styles.buttons}>
           <ModalButton onClick={handleUnconvert}>Unconvert</ModalButton>
           <ModalButton onClick={handleConvert}>Convert</ModalButton>
         </div>
@@ -188,7 +191,7 @@ function MoveLocationMenu({
           <label htmlFor="location" className={styles.label}>
             Label:
           </label>
-          <select
+          <SelectMenu
             className={styles.inputStyles}
             onChange={(e) => {
               setNewLocation(e.target.value);
@@ -201,13 +204,13 @@ function MoveLocationMenu({
                 {location_name}
               </option>
             ))}
-          </select>
+          </SelectMenu>
         </div>
         <div className={styles.row}>
           <label htmlFor="location" className={styles.label}>
             Status:
           </label>
-          <select
+          <SelectMenu
             id="location"
             className={styles.inputStyles}
             onChange={(e) => {
@@ -221,7 +224,7 @@ function MoveLocationMenu({
                 {status_name}
               </option>
             ))}
-          </select>
+          </SelectMenu>
         </div>
       </div>
       <br></br>
@@ -388,7 +391,7 @@ function EditPartsModal({
           <br></br>
           <div className={styles.select}>
             Change:{" "}
-            <select
+            <SelectMenu
               id={styles.change}
               className={styles.inputStyles}
               value={change}
@@ -405,7 +408,7 @@ function EditPartsModal({
               <option value="changeQuantity"> Change quantity</option>
               {showConvertOption && <option value="convert"> Convert</option>}
               <option value="moveLocation"> Move Location</option>
-            </select>
+            </SelectMenu>
           </div>
           <div className={styles.hiddenButton}>
             <ModalButton

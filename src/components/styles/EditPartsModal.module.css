@@ -46,20 +46,21 @@
 }
 
 .buttons {
-  width: 5rem;
-  background: var(--main-bg-clr);
-  border: none;
-  cursor: pointer;
-  margin: auto;
-  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .changeQty {
-  font-size: 125%;
+  font-size: 75%;
   background: var(--main-bg-light-clr);
-  border: none;
+  border: 2px black solid;
+  border-radius: 5px;
+  width: 2.5rem;
   cursor: pointer;
   margin: 0.5rem;
+  padding: 0.3rem;
 }
 
 .inputStyles {
@@ -81,7 +82,10 @@
 }
 
 .convertQty {
+  display: flex;
   text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .errorMsg {
