@@ -68,7 +68,7 @@ export const partCategoryConfig = [
     value: "part_category_name",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
-    element: { getElement: (props) => <input {...props} /> },
+    element: { getElement: (props) => <input required {...props} /> },
   },
 ];
 

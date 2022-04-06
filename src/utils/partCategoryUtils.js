@@ -29,7 +29,7 @@ export function deletePartCategory(selectedRow, dispatch) {
       });
   });
 }
-export function editPartCategory(selectedRow, editInfo, dispatch) {
+export function editPartCategory(editInfo, dispatch) {
   return new Promise((resolve, reject) => {
     tableServices
       .editPartCategory({
