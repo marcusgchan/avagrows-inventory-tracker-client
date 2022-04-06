@@ -1,4 +1,6 @@
+import { width } from "@mui/system";
 import Input from "../components/Input.js";
+import Textarea from "../components/Textarea.js";
 
 export const statusConfig = [
   {
@@ -21,7 +23,11 @@ export const statusConfig = [
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
     element: {
-      getElement: (props) => <textarea {...props} style={{ resize: "none" }} />,
+      getElement: (props) => (
+        <div>
+          <Textarea {...props} style={{ resize: "none" }}></Textarea>
+        </div>
+      ),
     },
   },
 ];
