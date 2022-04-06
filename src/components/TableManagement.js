@@ -16,7 +16,7 @@ import EditModal from "./EditModal";
 import HandleModalDisplay from "./HandleModalDisplay";
 import DataGridContainer from "./DataGridContainer";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import handleTmHeadings from "../utils/tmHeadingsUtils";
+import handleTmColumns from "../utils/tmColumnsUtils";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -72,7 +72,7 @@ function TableManagement() {
     });
   }
 
-  const columns = handleTmHeadings(
+  const columns = handleTmColumns(
     state.selectMenu,
     selectRow,
     toggleEditModal,

@@ -20,7 +20,7 @@ import handleEditModal from "../utils/inventoryEditModalUtils";
 import handleDeleteModal from "../utils/inventoryDeleteModalUtils";
 import handleAddModal from "../utils/inventoryAddModalUtils";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import handleInventoryHeadings from "../utils/inventoryHeadingsUtils";
+import handleInventoryColumns from "../utils/inventoryColumnsUtils";
 import DataGridContainer from "./DataGridContainer";
 import HandleModalDisplay from "./HandleModalDisplay";
 import useSelectedPerson from "../contexts/PeopleContext";
@@ -87,7 +87,7 @@ function Inventory() {
     selectedPerson.user_id
   );
 
-  const partsTableHeadings = handleInventoryHeadings(
+  const partsTableHeadings = handleInventoryColumns(
     selectRow,
     toggleEditModal,
     toggleDeleteModal

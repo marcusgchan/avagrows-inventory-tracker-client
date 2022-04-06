@@ -1,7 +1,7 @@
 import { getGridNumericOperators } from "@mui/x-data-grid";
 import TableActionButtons from "../components/TableActionButtons";
 
-export default function handleTmPartsHeadings(
+export default function handleTmPartsColumns(
   selectRow,
   toggleEditModal,
   toggleDeleteModal
