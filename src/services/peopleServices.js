@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "/api/people";
 
 const peopleServices = {
-  getUsers() {
+  getPeople() {
     return axios.get(BASE_URL);
   },
 };

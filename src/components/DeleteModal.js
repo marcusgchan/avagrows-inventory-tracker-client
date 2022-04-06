@@ -2,7 +2,7 @@ import XButton from "./XButton";
 import { useState } from "react";
 import styles from "./styles/DeleteModal.module.css";
 import ModalButton from "./ModalButton";
-
+import useSelectedPerson from "../contexts/PeopleContext";
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
 const PART_TABLE = "parts";
@@ -17,8 +17,12 @@ function DeleteModal({
   config,
   dispatch,
 }) {
-  const [info, setInfo] = useState(createDefaultState());
+  const info = createDefaultState();
   const [errorMsg, setErrorMsg] = useState("");
+
+  // To update the people (users) global state
+  // when a new user is added to the database
+  const { selectionDispatch } = useSelectedPerson();
 
   function getErrorMsg() {
     let msg;
@@ -39,7 +43,15 @@ function DeleteModal({
   async function handleDelete(e) {
     e.preventDefault();
     let result = await deleteRow(selectedRow, dispatch);
-    result.canDelete ? toggleModal() : setErrorMsg(getErrorMsg());
+    if (result.canDelete) {
+      toggleModal();
+      selectionDispatch({
+        type: "REMOVE_PERSON",
+        payload: selectedRow.user_id,
+      });
+    } else {
+      setErrorMsg(getErrorMsg());
+    }
   }
 
   function createDefaultState() {

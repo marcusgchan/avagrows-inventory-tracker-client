@@ -1,4 +1,8 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useEffect, useReducer, useContext } from "react";
+import selectFunctionReducer, {
+  DEFAULT_STATE,
+} from "../reducers/selectedPersonReducer";
+import peopleServices from "../services/peopleServices";
 
 const SelectedPerson = createContext({});
 
@@ -7,18 +11,22 @@ export default function useSelectedPerson() {
 }
 
 export function SelectedPersonProvider({ children }) {
-  const [selectedPerson, setSelectedPerson] = useState({});
+  const [selectionState, selectionDispatch] = useReducer(
+    selectFunctionReducer,
+    DEFAULT_STATE
+  );
 
-  function handleSelection(e, people) {
-    const personArray = people.filter(({ user_id }) => {
-      return user_id === Number(e.target.value);
-    });
-    const person = personArray[0] || {};
-    setSelectedPerson(person);
-  }
+  useEffect(() => {
+    peopleServices
+      .getPeople()
+      .then((res) =>
+        selectionDispatch({ type: "UPDATE_PEOPLE", payload: res.data })
+      )
+      .catch((err) => console.err(err));
+  }, []);
 
   return (
-    <SelectedPerson.Provider value={{ selectedPerson, handleSelection }}>
+    <SelectedPerson.Provider value={{ selectionState, selectionDispatch }}>
       {children}
     </SelectedPerson.Provider>
   );

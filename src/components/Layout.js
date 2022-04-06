@@ -12,7 +12,6 @@ import userServices from "../services/userServices";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../contexts/UserContext";
 import SelectMenu from "./SelectMenu";
-import usePeople from "../custom-hooks/usePeople";
 import useSelectedPerson from "../contexts/PeopleContext";
 
 const navConfig = [
@@ -48,8 +47,8 @@ function Layout() {
 function Heading({ handleNavToggle }) {
   const navigate = useNavigate();
   const { setUser } = useLogin();
-  const people = usePeople();
-  const { selectedPerson, handleSelection } = useSelectedPerson();
+
+  const { selectionState, selectionDispatch } = useSelectedPerson();
 
   function handleLogout() {
     userServices
@@ -77,10 +76,15 @@ function Heading({ handleNavToggle }) {
       </div>
       <div className={styles.rightHeader}>
         <SelectMenu
-          value={selectedPerson.user_id}
-          onChange={(e) => handleSelection(e, people)}
+          value={selectionState.selectedPerson.user_id}
+          onChange={(e) =>
+            selectionDispatch({
+              type: "SELECT_PERSON",
+              payload: e.target.value,
+            })
+          }
         >
-          {people.map(({ user_id, name }) => {
+          {selectionState.people.map(({ user_id, name }) => {
             return (
               <option key={user_id} value={user_id}>
                 {name}

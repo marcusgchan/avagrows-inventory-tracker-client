@@ -2,6 +2,7 @@ import XButton from "./XButton";
 import { useState } from "react";
 import styles from "./styles/EditModal.module.css";
 import ModalButton from "./ModalButton";
+import useSelectedPerson from "../contexts/PeopleContext";
 
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
@@ -19,6 +20,10 @@ function EditModal({
 }) {
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
+
+  // To update the people (users) global state
+  // when a new user is added to the database
+  const { selectionDispatch } = useSelectedPerson();
 
   // gets the standard error message for the respective tables
   function getErrorMsg() {
@@ -41,6 +46,7 @@ function EditModal({
   async function handleEdit(e) {
     e.preventDefault();
     let result = await editRow(selectedRow, input, dispatch);
+    selectionDispatch({ type: "EDIT_PERSON", payload: result.rows });
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === PART_TABLE && result.categoryExists === false) {
       setErrorMsg("That part category does not exists");

@@ -2,6 +2,7 @@ import XButton from "./XButton";
 import { useState } from "react";
 import styles from "./styles/AddModal.module.css";
 import ModalButton from "./ModalButton";
+import useSelectedPerson from "../contexts/PeopleContext";
 
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
@@ -12,6 +13,10 @@ const USERS_TABLE = "users";
 function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
+
+  // To update the people (users) global state
+  // when a new user is added to the database
+  const { selectionDispatch } = useSelectedPerson();
 
   // gets the standard error message for the respective tables
   function getErrorMsg() {
@@ -34,6 +39,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   async function handleAdd(e) {
     e.preventDefault();
     let result = await addRow(input, dispatch);
+    selectionDispatch({ type: "UPDATE_PEOPLE", payload: result.rows });
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === PART_TABLE && result.categoryExists === false) {
       setErrorMsg("That part category does not exists");

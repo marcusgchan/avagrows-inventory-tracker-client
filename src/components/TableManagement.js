@@ -64,7 +64,6 @@ function TableManagement() {
   const [showEditModal, toggleEditModal] = useModalToggle();
 
   function selectRow(id) {
-    // gets the row object that has the serial
     dispatch({
       type: "UPDATE_SELECTED_ROW",
       payload: state.rows.find((element) => {
