@@ -39,7 +39,11 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   async function handleAdd(e) {
     e.preventDefault();
     let result = await addRow(input, dispatch);
-    selectionDispatch({ type: "UPDATE_PEOPLE", payload: result.rows });
+
+    if (tableType === USERS_TABLE) {
+      selectionDispatch({ type: "UPDATE_PEOPLE", payload: result.rows });
+    }
+
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === PART_TABLE && result.categoryExists === false) {
       setErrorMsg("That part category does not exists");

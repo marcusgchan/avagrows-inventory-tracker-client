@@ -46,7 +46,10 @@ function EditModal({
   async function handleEdit(e) {
     e.preventDefault();
     let result = await editRow(selectedRow, input, dispatch);
-    selectionDispatch({ type: "EDIT_PERSON", payload: result.rows });
+
+    if (tableType === USERS_TABLE) {
+      selectionDispatch({ type: "EDIT_PERSON", payload: result.rows });
+    }
     // For adding a part category column there is an extra type of error that is handled
     if (tableType === PART_TABLE && result.categoryExists === false) {
       setErrorMsg("That part category does not exists");

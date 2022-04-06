@@ -18,7 +18,7 @@ import {
   partsConfig as partsModalConfig,
   partCategoryConfig as partCategoryModalConfig,
   usersConfig as usersModalConfig,
-} from "../configs/tmConfig";
+} from "../configs/tmModalsConfig";
 import {
   addPartCategory,
   editPartCategory,

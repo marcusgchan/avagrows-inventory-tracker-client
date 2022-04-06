@@ -45,10 +45,13 @@ function DeleteModal({
     let result = await deleteRow(selectedRow, dispatch);
     if (result.canDelete) {
       toggleModal();
-      selectionDispatch({
-        type: "REMOVE_PERSON",
-        payload: selectedRow.user_id,
-      });
+
+      if (tableType === USERS_TABLE) {
+        selectionDispatch({
+          type: "REMOVE_PERSON",
+          payload: selectedRow.user_id,
+        });
+      }
     } else {
       setErrorMsg(getErrorMsg());
     }
