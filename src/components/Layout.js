@@ -23,7 +23,7 @@ const navConfig = [
     logo: box,
     to: "/table-management",
   },
-  { text: "Reports", value: "reports", logo: book, to: "/reports" },
+  { text: "Logging", value: "logging", logo: book, to: "/logging" },
 ];
 
 function Layout() {

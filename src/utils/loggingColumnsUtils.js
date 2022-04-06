@@ -1,6 +1,6 @@
 import { getGridNumericOperators } from "@mui/x-data-grid";
 
-export default function handleReportsColumns() {
+export default function handleLoggingColumns() {
   return [
     {
       field: "log_id",

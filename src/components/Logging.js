@@ -4,18 +4,17 @@ import MainHeading from "./MainHeading";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import logServices from "../services/logsServices";
 import LayoutContainer from "./LayoutContainer";
-import handleReportsColumns from "../utils/reportsColumnsUtils";
+import handleLoggingColumns from "../utils/loggingColumnsUtils";
 
-function Reports() {
+function Logging() {
   const [rows, setRows] = useState([]);
-  const columns = handleReportsColumns();
+  const columns = handleLoggingColumns();
 
   useEffect(() => {
     logServices
       .getLogs()
       .then((res) => {
         setRows(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -36,4 +35,4 @@ function Reports() {
   );
 }
 
-export default Reports;
+export default Logging;
