@@ -67,24 +67,24 @@ function Inventory() {
   const [showEditModal, toggleEditModal] = useModalToggle();
 
   // The current user that is selected
-  const { selectedPerson } = useSelectedPerson();
+  const { selectionState } = useSelectedPerson();
 
   // Handle logic for modals
   const { convert, unconvert, changeQuantity, moveLocation } = handleEditModal(
     setRows,
     lookUpTableRef,
-    selectedPerson.user_id
+    selectionState.selectedPerson.user_id
   );
   const { deleteRow } = handleDeleteModal(
     setRows,
     lookUpTableRef,
-    selectedPerson.user_id
+    selectionState.selectedPerson.user_id
   );
   const { addPart } = handleAddModal(
     rows,
     setRows,
     lookUpTableRef,
-    selectedPerson.user_id
+    selectionState.selectedPerson.user_id
   );
 
   const partsTableHeadings = handleInventoryColumns(
