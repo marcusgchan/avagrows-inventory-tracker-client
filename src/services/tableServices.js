@@ -3,6 +3,9 @@ import axios from "axios";
 const BASE_URL = "/api";
 
 const tableServices = {
+  getWeather() {
+    return axios.get(BASE_URL + "/dashboard/");
+  },
   getRows() {
     return axios.get(BASE_URL + "/inventory/");
   },
