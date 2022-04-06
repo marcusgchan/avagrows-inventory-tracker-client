@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import tableServices from "../services/tableServices";
 
 export default function useFetch(service) {
   const [rows, setRows] = useState([]);
