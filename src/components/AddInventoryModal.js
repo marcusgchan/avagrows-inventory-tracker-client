@@ -4,7 +4,13 @@ import XButton from "./XButton";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
 
-function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
+function AddInventoryModal({
+  toggleModal,
+  locations,
+  statuses,
+  addPart,
+  rows,
+}) {
   const [partNumber, setPartNumber] = useState("");
   const [location, setLocation] = useState("");
   const [status, setStatus] = useState("");
@@ -158,4 +164,4 @@ function AddPartsModal({ toggleModal, locations, statuses, addPart, rows }) {
   );
 }
 
-export default AddPartsModal;
+export default AddInventoryModal;

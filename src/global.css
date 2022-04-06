@@ -42,8 +42,66 @@ li {
   list-style: none;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  height: 100%;
+/* MUI Grid stylng */
+.MuiDataGrid-root,
+.MuiButton-startIcon {
+  background: #c4c4c4 !important;
+}
+
+.MuiButton-root {
+  color: black !important;
+}
+
+.test,
+.MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-columnHeaderDraggableContainer {
+  flex-direction: row !important;
+}
+
+.MuiDataGrid-columnHeaders {
+  background: #0a432f;
+  color: white;
+}
+
+.MuiButton-root,
+.MuiButton-startIcon {
+  color: black;
+}
+
+.MuiDataGrid-row:hover {
+  background-color: transparent !important;
+}
+
+.MuiDataGrid-row:nth-of-type(even),
+.MuiDataGrid-row:nth-of-type(even) button {
+  background-color: #e5e5e5 !important;
+}
+
+.MuiDataGrid-row:nth-of-type(odd),
+.MuiDataGrid-row:nth-of-type(odd) button {
+  background-color: #c4c4c4 !important;
+}
+
+.MuiDataGrid-columnHeaders {
+  background: #0a432f;
+  color: white;
+}
+
+.MuiDataGrid-columnSeparator {
+  visibility: hidden;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-cell {
+  justify-content: flex-start !important;
+}
+
+.MuiDataGrid-cell:focus,
+.MuiDataGrid-cell--withRenderer:focus,
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+.MuiDataGrid-cell {
+  text-transform: none !important;
 }

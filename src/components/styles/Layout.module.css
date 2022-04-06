@@ -1,8 +1,8 @@
 .grid {
   display: grid;
   height: 100%;
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: 101px 1fr;
+  grid-template-columns: 210px 1fr;
+  grid-template-rows: 70px 1fr;
   grid-template-areas:
     "header header"
     "nav section";
@@ -28,6 +28,7 @@
 
 .rightHeader {
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding-right: 0.8rem;
   font-style: normal;

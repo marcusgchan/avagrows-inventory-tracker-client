@@ -2,6 +2,7 @@ import XButton from "./XButton";
 import { useState } from "react";
 import styles from "./styles/AddModal.module.css";
 import ModalButton from "./ModalButton";
+import useSelectedPerson from "../contexts/PeopleContext";
 
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
@@ -13,6 +14,10 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   const [input, setInput] = useState(createDefaultState());
   const [errorMsg, setErrorMsg] = useState("");
 
+  // To update the people (users) global state
+  // when a new user is added to the database
+  const { selectionDispatch } = useSelectedPerson();
+
   // gets the standard error message for the respective tables
   function getErrorMsg() {
     let msg;
@@ -23,7 +28,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
     } else if (tableType === PART_TABLE) {
       msg = "There is already a part with that internal part number";
     } else if (tableType === CATEGORY_TABLE) {
-      msg = "There is already an assigned category for that part";
+      msg = "There is already a category with that category name";
     } else if (tableType === USERS_TABLE) {
       msg = "There is already an user with that name";
     }
@@ -34,9 +39,14 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
   async function handleAdd(e) {
     e.preventDefault();
     let result = await addRow(input, dispatch);
+
+    if (tableType === USERS_TABLE) {
+      selectionDispatch({ type: "UPDATE_PEOPLE", payload: result.rows });
+    }
+
     // For adding a part category column there is an extra type of error that is handled
-    if (tableType === CATEGORY_TABLE && result.partExists === false) {
-      setErrorMsg("The internal part number does not exists");
+    if (tableType === PART_TABLE && result.categoryExists === false) {
+      setErrorMsg("That part category does not exists");
     } else {
       result.canAdd ? toggleModal() : setErrorMsg(getErrorMsg());
     }
@@ -59,7 +69,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
 
   return (
     <>
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => handleAdd(e)}>
         <XButton onClick={toggleModal} />
         <h2>Add</h2>
         {config.map(({ label, value, isDisplayed, element }) => {
@@ -85,7 +95,7 @@ function AddModal({ toggleModal, addRow, tableType, config, dispatch }) {
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
-        <ModalButton onClick={(e) => handleAdd(e)}>Add</ModalButton>
+        <ModalButton type="submit">Add</ModalButton>
       </form>
     </>
   );

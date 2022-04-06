@@ -4,12 +4,15 @@ import App from "./components/App";
 import { BrowserRouter } from "react-router-dom";
 import "./global.css";
 import { UserContextProvider } from "./contexts/UserContext";
+import { SelectedPersonProvider } from "./contexts/PeopleContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextProvider>
-        <App />
+        <SelectedPersonProvider>
+          <App />
+        </SelectedPersonProvider>
       </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>,

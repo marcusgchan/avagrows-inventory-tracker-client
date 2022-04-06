@@ -64,33 +64,11 @@ export const partCategoryConfig = [
     element: { getElement: (props) => <input {...props} /> },
   },
   {
-    label: "internal part number",
-    value: "part_id",
-    isDisplayed: { add: true, edit: true, delete: true },
-    isEditable: false,
-    element: { getElement: (props) => <input required {...props} /> },
-  },
-  {
     label: "Category Name",
     value: "part_category_name",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
-    element: {
-      getElement: (props) => (
-        <select required {...props}>
-          <option name="part_category_name" value="raw material">
-            Raw Material
-          </option>
-          <option name="part_category_name" value="work in progress">
-            Work In Progress
-          </option>
-          <option name="part_category_name" value="finished good">
-            Finished Good
-          </option>
-        </select>
-      ),
-      defaultValue: "raw material",
-    },
+    element: { getElement: (props) => <input {...props} /> },
   },
 ];
 
@@ -122,6 +100,13 @@ export const partsConfig = [
   {
     label: "part name",
     value: "part_name",
+    isDisplayed: { add: true, edit: true, delete: true },
+    isEditable: true,
+    element: { getElement: (props) => <input required {...props} /> },
+  },
+  {
+    label: "part category",
+    value: "part_category_name",
     isDisplayed: { add: true, edit: true, delete: true },
     isEditable: true,
     element: { getElement: (props) => <input required {...props} /> },

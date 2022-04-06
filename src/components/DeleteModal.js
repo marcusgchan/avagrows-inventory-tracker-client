@@ -2,7 +2,7 @@ import XButton from "./XButton";
 import { useState } from "react";
 import styles from "./styles/DeleteModal.module.css";
 import ModalButton from "./ModalButton";
-
+import useSelectedPerson from "../contexts/PeopleContext";
 const LOCATION_TABLE = "location";
 const STATUS_TABLE = "status";
 const PART_TABLE = "parts";
@@ -17,8 +17,12 @@ function DeleteModal({
   config,
   dispatch,
 }) {
-  const [info, setInfo] = useState(createDefaultState());
+  const info = createDefaultState();
   const [errorMsg, setErrorMsg] = useState("");
+
+  // To update the people (users) global state
+  // when a new user is added to the database
+  const { selectionDispatch } = useSelectedPerson();
 
   function getErrorMsg() {
     let msg;
@@ -29,7 +33,7 @@ function DeleteModal({
     } else if (tableType === PART_TABLE) {
       msg = "A row in the inventory table is currently using this Part";
     } else if (tableType === CATEGORY_TABLE) {
-      msg = "A row in the inventory table is currently using this";
+      msg = "A part currently has that part category";
     } else if (tableType === USERS_TABLE) {
       msg = "A log in the log table is using this name";
     }
@@ -39,7 +43,18 @@ function DeleteModal({
   async function handleDelete(e) {
     e.preventDefault();
     let result = await deleteRow(selectedRow, dispatch);
-    result.canDelete ? toggleModal() : setErrorMsg(getErrorMsg());
+    if (result.canDelete) {
+      toggleModal();
+
+      if (tableType === USERS_TABLE) {
+        selectionDispatch({
+          type: "REMOVE_PERSON",
+          payload: selectedRow.user_id,
+        });
+      }
+    } else {
+      setErrorMsg(getErrorMsg());
+    }
   }
 
   function createDefaultState() {
@@ -58,7 +73,7 @@ function DeleteModal({
 
   return (
     <>
-      <form className={styles.container}>
+      <form className={styles.container} onSubmit={(e) => handleDelete(e)}>
         <XButton onClick={toggleModal} />
         <h2>Delete</h2>
         {config.map(({ label, value, isDisplayed, element }) => {
@@ -79,8 +94,13 @@ function DeleteModal({
           );
         })}
         {errorMsg !== "" && <p className={styles.errorMsg}>{errorMsg}</p>}
+<<<<<<< HEAD
         <div className={styles.buttons}>
           <ModalButton onClick={(e) => handleDelete(e)}>Yes</ModalButton>
+=======
+        <div className="buttons">
+          <ModalButton type="submit">Yes</ModalButton>
+>>>>>>> 0ecdd230b4dc9ba9b45a3be9c9c150629b9aa33d
           <ModalButton onClick={toggleModal}>No</ModalButton>
         </div>
       </form>

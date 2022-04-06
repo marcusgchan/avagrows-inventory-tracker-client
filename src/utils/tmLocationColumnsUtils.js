@@ -1,17 +1,17 @@
 import { getGridNumericOperators } from "@mui/x-data-grid";
 import TableActionButtons from "../components/TableActionButtons";
 
-export default function handleTmPartCategoryHeadings(
+export default function handleTmLocationColumns(
   selectRow,
   toggleEditModal,
   toggleDeleteModal
 ) {
   return [
     {
-      field: "part_category_id",
-      headerName: "Part Category ID",
+      field: "location_id",
+      headerName: "Location ID",
       sortable: true,
-      width: 150,
+      width: 200,
       type: "number",
       filterOperators: getGridNumericOperators().filter(
         (operator) =>
@@ -20,22 +20,30 @@ export default function handleTmPartCategoryHeadings(
           operator.value === "="
       ),
     },
-    { field: "part_id", headerName: "Part ID", sortable: true, width: 210 },
     {
-      field: "part_category_name",
-      headerName: "part Category Name",
+      field: "location_name",
+      headerName: "Location Name",
       sortable: true,
       width: 200,
     },
+    { field: "address", headerName: "address", sortable: true, width: 500 },
+    {
+      field: "postal_code",
+      headerName: "Postal Code",
+      sortable: true,
+      width: 500,
+    },
+
     {
       field: "",
       headerName: "actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons
-            onClickEdit={() => {
+            onClickEdit={(e) => {
               selectRow(params.id);
               toggleEditModal();
             }}

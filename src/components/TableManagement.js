@@ -4,7 +4,7 @@ import useModalToggle from "../custom-hooks/useModalToggle";
 import LayoutContainer from "./LayoutContainer";
 import MainHeading from "./MainHeading";
 import TableButton from "./TableButton";
-import TableSelectMenu from "./TableSelectMenu";
+import SelectMenu from "./SelectMenu";
 import tableServices from "../services/tableServices";
 import tableManagementReducer, {
   DEFAULT_STATE,
@@ -16,8 +16,7 @@ import EditModal from "./EditModal";
 import HandleModalDisplay from "./HandleModalDisplay";
 import DataGridContainer from "./DataGridContainer";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import dataGridStyles from "../configs/dataGridStylesConfig";
-import handleTmHeadings from "../utils/tmHeadingsUtils";
+import handleTmColumns from "../utils/tmColumnsUtils";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -65,7 +64,6 @@ function TableManagement() {
   const [showEditModal, toggleEditModal] = useModalToggle();
 
   function selectRow(id) {
-    // gets the row object that has the serial
     dispatch({
       type: "UPDATE_SELECTED_ROW",
       payload: state.rows.find((element) => {
@@ -74,7 +72,7 @@ function TableManagement() {
     });
   }
 
-  const columns = handleTmHeadings(
+  const columns = handleTmColumns(
     state.selectMenu,
     selectRow,
     toggleEditModal,
@@ -120,7 +118,7 @@ function TableManagement() {
       </HandleModalDisplay>
       <MainHeading>table management</MainHeading>
       <TableHeaderComponent>
-        <TableSelectMenu
+        <SelectMenu
           value={state.selectMenu}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SELECT_MENU", payload: e.target.value })
@@ -131,7 +129,7 @@ function TableManagement() {
           <option value="parts">parts</option>
           <option value="users">users</option>
           <option value="partCategories">part categories</option>
-        </TableSelectMenu>
+        </SelectMenu>
         <TableButton onClick={toggleAddModal}>+ Add</TableButton>
       </TableHeaderComponent>
       <DataGridContainer>
@@ -141,7 +139,6 @@ function TableManagement() {
           getRowId={state.getRowId}
           components={{ Toolbar: GridToolbar }}
           disableSelectionOnClick
-          sx={dataGridStyles}
         />
       </DataGridContainer>
     </LayoutContainer>

@@ -1,7 +1,7 @@
 import { getGridNumericOperators } from "@mui/x-data-grid";
 import TableActionButtons from "../components/TableActionButtons";
 
-export default function handleTmPartsHeadings(
+export default function handleTmPartsColumns(
   selectRow,
   toggleEditModal,
   toggleDeleteModal
@@ -14,6 +14,12 @@ export default function handleTmPartsHeadings(
       width: 200,
     },
     { field: "part_name", headerName: "Part Name", sortable: true, width: 200 },
+    {
+      field: "part_category_name",
+      headerName: "Part Category",
+      sortable: true,
+      width: 210,
+    },
     {
       field: "part_description",
       headerName: "Part Description",
@@ -63,6 +69,7 @@ export default function handleTmPartsHeadings(
       headerName: "actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons

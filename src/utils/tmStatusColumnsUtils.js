@@ -1,17 +1,17 @@
 import { getGridNumericOperators } from "@mui/x-data-grid";
 import TableActionButtons from "../components/TableActionButtons";
 
-export default function handleTmUserHeadings(
+export default function handleTmStatusColumns(
   selectRow,
   toggleEditModal,
   toggleDeleteModal
 ) {
   return [
     {
-      field: "user_id",
-      headerName: "User ID",
+      field: "status_id",
+      headerName: "Status ID",
       sortable: true,
-      width: 150,
+      width: 200,
       type: "number",
       filterOperators: getGridNumericOperators().filter(
         (operator) =>
@@ -20,12 +20,19 @@ export default function handleTmUserHeadings(
           operator.value === "="
       ),
     },
-    { field: "name", headerName: "Name", sortable: true, width: 210 },
+    {
+      field: "status_name",
+      headerName: "Status Name",
+      sortable: true,
+      width: 200,
+    },
+    { field: "note", headerName: "note", sortable: true, width: 500 },
     {
       field: "",
       headerName: "actions",
       sortable: false,
       width: 140,
+      filterable: false,
       renderCell: (params) => {
         return (
           <TableActionButtons

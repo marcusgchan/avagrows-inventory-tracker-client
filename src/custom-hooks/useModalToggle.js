@@ -2,7 +2,10 @@ import { useState } from "react";
 
 function useModalToggle() {
   const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => setShowModal((cur) => !cur);
+  const toggleModal = (e) => {
+    e && e.preventDefault();
+    setShowModal((cur) => !cur);
+  };
 
   return [showModal, toggleModal];
 }
