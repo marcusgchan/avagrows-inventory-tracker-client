@@ -83,7 +83,7 @@ li {
 }
 
 .MuiDataGrid-columnHeaders {
-  background: #0a432f;
+  background: var(--logo-bg-clr);
   color: white;
 }
 
@@ -104,4 +104,10 @@ li {
 }
 .MuiDataGrid-cell {
   text-transform: none !important;
+}
+
+/* MUI Circular Progress */
+
+.MuiCircularProgress-colorPrimary {
+  color: var(--logo-bg-clr) !important;
 }

@@ -71,19 +71,6 @@ export default function handleLoggingColumns() {
       width: 160,
     },
     {
-      field: "convert_flag",
-      headerName: "Convert Flag",
-      sortable: true,
-      width: 160,
-      type: "number",
-      filterOperators: getGridNumericOperators().filter(
-        (operator) =>
-          operator.value === ">" ||
-          operator.value === "<" ||
-          operator.value === "="
-      ),
-    },
-    {
       field: "date_time",
       headerName: "Date Time",
       sortable: false,

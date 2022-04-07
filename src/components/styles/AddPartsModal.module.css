@@ -41,12 +41,6 @@
   align-items: center;
 }
 
-#note {
-  display: inline-block;
-  height: 6rem;
-  min-width: 100%;
-}
-
 #hiddenOption {
   display: none;
 }

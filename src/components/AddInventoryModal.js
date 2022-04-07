@@ -4,6 +4,7 @@ import XButton from "./XButton";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
 import Input from "./Input.js";
+import Textarea from "./Textarea";
 import SelectMenu from "./SelectMenu";
 
 function AddInventoryModal({
@@ -126,13 +127,13 @@ function AddInventoryModal({
         ></Input>
       </div>
       <div className={styles.note}>
-        <textarea
+        <Textarea
           id={styles.note}
           className={styles.inputStyles}
           placeholder="Note:"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-        />
+        ></Textarea>
       </div>
       <div className={styles.errorMsg}>
         <p>{errorMsg}</p>
