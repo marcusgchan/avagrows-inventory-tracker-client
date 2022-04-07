@@ -1,8 +1,7 @@
-import { createContext, useEffect, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext } from "react";
 import selectFunctionReducer, {
   DEFAULT_STATE,
 } from "../reducers/selectedPersonReducer";
-import peopleServices from "../services/peopleServices";
 
 const SelectedPerson = createContext({});
 
@@ -15,15 +14,6 @@ export function SelectedPersonProvider({ children }) {
     selectFunctionReducer,
     DEFAULT_STATE
   );
-
-  useEffect(() => {
-    peopleServices
-      .getPeople()
-      .then((res) =>
-        selectionDispatch({ type: "UPDATE_PEOPLE", payload: res.data })
-      )
-      .catch((err) => console.error(err));
-  }, []);
 
   return (
     <SelectedPerson.Provider value={{ selectionState, selectionDispatch }}>

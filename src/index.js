@@ -9,11 +9,11 @@ import { SelectedPersonProvider } from "./contexts/PeopleContext";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserContextProvider>
-        <SelectedPersonProvider>
+      <SelectedPersonProvider>
+        <UserContextProvider>
           <App />
-        </SelectedPersonProvider>
-      </UserContextProvider>
+        </UserContextProvider>
+      </SelectedPersonProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
