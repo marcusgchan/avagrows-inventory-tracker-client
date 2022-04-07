@@ -11,7 +11,6 @@
 
 .row {
   display: flex;
-  gap: 1rem;
   align-items: center;
   justify-content: space-between;
 }
@@ -20,13 +19,8 @@
   flex-grow: 1;
 }
 
-.inputStyles {
-  background: var(--main-bg-clr);
-  padding: 0.5rem;
-  display: inline-block;
-  min-width: 2rem;
-  height: 2rem;
-  border: none;
+.label {
+  width: 11rem;
 }
 
 .errorMsg {

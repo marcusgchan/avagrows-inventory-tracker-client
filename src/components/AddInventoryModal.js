@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./styles/AddPartsModal.module.css";
+import styles from "./styles/AddInventoryModal.module.css";
 import XButton from "./XButton";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
@@ -76,7 +76,9 @@ function AddInventoryModal({
       <XButton onClick={toggleModal} />
       <h2> Add New Entry</h2>
       <div className={styles.row}>
-        <label htmlFor="partNumber">Internal Part Number: </label>
+        <label className={styles.label} htmlFor="partNumber">
+          Internal Part Number:{" "}
+        </label>
         <Input
           type="text"
           required
@@ -85,7 +87,9 @@ function AddInventoryModal({
         ></Input>
       </div>
       <div className={styles.row}>
-        <label htmlFor="location">Location </label>
+        <label className={styles.label} htmlFor="location">
+          Location{" "}
+        </label>
         <SelectMenu
           onChange={(e) => setLocation(e.target.value)}
           defaultValue=""
@@ -99,11 +103,10 @@ function AddInventoryModal({
         </SelectMenu>
       </div>
       <div className={styles.row}>
-        <label htmlFor="status">Status </label>
-        <SelectMenu
-          onChange={(e) => setStatus(e.target.value)}
-          defaultValue=""
-        >
+        <label className={styles.label} htmlFor="status">
+          Status{" "}
+        </label>
+        <SelectMenu onChange={(e) => setStatus(e.target.value)} defaultValue="">
           <option hidden disabled value="" id={styles.hiddenOption}></option>
           {statuses.map(({ status_id, status_name }) => (
             <option key={status_id} value={status_name}>
@@ -113,7 +116,9 @@ function AddInventoryModal({
         </SelectMenu>
       </div>
       <div className={styles.row}>
-        <label htmlFor="quantity">Qty for loc/status: </label>
+        <label className={styles.label} htmlFor="quantity">
+          Qty for loc/status:{" "}
+        </label>
         <Input
           type="number"
           min="0"
