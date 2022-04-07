@@ -17,6 +17,7 @@ import HandleModalDisplay from "./HandleModalDisplay";
 import DataGridContainer from "./DataGridContainer";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import handleTmColumns from "../utils/tmColumnsUtils";
+import styles from "./styles/TableManagement.module.css";
 
 function TableManagement() {
   const [state, dispatch] = useReducer(tableManagementReducer, DEFAULT_STATE);
@@ -120,6 +121,7 @@ function TableManagement() {
       <TableHeaderComponent>
         <SelectMenu
           value={state.selectMenu}
+          className={styles.searchInput}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SELECT_MENU", payload: e.target.value })
           }

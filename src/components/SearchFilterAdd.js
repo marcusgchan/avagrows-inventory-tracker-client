@@ -18,6 +18,7 @@ function SearchFilterAdd({
         <span>search</span>
         <SelectMenu
           value={searchState.searchColumn}
+          className={styles.searchInput}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SEARCH_COLUMN", payload: e.target.value })
           }
@@ -32,6 +33,7 @@ function SearchFilterAdd({
         </SelectMenu>
         <SelectMenu
           value={searchState.searchOption}
+          className={styles.searchInput}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SEARCH_OPTION", payload: e.target.value })
           }
@@ -43,6 +45,7 @@ function SearchFilterAdd({
         <Input
           type="text"
           value={searchState.search}
+          className={styles.searchInput}
           onChange={(e) =>
             dispatch({ type: "UPDATE_SEARCH", payload: e.target.value })
           }
