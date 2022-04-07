@@ -78,7 +78,6 @@ function AddInventoryModal({
       <div className={styles.row}>
         <label htmlFor="partNumber">Internal Part Number: </label>
         <Input
-          className={styles.inputStyles}
           type="text"
           required
           value={partNumber}
@@ -88,7 +87,6 @@ function AddInventoryModal({
       <div className={styles.row}>
         <label htmlFor="location">Location </label>
         <SelectMenu
-          className={styles.inputStyles}
           onChange={(e) => setLocation(e.target.value)}
           defaultValue=""
         >
@@ -103,7 +101,6 @@ function AddInventoryModal({
       <div className={styles.row}>
         <label htmlFor="status">Status </label>
         <SelectMenu
-          className={styles.inputStyles}
           onChange={(e) => setStatus(e.target.value)}
           defaultValue=""
         >
@@ -118,7 +115,6 @@ function AddInventoryModal({
       <div className={styles.row}>
         <label htmlFor="quantity">Qty for loc/status: </label>
         <Input
-          className={styles.inputStyles}
           type="number"
           min="0"
           required
@@ -129,7 +125,6 @@ function AddInventoryModal({
       <div className={styles.note}>
         <Textarea
           id={styles.note}
-          className={styles.inputStyles}
           placeholder="Note:"
           value={note}
           onChange={(e) => setNote(e.target.value)}

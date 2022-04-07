@@ -36,7 +36,6 @@ function Login() {
               Username
             </label>
             <Input
-              className={styles.textField}
               style={{ width: "100%" }}
               type="text"
               id="username"
@@ -47,7 +46,6 @@ function Login() {
               Password
             </label>
             <Input
-              className={styles.textField}
               style={{ width: "100%" }}
               type="password"
               id="password"

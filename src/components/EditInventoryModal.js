@@ -192,7 +192,6 @@ function MoveLocationMenu({
             Label:
           </label>
           <SelectMenu
-            className={styles.inputStyles}
             onChange={(e) => {
               setNewLocation(e.target.value);
             }}
@@ -212,7 +211,6 @@ function MoveLocationMenu({
           </label>
           <SelectMenu
             id="location"
-            className={styles.inputStyles}
             onChange={(e) => {
               setNewStatus(e.target.value);
             }}
@@ -392,8 +390,6 @@ function EditPartsModal({
           <div className={styles.select}>
             Change:{" "}
             <SelectMenu
-              id={styles.change}
-              className={styles.inputStyles}
               value={change}
               onChange={(e) => {
                 setChange(e.target.value);

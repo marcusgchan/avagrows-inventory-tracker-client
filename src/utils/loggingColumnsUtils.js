@@ -72,10 +72,12 @@ export default function handleLoggingColumns() {
     },
     {
       field: "date_time",
+      type: "dateTime",
+      valueGetter: ({ value }) => value && new Date(value),
       headerName: "Date Time",
-      sortable: false,
+      sortable: true,
       width: 200,
-      filterable: false,
+      filterable: true,
     },
     {
       field: "name",
