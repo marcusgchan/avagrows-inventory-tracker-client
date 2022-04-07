@@ -5,13 +5,19 @@ import styles from "./styles/Dashboard.module.css";
 
 function Dashboard() {
   const [weatherData, setWeatherData] = useState({});
+
   useEffect(() => {
+    let ignore = false;
+
     tableServices
       .getWeather()
       .then((result) => {
-        setWeatherData(result.data);
+        if (!ignore) {
+          setWeatherData(result.data);
+        }
       })
       .catch((error) => console.log(error));
+    return () => (ignore = true);
   }, []);
 
   return (

@@ -17,25 +17,32 @@ export function UserContextProvider({ children }) {
   const { selectionDispatch } = useSelectedPerson();
 
   useEffect(() => {
+    let ignore = false;
+
     if (location.pathname !== "/login") {
       userServices
         .getCurrentUser()
         .then((res) => {
-          setUser(res.data);
-          setTimeout(() => setLoading(false), 800);
+          if (!ignore) {
+            setUser(res.data);
+            setTimeout(() => setLoading(false), 800);
+          }
         })
         .then(() => {
           peopleServices
             .getPeople()
-            .then((res) =>
-              selectionDispatch({ type: "UPDATE_PEOPLE", payload: res.data })
-            )
+            .then((res) => {
+              if (!ignore) {
+                selectionDispatch({ type: "UPDATE_PEOPLE", payload: res.data });
+              }
+            })
             .catch((err) => console.error(err));
         })
         .catch((e) => {
           setUser({});
           setTimeout(() => setLoading(false), 800);
         });
+      return () => (ignore = true);
     }
   }, [location, selectionDispatch]);
 

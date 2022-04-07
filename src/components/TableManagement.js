@@ -24,39 +24,61 @@ function TableManagement() {
 
   // Fetch data based on select menu
   useEffect(() => {
+    let ignore = false;
     switch (state.selectMenu) {
       case "status":
         tableServices
           .getStatuses()
-          .then((res) => dispatch({ type: "STATUS", payload: res.data }))
+          .then((res) => {
+            if (!ignore) {
+              dispatch({ type: "STATUS", payload: res.data });
+            }
+          })
           .catch((e) => console.log(e));
         break;
       case "location":
         tableServices
           .getLocations()
-          .then((res) => dispatch({ type: "LOCATION", payload: res.data }))
+          .then((res) => {
+            if (!ignore) {
+              dispatch({ type: "LOCATION", payload: res.data });
+            }
+          })
           .catch((e) => console.log(e));
         break;
       case "parts":
         tableServices
           .getParts()
-          .then((res) => dispatch({ type: "PART", payload: res.data }))
+          .then((res) => {
+            if (!ignore) {
+              dispatch({ type: "PART", payload: res.data });
+            }
+          })
           .catch((e) => console.log(e));
         break;
       case "partCategories":
         tableServices
           .getCategories()
-          .then((res) => dispatch({ type: "CATEGORY", payload: res.data }))
+          .then((res) => {
+            if (!ignore) {
+              dispatch({ type: "CATEGORY", payload: res.data });
+            }
+          })
           .catch((e) => console.log(e));
         break;
       case "users":
         tableServices
           .getUsers()
-          .then((res) => dispatch({ type: "USER", payload: res.data }))
+          .then((res) => {
+            if (!ignore) {
+              dispatch({ type: "USER", payload: res.data });
+            }
+          })
           .catch((e) => console.log(e));
         break;
       default:
     }
+    return () => (ignore = true);
   }, [state.selectMenu]);
 
   // Modal toggles

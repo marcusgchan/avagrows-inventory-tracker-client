@@ -4,12 +4,17 @@ export default function useFetch(service) {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
+    let ignore = false;
+
     service()
       .then((res) => {
-        const data = res.data.map((row) => ({ ...row }));
-        setRows(data);
+        if (!ignore) {
+          const data = res.data.map((row) => ({ ...row }));
+          setRows(data);
+        }
       })
       .catch((e) => console.log(e));
+    return () => (ignore = true);
   }, [service]);
 
   return [rows, setRows];
