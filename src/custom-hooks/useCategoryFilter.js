@@ -10,7 +10,6 @@ export default function useCategoryFilter(lookUpTableRef) {
       .getDistinctCategories()
       .then((res) => {
         if (!ignore) {
-          console.log(res.data);
           const data = res.data;
           const lookUpTable = lookUpTableRef.current.categoryTable;
 
