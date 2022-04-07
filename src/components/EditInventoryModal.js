@@ -194,7 +194,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
       <li>Status: {row.status_name}</li>
       <label>
         Convert Qty for Location and Status:
-        <p className={styles.convertQty}>
+        <div className={styles.convertQty}>
           <button
             className={styles.changeQty}
             onClick={qty - 10 >= 0 ? () => setQty(qty - 10) : () => {}}
@@ -214,7 +214,7 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
           <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
             +10
           </button>
-        </p>
+        </div>
       </label>
       <div className={styles.errorMsg}>
         <p>{errorMsg}</p>
