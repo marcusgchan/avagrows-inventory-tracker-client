@@ -88,7 +88,7 @@ function AddInventoryModal({
       </div>
       <div className={styles.row}>
         <label className={styles.label} htmlFor="location">
-          Location{" "}
+          Location
         </label>
         <SelectMenu
           onChange={(e) => setLocation(e.target.value)}
@@ -117,7 +117,7 @@ function AddInventoryModal({
       </div>
       <div className={styles.row}>
         <label className={styles.label} htmlFor="quantity">
-          Qty for loc/status:{" "}
+          Qty for loc/status:
         </label>
         <Input
           type="number"

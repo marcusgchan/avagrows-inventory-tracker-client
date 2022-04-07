@@ -39,6 +39,13 @@
 #hiddenOption {
   display: none;
 }
+
+.toSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .hiddenButton {
   display: flex;
   justify-content: center;

@@ -1,9 +1,125 @@
 import { useEffect, useState } from "react";
-import styles from "./styles/EditPartsModal.module.css";
+import styles from "./styles/EditInventoryModal.module.css";
 import tableServices from "../services/tableServices";
 import ModalButton from "./ModalButton";
 import XButton from "./XButton";
 import SelectMenu from "./SelectMenu";
+
+function EditPartsModal({
+  toggleModal,
+  locations,
+  statuses,
+  row,
+  rows,
+  convert,
+  unconvert,
+  changeQuantity,
+  moveLocation,
+  lookUpTableRef,
+}) {
+  const [change, setChange] = useState("");
+
+  //uses states for managing when to show components of the editPartsModal
+  const [showMainMenu, setShowMainMenu] = useState(true);
+  const [showChangeQtyMenu, setShowChangeQtyMenu] = useState(false);
+  const [showConvertMenu, setShowConvertMenu] = useState(false);
+  const [showMoveLocationMenu, setShowMoveLocationMenu] = useState(false);
+  const [showConvertOption, setShowConvertOption] = useState(false);
+
+  useEffect(() => {
+    tableServices
+      .getWip()
+      .then((res) => {
+        let wipTable = res.data;
+        let locationId = lookUpTableRef.current.locationTable.get(
+          row.location_name
+        );
+        let statusId = lookUpTableRef.current.statusTable.get(row.status_name);
+        let wipRow = wipTable.find((ele) => {
+          return (
+            ele.part_id === row.internal_part_number &&
+            ele.final_location_id === locationId &&
+            statusId === 2
+          );
+        });
+        if (typeof wipRow !== "undefined") {
+          setShowConvertOption(true);
+        }
+      })
+      .catch((e) => console.log(e));
+  }, [row, lookUpTableRef]);
+
+  return (
+    <section className={styles.container}>
+      <XButton onClick={toggleModal} />
+      <h2>Edit</h2>
+      <ul>
+        <li>Internal Part Number: {row.internal_part_number}</li>
+        <li>Part Name: {row.part_name}</li>
+        <li>Part Category: {row.part_category_name}</li>
+      </ul>
+      {showMainMenu ? (
+        <section className={styles.hiddenMenu}>
+          <ul>
+            <li>Location: {row.location_name}</li>
+            <li>Status: {row.status_name}</li>
+            <li>Qty for Location and Status: {row.quantity}</li>
+          </ul>
+          <br></br>
+          <div className={styles.select}>
+            Change:{" "}
+            <SelectMenu
+              value={change}
+              onChange={(e) => {
+                setChange(e.target.value);
+              }}
+            >
+              <option
+                hidden
+                disabled
+                value=""
+                id={styles.hiddenOption}
+              ></option>
+              <option value="changeQuantity"> Change quantity</option>
+              {showConvertOption && <option value="convert"> Convert</option>}
+              <option value="moveLocation"> Move Location</option>
+            </SelectMenu>
+          </div>
+          <div className={styles.hiddenButton}>
+            <ModalButton
+              onClick={() => {
+                validateNextMenu({ change, setShowMainMenu });
+                selectMenu({
+                  change,
+                  setShowChangeQtyMenu,
+                  setShowConvertMenu,
+                  setShowMoveLocationMenu,
+                });
+              }}
+            >
+              Next
+            </ModalButton>
+          </div>
+        </section>
+      ) : (
+        <ShowNext
+          showChangeQtyMenu={showChangeQtyMenu}
+          showConvertMenu={showConvertMenu}
+          showMoveLocationMenu={showMoveLocationMenu}
+          toggleModal={toggleModal}
+          locations={locations}
+          statuses={statuses}
+          row={row}
+          rows={rows}
+          convert={convert}
+          unconvert={unconvert}
+          changeQuantity={changeQuantity}
+          moveLocation={moveLocation}
+        />
+      )}
+    </section>
+  );
+}
 
 function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
   const [qty, setQty] = useState(row.quantity);
@@ -16,7 +132,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
       </ul>
       <label>
         New Qty for Location and Status:
-        <p className={styles.convertQty}>
+        <div className={styles.convertQty}>
           <button
             className={styles.changeQty}
             onClick={qty - 10 >= 0 ? () => setQty(qty - 10) : () => {}}
@@ -36,7 +152,7 @@ function ChangeQtyMenu({ toggleModal, row, changeQuantity }) {
           <button className={styles.changeQty} onClick={() => setQty(qty + 10)}>
             +10
           </button>
-        </p>
+        </div>
       </label>
       <section className={styles.newQtyText}>
         <div className={styles.hiddenButton}>
@@ -186,7 +302,7 @@ function MoveLocationMenu({
       </div>
       <br></br>
       <p>TO:</p>
-      <div>
+      <div className={styles.toSection}>
         <div className={styles.row}>
           <label htmlFor="location" className={styles.label}>
             Label:
@@ -324,122 +440,6 @@ function validateNextMenu({ change, setShowMainMenu }) {
     setShowMainMenu(false);
   }
   return null;
-}
-
-function EditPartsModal({
-  toggleModal,
-  locations,
-  statuses,
-  row,
-  rows,
-  convert,
-  unconvert,
-  changeQuantity,
-  moveLocation,
-  lookUpTableRef,
-}) {
-  const [change, setChange] = useState("");
-
-  //uses states for managing when to show components of the editPartsModal
-  const [showMainMenu, setShowMainMenu] = useState(true);
-  const [showChangeQtyMenu, setShowChangeQtyMenu] = useState(false);
-  const [showConvertMenu, setShowConvertMenu] = useState(false);
-  const [showMoveLocationMenu, setShowMoveLocationMenu] = useState(false);
-  const [showConvertOption, setShowConvertOption] = useState(false);
-
-  useEffect(() => {
-    tableServices
-      .getWip()
-      .then((res) => {
-        let wipTable = res.data;
-        let locationId = lookUpTableRef.current.locationTable.get(
-          row.location_name
-        );
-        let statusId = lookUpTableRef.current.statusTable.get(row.status_name);
-        let wipRow = wipTable.find((ele) => {
-          return (
-            ele.part_id === row.internal_part_number &&
-            ele.final_location_id === locationId &&
-            statusId === 2
-          );
-        });
-        if (typeof wipRow !== "undefined") {
-          setShowConvertOption(true);
-        }
-      })
-      .catch((e) => console.log(e));
-  }, [row, lookUpTableRef]);
-
-  return (
-    <section className={styles.container}>
-      <XButton onClick={toggleModal} />
-      <h2>Edit</h2>
-      <ul>
-        <li>Internal Part Number: {row.internal_part_number}</li>
-        <li>Part Name: {row.part_name}</li>
-        <li>Part Category: {row.part_category_name}</li>
-      </ul>
-      {showMainMenu ? (
-        <section className={styles.hiddenMenu}>
-          <ul>
-            <li>Location: {row.location_name}</li>
-            <li>Status: {row.status_name}</li>
-            <li>Qty for Location and Status: {row.quantity}</li>
-          </ul>
-          <br></br>
-          <div className={styles.select}>
-            Change:{" "}
-            <SelectMenu
-              value={change}
-              onChange={(e) => {
-                setChange(e.target.value);
-              }}
-            >
-              <option
-                hidden
-                disabled
-                value=""
-                id={styles.hiddenOption}
-              ></option>
-              <option value="changeQuantity"> Change quantity</option>
-              {showConvertOption && <option value="convert"> Convert</option>}
-              <option value="moveLocation"> Move Location</option>
-            </SelectMenu>
-          </div>
-          <div className={styles.hiddenButton}>
-            <ModalButton
-              onClick={() => {
-                validateNextMenu({ change, setShowMainMenu });
-                selectMenu({
-                  change,
-                  setShowChangeQtyMenu,
-                  setShowConvertMenu,
-                  setShowMoveLocationMenu,
-                });
-              }}
-            >
-              Next
-            </ModalButton>
-          </div>
-        </section>
-      ) : (
-        <ShowNext
-          showChangeQtyMenu={showChangeQtyMenu}
-          showConvertMenu={showConvertMenu}
-          showMoveLocationMenu={showMoveLocationMenu}
-          toggleModal={toggleModal}
-          locations={locations}
-          statuses={statuses}
-          row={row}
-          rows={rows}
-          convert={convert}
-          unconvert={unconvert}
-          changeQuantity={changeQuantity}
-          moveLocation={moveLocation}
-        />
-      )}
-    </section>
-  );
 }
 
 export default EditPartsModal;
