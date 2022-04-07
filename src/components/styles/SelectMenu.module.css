@@ -6,4 +6,5 @@
   border: 3px solid black;
   height: var(--input-height);
   background-color: var(--main-bg-light-clr);
+  cursor: pointer;
 }
