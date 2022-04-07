@@ -6,11 +6,11 @@ export default function useCategoryFilter(lookUpTableRef) {
 
   useEffect(() => {
     let ignore = false;
-
     tableServices
       .getDistinctCategories()
       .then((res) => {
         if (!ignore) {
+          console.log(res.data);
           const data = res.data;
           const lookUpTable = lookUpTableRef.current.categoryTable;
 
@@ -23,7 +23,7 @@ export default function useCategoryFilter(lookUpTableRef) {
       })
       .catch((err) => console.log(err));
 
-    return (ignore = true);
+    return () => (ignore = true);
   }, [lookUpTableRef]);
 
   return [filters, setFilters];
