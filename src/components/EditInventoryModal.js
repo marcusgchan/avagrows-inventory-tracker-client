@@ -177,7 +177,9 @@ function ConvertMenu({ toggleModal, row, convert, unconvert }) {
   async function handleUnconvert() {
     let unconvertPossible = await unconvert(row, qty);
 
-    unconvertPossible ? toggleModal() : setErrorMsg("No part to unconvert");
+    unconvertPossible
+      ? toggleModal()
+      : setErrorMsg("Not enough parts to unconvert");
   }
 
   async function handleConvert() {
