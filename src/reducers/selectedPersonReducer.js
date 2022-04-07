@@ -15,7 +15,6 @@ export default function selectFunctionReducer(state, action) {
         ...state,
         people: action.payload,
       };
-
     case "REMOVE_PERSON": {
       const currentSelectedPerson = state.selectedPerson;
       const userDeletedCurrentSelectedUser =
@@ -61,6 +60,11 @@ export default function selectFunctionReducer(state, action) {
         people: action.payload,
       };
     }
+    case "CLEAR_SELECTED_PERSON":
+      return {
+        ...state,
+        selectedPerson: {},
+      };
     default:
       return state;
   }

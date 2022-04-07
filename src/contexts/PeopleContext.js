@@ -22,7 +22,7 @@ export function SelectedPersonProvider({ children }) {
       .then((res) =>
         selectionDispatch({ type: "UPDATE_PEOPLE", payload: res.data })
       )
-      .catch((err) => console.err(err));
+      .catch((err) => console.error(err));
   }, []);
 
   return (

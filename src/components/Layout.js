@@ -54,6 +54,7 @@ function Heading({ handleNavToggle }) {
     userServices
       .logout()
       .then((res) => {
+        selectionDispatch({ type: "CLEAR_SELECTED_PERSON" });
         setUser({});
         navigate("/login");
       })

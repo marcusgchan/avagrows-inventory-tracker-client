@@ -30,28 +30,31 @@ function Login() {
         <img src={logo} alt="" className={styles.logo}></img>
       </section>
       <section className={styles.loginSection}>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username" className={`${styles.fontStyles}`}>
-            Username
-          </label>
-          <Input
-            className={styles.textField}
-            autoComplete="off"
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></Input>
-          <label htmlFor="password" className={`${styles.fontStyles}`}>
-            Password
-          </label>
-          <Input
-            className={styles.textField}
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Input>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formInputs}>
+            <label htmlFor="username" className={`${styles.fontStyles}`}>
+              Username
+            </label>
+            <Input
+              className={styles.textField}
+              style={{ width: "100%" }}
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></Input>
+            <label htmlFor="password" className={`${styles.fontStyles}`}>
+              Password
+            </label>
+            <Input
+              className={styles.textField}
+              style={{ width: "100%" }}
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
+          </div>
           <button className={`${styles.fontStyles} ${styles.btn}`}>
             login
           </button>
