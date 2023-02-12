@@ -8,12 +8,6 @@ Github links:
 https://github.com/marcusgchan/avagrows-inventory-tracker-client (frontend)
 https://github.com/marcusgchan/avagrows-inventory-tracker-server (backend)
 
-Heroku git link:
-https://git.heroku.com/avagrows-inventory-tracker.git
-
-Heroku website link:
-https://avagrows-inventory-tracker.herokuapp.com
-
 Abstract:
 The Avagrows Inventory Tracker is a web application that tracks parts of the Avagrows Bytes, an automated pod-based garden. It allows users to search, sort and filter a database for raw materials, work in progress parts, and finished bytes. A feature will be able to convert raw materials into work in progress parts and work in progress parts to completed Bytes. Users will also have the ability to disassemble complete bytes and work in progress parts into their base parts. In addition to all this, the users will be able to update the location of the parts as well as the statuses of the item. Users will also be able to access a log of changes to see which users made the change.
 
